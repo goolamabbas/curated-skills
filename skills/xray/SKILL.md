@@ -63,4 +63,4 @@ The task is complete when the requested question has an evidence-bounded answer,
 
 ## Provenance
 
-Adapted from Alex Prompter's `/xray` prompt, dated 2026-09-08 in the accompanying project record. The parent project's `original-prompt.md` preserves the source wording for comparison; it is not needed to run this skill.
+Adapted from [Alex Prompter's `/xray` prompt](https://x.com/alex_prompter/status/2097339435260272829). See [the skill README](README.md#origin-and-adaptations) for a summary of this version's adaptations.
