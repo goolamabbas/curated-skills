@@ -71,4 +71,8 @@ Maintained in this collection by Yusuf Goolamabbas. This version reflects local 
 
 The skill is designed to work across agent environments. It checks the applicable instruction scope and loading rules rather than assuming one application's behavior.
 
+## License
+
+[MIT](LICENSE). Keep the license notice with copies of this skill.
+
 [Agent instructions](SKILL.md) · [Collection](../../README.md)

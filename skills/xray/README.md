@@ -92,4 +92,8 @@ This version separates factual verification from placement, beneficiaries from i
 
 Treat the assessment as an aid to judgment, not proof of coordination or a guarantee of future events.
 
+## License
+
+[MIT](LICENSE). Keep the license notice with copies of this skill.
+
 [Agent instructions](SKILL.md) · [Collection](../../README.md)

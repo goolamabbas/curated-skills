@@ -76,4 +76,8 @@ The underlying framework is Barbara Minto's Pyramid Principle; see [Minto's conc
 
 This version replaces fixed branch counts and mandatory HTML with flexible structure and optional visual delivery. It preserves justified uncertainty, distinguishes proposed claims from the author's position, strengthens evidence assessment, and makes improvement requests end with a complete revision.
 
+## License
+
+[MIT](LICENSE). Keep the license notice with copies of this skill.
+
 [Agent instructions](SKILL.md) · [Collection](../../README.md)

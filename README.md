@@ -32,3 +32,7 @@ Use the same plain-language pattern for any skill: ‘Use the [skill name] skill
 ## Origins
 
 Curation includes selecting existing ideas, adapting instructions, and maintaining useful boundaries. Each skill guide records its origin and substantive adaptations. Attribution does not imply endorsement by the original author.
+
+## License
+
+[MIT](LICENSE). Each skill folder includes a copy of the license so it travels with independent installations. See [attribution](ATTRIBUTION.md) for upstream credits.
