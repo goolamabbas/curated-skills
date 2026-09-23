@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add GitHub Pages Guide, with portable usage examples and conditional implementation references.
+- Add an educational GitHub Pages site generated from the collection guides.
+
 ## v0.1.0
 
 Initial collection:

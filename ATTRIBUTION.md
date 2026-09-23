@@ -6,4 +6,6 @@ Curated and maintained by Yusuf Goolamabbas.
 - **Xray:** Adapted from [Alex Prompter's /xray prompt](https://x.com/alex_prompter/status/2097339435260272829). Alex Prompter granted permission to publish this adaptation under MIT. See [the Xray guide](skills/xray/README.md#origin-and-adaptations) for the changes.
 - **agents-md-author:** Maintained as part of this collection; see [its guide](skills/agents-md-author/README.md#origin) for its focus and development context.
 
+- **GitHub Pages Guide:** Developed by Yusuf Goolamabbas from work on the Separate Intelligence and Search and Portable LLM Council sites. See [its guide](skills/github-pages-guide/README.md#origin-and-license).
+
 Permissions above apply to these adaptations; they do not assert that all upstream work is MIT-licensed. Attribution does not imply endorsement of the collection.
