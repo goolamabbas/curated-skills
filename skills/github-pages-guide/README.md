@@ -66,7 +66,7 @@ The Minto skill can help with substantial argument restructuring, but is optiona
 
 ## Install and invoke
 
-Copy the entire `github-pages-guide` folder into your application's supported skills directory, preserving the references and license. Follow that application's reload or discovery procedure. Invoke it in plain language: “Use the github-pages-guide skill to…”
+Copy the entire `github-pages-guide` folder into your application's supported skills directory, preserving all files, including `references/`, `agents/`, and the license. Follow that application's reload or discovery procedure. Invoke it in plain language: “Use the github-pages-guide skill to…”
 
 `SKILL.md` contains the operating instructions; this README explains their use. The optional `agents/` metadata supplies a display label for applications that recognize it. Other environments can use the skill without that metadata.
 

@@ -16,7 +16,7 @@ Read the [Curated Skills website](https://goolamabbas.github.io/curated-skills/)
 ## Installation
 
 1. [Download the collection ZIP](https://github.com/goolamabbas/curated-skills/archive/refs/heads/main.zip) and unzip it.
-2. Open `skills/` and choose one folder: `minto`, `xray`, `agents-md-author`, or `github-pages-guide`.
+2. Inside the extracted collection folder, open `skills/` and choose one folder: `minto`, `xray`, `agents-md-author`, or `github-pages-guide`.
 3. Copy that **whole folder** into your application's documented skills directory. Keep `SKILL.md`, the license, and any `references/` or `agents/` subfolders together. Back up an existing copy before replacing it.
 4. Follow your application's reload instructions, then ask for the skill by its slug using an example from its guide.
 
@@ -33,7 +33,7 @@ Use the minto skill to improve this draft for [audience]:
 [paste draft]
 ```
 
-Use the same plain-language pattern for any skill: ‘Use the [skill name] skill to…’. The guides provide complete examples and explain what to expect. These requests assume the skill is installed and available to your agent; no application-specific command syntax is required by the examples.
+Use the same plain-language pattern for any skill: ‘Use the [skill slug] skill to…’. The guides provide complete examples and explain what to expect. These requests assume the skill is installed and available to your agent; no application-specific command syntax is required by the examples.
 
 ## Origins
 

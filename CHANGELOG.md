@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Correct installation copy, download behavior, attribution naming, and duplicate guide setup content; add basic sharing metadata.
+- Anchor Xray assessments to an as-of date and trim overlapping Pages Guide wording.
+
 - Strengthen GitHub Pages Guide with generic reader-comprehension checks, proportionate scope, dependent-documentation checks, and page-identity guidance.
 
 - Clarify website introductions, skill names, and complete-folder installation.

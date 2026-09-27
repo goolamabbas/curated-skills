@@ -22,7 +22,7 @@ Read [references/strategic-analysis.md](references/strategic-analysis.md) when c
 
 ## Establish the evidence
 
-- Identify the story and distinguish the event date from publication and update dates. Resolve routine gaps from context; ask only if ambiguity would materially change which story or question you analyze.
+- Establish the current date and state the assessment’s as-of date. Identify the story and distinguish the event date from publication and update dates. Resolve routine gaps from context; ask only if ambiguity would materially change which story or question you analyze.
 - Read the supplied text or retrieve the actual piece. Inspect available retrieval capabilities and their schemas; honor the user's provider restrictions and prefer a connected source suited to the material. For X content, use an available authenticated X interface under the environment's X-access rules. Do not assume tool names, parameters, or access from this skill.
 - Look for primary records, independent reporting, relevant prior events, and calendars that could distinguish explanations. A statement proves what its issuer said, not automatically that the underlying claim is true. Reprints of one source are not independent corroboration.
 - If access fails, use an allowed alternative and disclose material substitutions or gaps. If browsing is unavailable or prohibited, analyze the supplied material provisionally without implying external verification. A headline alone supports questions and conditional scenarios, not a confident hidden-story verdict.

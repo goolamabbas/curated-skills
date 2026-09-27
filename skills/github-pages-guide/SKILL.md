@@ -15,7 +15,7 @@ Make the opening answer what this is, who it is for, and what the reader can do 
 - Catalogues help visitors choose a relevant item, understand its use case, and reach an example or installation instructions quickly.
 - Reference pages prioritize lookup and navigation; procedures follow dependencies.
 
-Provide a clear route to the reader’s first useful action, whether reading, comparing, downloading, setting up, or contributing. Put necessary prerequisites beside that action and optional depth elsewhere. Offer shortcuts for experienced readers without crowding the introduction. Choose page count, navigation, and calls to action from the content rather than copying another site’s sequence.
+Provide a clear route to the reader’s first useful action, whether reading, comparing, downloading, setting up, or contributing. Put necessary prerequisites beside that action; use progressive disclosure for optional depth without hiding essential qualifications. Offer shortcuts for experienced readers without crowding the introduction. Choose page count, navigation, and calls to action from the content rather than copying another site’s sequence.
 
 For explanatory arguments, group supporting ideas beneath clear conclusions, check logical order and evidence, and preserve justified uncertainty. Use the Minto skill when explicitly requested or when a substantial argument needs its fuller method and the skill is available. It is not a dependency for ordinary copy, layout changes, or a working site.
 
@@ -23,7 +23,7 @@ For explanatory arguments, group supporting ideas beneath clear conclusions, che
 
 Give each section a distinct job. Consolidate repeated explanations and caveats, retaining essential context on pages that readers may reach directly. Use consistent names and headings that help readers predict the content. Prefer a concrete, audience-appropriate example when it explains more than additional prose; distinguish illustrative examples from observed results. Do not require an example or fixed section layout on every site.
 
-Put optional depth behind progressive disclosure without hiding essential qualifications. Add search, filtering, or interactive builders only when a reader need justifies their implementation and upkeep.
+Add search, filtering, or interactive builders only when a reader need justifies their implementation and upkeep.
 
 Treat reference sites as visual direction, not permission to copy their claims, branding, or content. Reuse approved project conventions; otherwise choose typography, spacing, contrast, and responsive layouts for legibility. Avoid imposing a fixed palette or page template.
 

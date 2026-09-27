@@ -15,7 +15,7 @@ Resolve relative URLs against each page's actual URL. Classify links using both 
 
 ## Page identity and sharing
 
-For new pages or changes affecting publication metadata, check descriptive page titles, descriptions, and a working favicon. Use canonical URLs that match the deployed location, including the project base path. Where social previews serve the project, check Open Graph and card metadata and any preview image’s public URL. Missing tags alone do not prove that a platform shows no preview; report only behavior actually checked. Keep these checks proportionate to the change.
+For new pages or changes affecting publication metadata, check descriptive page titles, descriptions, and a working favicon. Use canonical URLs that match the deployed location, including the project base path. Where social previews serve the project, check Open Graph and card metadata and any preview image’s public URL. Report only behavior actually checked. Keep these checks proportionate to the change.
 
 ## GitHub Pages deployment
 
