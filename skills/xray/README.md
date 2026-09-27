@@ -96,4 +96,4 @@ Treat the assessment as an aid to judgment, not proof of coordination or a guara
 
 [MIT](LICENSE). Keep the license notice with copies of this skill.
 
-[Agent instructions](SKILL.md) · [Collection](../../README.md)
+[Read the agent instructions (SKILL.md)](SKILL.md) · [Back to all skills](../../README.md)

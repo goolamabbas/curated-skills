@@ -65,4 +65,4 @@ When the user requests a visual artifact, read [references/visual-output.md](ref
 
 Before delivering, check that the answer addresses the reader's question, branches support their parent, evidence strength is not overstated, and the plan preserves the user's intended meaning and constraints.
 
-Method background: [Minto's concept](https://www.barbaraminto.com/concept) and [SCQ overview](https://www.barbaraminto.com/). This is an independent practical adaptation, not an official Minto publication.
+Method background: [Minto's concept](https://www.barbaraminto.com/concept). This is an independent practical adaptation, not an official Minto publication.

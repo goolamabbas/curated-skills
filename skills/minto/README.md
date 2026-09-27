@@ -54,6 +54,22 @@ The reader is my cofounder. Our budget is limited and demand is uncertain.
 Propose an argument and identify what evidence we still need.
 ```
 
+## Before and after
+
+An illustrative edit, not a recorded model result. The facts below belong to this fictional scenario.
+
+### Before
+
+We have discussed rebuilding the help centre. The support team answered 40 questions about password resets last week. A full rebuild would take six weeks. We could update the password-reset guide in two days. I think we should start there and see whether it helps.
+
+### After
+
+Update the password-reset guide before committing to a full help-centre rebuild. The support team answered 40 password-reset questions last week, making this a concrete issue to address. The guide update would take two days; a full rebuild would take six weeks. Track password-reset questions after the update to assess whether it helps before deciding on the larger project.
+
+### What changed
+
+The recommendation comes first, followed by the observed problem, the effort comparison, and the next decision. The revision preserves the uncertainty: it proposes checking the result rather than promising fewer support questions.
+
 ## Get a better result
 
 Supply the intended reader, the question or decision, the draft or idea, and any length, voice, or format constraints. Include the evidence you want used and identify claims that are provisional. If you want research, say so and specify any source restrictions.
@@ -80,4 +96,4 @@ This version replaces fixed branch counts and mandatory HTML with flexible struc
 
 [MIT](LICENSE). Keep the license notice with copies of this skill.
 
-[Agent instructions](SKILL.md) · [Collection](../../README.md)
+[Read the agent instructions (SKILL.md)](SKILL.md) · [Back to all skills](../../README.md)

@@ -23,4 +23,4 @@ Before publication, inspect the diff and run the existing build when the project
 
 After authorized publication, confirm the correct commit and deployment succeeded. Verify live output matches the tested build and follow the main live navigation. If a browser shows old content, distinguish cached state from a failed deployment; refresh before changing correct source. Stop after bounded checks pass unless new evidence warrants more work.
 
-Report the live or local URL, what changed, verification limits, and whether anything remains unpublished. Explain which existing links need updating; unchanged canonical URLs usually need no Notion or social-link changes. Keep a straightforward Git rollback path.
+Report the live or local URL, what changed, verification limits, and whether anything remains unpublished. Explain which existing links need updating; unchanged canonical URLs usually need no updates to existing shared links. Keep a straightforward Git rollback path.

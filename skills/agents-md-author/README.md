@@ -1,6 +1,6 @@
-# agents-md-author
+# AGENTS.md Author
 
-Create, audit, or prune standing instructions that help an agent make recurring decisions in a project. The aim is useful project guidance that stays concise enough to apply consistently.
+Create, audit, or prune AGENTS.md instructions that help an agent make recurring decisions in a project. The aim is useful project guidance that stays concise enough to apply consistently.
 
 Use it when an AGENTS.md has accumulated overlapping rules, when starting a project's standing instructions, or when deciding whether a lesson from completed work belongs in those instructions.
 
@@ -43,8 +43,8 @@ do not change application code or configuration.
 
 ```text
 Use the agents-md-author skill to review the lessons from this task.
-Put durable working rules in AGENTS.md, operational details in fullbar.md,
-and unresolved findings in snafu.md. Apply the relevant documentation changes.
+Put durable working rules in AGENTS.md, operational details in docs/operations.md,
+and unresolved findings in notes/open-issues.md. Apply the relevant documentation changes.
 Keep hypotheses distinct from established lessons and add reading pointers
 only where they help future work.
 ```
@@ -69,10 +69,10 @@ It is unnecessary for ordinary prose editing or a routine session summary that h
 
 Maintained in this collection by Yusuf Goolamabbas. This version reflects local revisions emphasizing user-selected destinations, evidence-backed conventions, conditional reading, flexible methods, and explicit completion boundaries.
 
-The skill is designed to work across agent environments. It checks the applicable instruction scope and loading rules rather than assuming one application's behavior.
+The skill focuses on `AGENTS.md`. It does not currently cover `CLAUDE.md` or other application-specific instruction formats. It checks the applicable AGENTS.md scope and loading rules rather than assuming one application’s behavior.
 
 ## License
 
 [MIT](LICENSE). Keep the license notice with copies of this skill.
 
-[Agent instructions](SKILL.md) · [Collection](../../README.md)
+[Read the agent instructions (SKILL.md)](SKILL.md) · [Back to all skills](../../README.md)

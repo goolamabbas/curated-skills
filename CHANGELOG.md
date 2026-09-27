@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Clarify website introductions, skill names, and complete-folder installation.
+- Add an illustrative Minto before-and-after example shared by the guide and homepage.
+- Keep AGENTS.md Author focused on AGENTS.md and remove misleading or incidental references.
+
 - Add GitHub Pages Guide, with portable usage examples and conditional implementation references.
 - Add an educational GitHub Pages site generated from the collection guides.
 

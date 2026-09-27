@@ -3,7 +3,7 @@ name: github-pages-guide
 description: Build or refine educational GitHub Pages sites from repository content. Use for explanatory guides, skill catalogues, and documentation sites where reading flow and source fidelity matter.
 ---
 
-# GitHub Pages guide
+# GitHub Pages Guide
 
 Help readers understand the subject and take a useful next step. Adapt the site to its audience, maintained content, and existing visual conventions. Inspect only what the requested change needs; preserve approved copy during layout-only changes.
 

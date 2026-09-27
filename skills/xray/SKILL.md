@@ -3,7 +3,7 @@ name: xray
 description: Analyze public news for incentives and competing explanations. Use for "xray", "cui bono", or planted-story assessments; skip simple summaries, standalone fact checks, medical X-rays, and private disputes.
 ---
 
-# X-ray
+# Xray
 
 Assess **who benefits, what actually changed, and what may happen next**, within the user's requested scope. A well-supported ordinary explanation or an inconclusive finding is a valid result. Do not assume the headline conceals a scheme.
 

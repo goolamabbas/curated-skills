@@ -1,9 +1,11 @@
 ---
 name: agents-md-author
-description: Draft, audit, or prune standing agent instructions such as AGENTS.md. Use when creating or revising these files, or evaluating task lessons for inclusion in them.
+description: Draft, audit, or prune AGENTS.md instructions. Use when creating or revising these files, or evaluating task lessons for inclusion in them.
 ---
 
 # AGENTS.md Author
+
+This skill focuses on `AGENTS.md`; other application-specific instruction formats are outside its current scope.
 
 Standing instructions can repeatedly consume context and influence later work. Keep what
 helps a future agent make a recurring decision; remove noise without discarding useful
