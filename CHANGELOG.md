@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Strengthen GitHub Pages Guide with generic reader-comprehension checks, proportionate scope, dependent-documentation checks, and page-identity guidance.
+
 - Clarify website introductions, skill names, and complete-folder installation.
 - Add an illustrative Minto before-and-after example shared by the guide and homepage.
 - Keep AGENTS.md Author focused on AGENTS.md and remove misleading or incidental references.

@@ -58,7 +58,7 @@ The skill adapts to the project. Newcomer introductions can explain before setup
 
 ## What to expect
 
-A site built around the reader's purpose, with consistent navigation, readable mobile layouts, and appropriate examples or copy controls. Maintained source content remains the authority. Checks cover relevant links, content fidelity, interactions, and rendering; publication tasks also check the deployment and live output.
+A site built around the reader's purpose, with consistent navigation, readable mobile layouts, and appropriate examples or copy controls. The opening explains the subject and audience, and the pages offer a clear next action without unnecessary repetition. Examples clarify the subject when helpful; they are not a required template. Maintained source content remains the authority, and changes to setup or packaging prompt checks of the instructions that depend on them. Checks cover relevant links, content fidelity, interactions, and rendering; publication tasks also check the deployment and live output.
 
 Available filesystem, browser, and deployment capabilities determine what the agent can execute and verify. The skill supplies instructions, not hosting access or credentials. It does not guarantee compatibility with every agent environment.
 
