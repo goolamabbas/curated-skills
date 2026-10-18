@@ -62,7 +62,11 @@ primitive's outer criteria shape.
 
 Treat response similarities as interface conveniences, not calibrated equivalence.
 Noul has no separate confidence; choice/score confidence is distinct from the
-selected probability. Check score-index meaning, string probability keys, answer
+selected probability. TypeSafe [publishes its confidence formulas](https://docs.typesafe.ai/confidence);
+Perplexity's certainty-estimate wording does not establish a different calculation.
+Do not assume a recomputed confidence formula transfers without a documented
+contract; reevaluate the target model's probability and confidence thresholds.
+Check score-index meaning, string probability keys, answer
 IDs, and required values explicitly. Follow [implementation.md](implementation.md)
 for invalid responses, splitting, image checks, and retry handling.
 

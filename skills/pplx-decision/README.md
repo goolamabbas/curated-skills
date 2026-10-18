@@ -2,6 +2,8 @@
 
 Use a coding agent to build applications with Perplexity Decisions, an API for models that turn context and focused questions into structured judgments. This guide takes you from the basic idea to installing the skill and choosing a prompt.
 
+An independent guide and skill adapted by Yusuf Goolamabbas. See [origin and license](#origin-and-license) for attribution.
+
 ## What is a decision model?
 
 A decision model interprets information and returns answers that software can act on: a yes/no probability, a choice from supplied options, or a score against defined criteria. Your application sends it data through an **API**, the interface for requesting those judgments and receiving the results.
@@ -20,7 +22,48 @@ For example, a support application might ask whether a customer has lost data, w
 | Choice (`choice`) | Which team should handle it? | The selected option and probabilities for the supplied options. |
 | Rubric (`score`) | How serious is the disruption? | A numerical score and probabilities across defined severity levels. |
 
+`noul` is both APIs’ name for a yes/no question.
+
 These are illustrative questions, not recorded model results. A high probability is a model judgment, not proof. Test your questions and action thresholds on representative examples.
+
+### From a message to an application action
+
+- **Input:** “After importing a CSV, my saved contacts disappeared.”
+- **Question:** Does the message report lost data?
+- **Illustrative answer:** a yes probability of `0.9`.
+- **Application rule:** send tickets at or above `0.8` for human review. This **threshold**—the cutoff your code uses—is unvalidated and must be tested. Here it flags the ticket; it does not establish that data was actually lost.
+
+<details>
+<summary>See the request and answer as JSON</summary>
+
+An illustrative request using the [documented API shape](https://docs.perplexity.ai/docs/decisions/quickstart):
+
+```json
+{
+  "model": "pplx-decider-v1.2",
+  "state": {"message": "After importing a CSV, my saved contacts disappeared."},
+  "questions": {
+    "lost_data": {
+      "type": "noul",
+      "instructions": "Does the message report lost data?"
+    }
+  }
+}
+```
+
+Illustrative answer excerpt; the complete response also contains the model name and token usage. This is not a recorded API result.
+
+```json
+{
+  "answers": {
+    "lost_data": {"type": "noul", "noul": 0.9}
+  }
+}
+```
+
+Your application compares `noul` with its review threshold. Noul answers have no separate `confidence` field.
+
+</details>
 
 ### Perplexity Decisions and TypeSafe/Jev
 
@@ -38,12 +81,27 @@ If the workflow also needs a written reply, retrieval, or an action, connect the
 
 ## When to use it
 
+### Is a decision model the right tool?
+
+| The hard part | A useful starting approach |
+| --- | --- |
+| Applying an exact rule, such as whether an invoice is overdue | Ordinary code. |
+| Interpreting meaning, such as whether a ticket reports lost data | A decision model whose probabilities your code can use. |
+| Writing a reply or explanation for a person | A generative LLM. |
+| Finding missing facts, such as the customer’s recent orders | Search or retrieval to supply the evidence. |
+
+These components can work together: retrieval gathers context, a model judges it, code applies policy, and an LLM drafts a reply when needed. General LLMs can also return structured answers. A decision model provides a specialized interface for focused, probability-based judgments; evaluate whether it improves your workflow.
+
+Prefer ordinary code when exact rules already work. A decision model alone will not provide a written explanation or retrieve missing evidence. Before relying on its thresholds, check representative examples with known answers.
+
+### What this skill helps with
+
 - Investigate where contextual judgments could improve an existing product.
 - Implement a Perplexity Decisions integration within your current stack.
 - Design an evaluation of decision quality, thresholds, cost, and latency.
 - Port a TypeSafe/Jev workflow while checking differences in request grouping and answer interpretation.
 
-Use ordinary code for exact rules, such as checking whether a date has passed. Consider a decision model when interpreting meaning or context is the hard part. This skill helps build software; it does not provide general Perplexity search. It may recommend a simpler approach when an integration would add little value.
+This skill helps build software; it does not provide general Perplexity search. It may recommend a simpler approach when an integration would add little value.
 
 ## Install this skill
 
@@ -60,6 +118,12 @@ Use an application that supports folder-based agent skills.
 **Supplying files manually?** Give the agent `SKILL.md` and the complete `references/` folder so it can follow the linked guidance. Keep the license with redistributed copies.
 
 Installing the skill does not provide API credentials or model-service access. Project exploration and offline tests—tests using saved example inputs without calling the model—can proceed without live inference. Calling Perplexity Decisions requires provider access and may incur charges; agree on data and spending limits before live testing, and keep credentials outside prompts and source files.
+
+### What a small workflow might cost
+
+As checked on **18 October 2026**, [Perplexity’s input-token rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing) are $0.02 per million for Standard and $0.01 for Flash, with free output tokens and no request fee.
+
+If a completed ticket uses **1,000 total billed input tokens**, one million tickets would cost about **$20 on Standard or $10 on Flash**. This assumes no additional billable calls or retries. Include questions and repeated context when estimating input; a 1,000-token message alone is not a 1,000-token workflow. Separate requests can repeat state, so measure actual `usage.input_tokens` across the whole workflow and check current prices before budgeting. Free output tokens can still appear in usage counts.
 
 ## Choose a starting point
 
@@ -203,6 +267,7 @@ and verify the revised application logic with offline tests. Do not deploy.
 
 These references are optional reading for you; the agent loads the ones needed for your task. It checks current provider documentation when implementing an integration or making current API claims. The bundled API snapshot is a dated reference, so model behavior, limits, and prices may have changed.
 
+- [How Jev, Standard, and Flash differ](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
 - [Project opportunities](references/project-opportunities.md): investigate improvements and new capabilities.
 - [Implementation](references/implementation.md): request design, answer handling, and operational failures.
 - [Evaluation](references/evaluation.md): representative cases, thresholds, and whole-workflow measurements.

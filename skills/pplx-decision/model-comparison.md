@@ -27,10 +27,44 @@ The assessors are an analogy, and this ticket is illustrative—not a recorded m
 Two other distinctions matter:
 
 - **Grouping questions and batching requests are different.** A shared questionnaire lets questions influence one another. Processing several separate requests together for efficiency does not inherently combine their question contexts. The [Standard model card](https://huggingface.co/perplexity-ai/pplx-decider-v1.2) describes its serving implementation; consult the hosted API documentation for API features.
-- **Probability and confidence are different signals.** Confidence is not simply the selected answer’s probability. TypeSafe documents how it derives confidence from the probability distribution; Perplexity also distinguishes confidence from the top probability. Test your action thresholds again when changing models, questions, or grouping. See [TypeSafe confidence](https://docs.typesafe.ai/confidence) and [Perplexity answer interpretation](https://docs.perplexity.ai/docs/decisions/quickstart).
+- **Probability and confidence are different signals.** Confidence is not simply the selected answer’s probability. [TypeSafe publishes its calculation from the probability distribution](https://docs.typesafe.ai/confidence). [Perplexity describes a certainty estimate](https://docs.perplexity.ai/docs/decisions/quickstart), but that wording does not establish a different calculation. Do not assume a formula or threshold transfers without checking the target provider and task.
+
+## Practitioner checklist
+
+<details>
+<summary>Before building or migrating an integration</summary>
+
+- **Fix the request design before comparing results.** Keep the state, questions, and grouping consistent. Evaluate related groups on Standard and a one-question baseline on Flash; test any grouped Flash exception on your task. The [migration reference](references/porting-from-typesafe.md#reconsider-grouping-first) explains why unused speculative questions matter.
+- **Check what each number means.** A score is a probability-weighted rubric index, so the same average can hide different distributions. Use the returned probabilities and confidence according to the documented contract. Perplexity’s published choice example is consistent with TypeSafe’s confidence formula; this does not prove that every answer type or model uses the same calculation. Reevaluate thresholds and **calibration**—how well predicted probabilities match observed outcomes—on representative labelled examples.
+- **Distinguish a requested model name from serving identity.** [TypeSafe says its response identifies the version that answered](https://docs.typesafe.ai/models). [Perplexity echoes the requested name](https://docs.perplexity.ai/api-reference/decisions-post), and [retired version names can route to replacements](https://docs.perplexity.ai/docs/decisions/quickstart#model-names). A versioned Perplexity name is therefore not an immutable serving guarantee. Record request names and evaluation dates, follow retirement notices, and reevaluate after routing changes.
+- **Compare the completed workflow.** Measure errors, review rates, latency, and total billed input at the thresholds your application uses. Include repeated state, retries, retrieval, and any generative calls. A lower token rate alone does not establish a cheaper useful outcome. See the [cost example](README.md#what-a-small-workflow-might-cost) and [evaluation guidance](references/evaluation.md).
+- **Check the operational contract.** Use the [dated API snapshot](references/api-snapshot.md) and current provider docs for limits, errors, and prices. Do not rely on automatic splitting to accept an oversized request or preserve grouping. TypeSafe currently lists text input; Perplexity documents native image input. An image-to-text step can supply Jev with textual state, but it is an additional component. Input support does not establish judgment quality on your images.
+
+</details>
 
 ## Check your understanding
 
-A useful self-check: if you add a fourth question without changing the state, which models can expose the original three questions to that new context? Both Perplexity v1.2 models can; Jev documents isolated question evaluation. That distinction does not guarantee numerically identical responses across repeated calls.
+<details>
+<summary>Can an unused fourth question change the first answer?</summary>
+
+Both Perplexity v1.2 models expose the original questions to the new question’s context. Jev documents isolated question evaluation. That distinction does not guarantee numerically identical responses across repeated calls.
+
+</details>
+
+<details>
+<summary>Does a score of 1 mean the model confidently chose the middle of three levels?</summary>
+
+No. Probabilities `(0, 1, 0)` and `(0.5, 0, 0.5)` both average to 1 on levels 0, 1, and 2. One puts all probability on the middle; the other splits it between the extremes. Inspect the distribution when it matters to your action rule.
+
+</details>
+
+<details>
+<summary>Does the same Perplexity version name in two responses prove the same model served both?</summary>
+
+No. Perplexity echoes the requested name, and a retired version name can route to its replacement. Check model-change notices and reevaluate affected behavior.
+
+</details>
+
+Provider documentation for the behavior and contracts described here was checked on **18 October 2026**. This was a documentation check, not a live model evaluation. Recheck the linked provider pages when updating an integration; use the [API snapshot](references/api-snapshot.md) for dated operational details.
 
 [Back to the Perplexity Decisions guide](README.md) · [Choose a prompt](README.md#choose-a-starting-point)
