@@ -63,7 +63,8 @@ Keep examples from documentation as examples, not universal cutoffs.
 
 ### Optional confidence diagnostic
 
-During an already-authorized evaluation, optionally log the provider's returned
+For `choice` and `score` answers during an already-authorized evaluation,
+optionally log the provider's returned
 `confidence` beside a statistic computed from its `probabilities` using the
 [documented TypeSafe formula](https://docs.typesafe.ai/confidence) for that question
 type. Preserve the rubric's numeric level order for scores, and record the formula

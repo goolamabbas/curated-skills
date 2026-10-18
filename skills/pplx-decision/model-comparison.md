@@ -47,7 +47,7 @@ Two other distinctions matter:
 <details>
 <summary>Can an unused fourth question change the first answer?</summary>
 
-Both Perplexity v1.2 models expose the original questions to the new question’s context. Jev documents isolated question evaluation. That distinction does not guarantee numerically identical responses across repeated calls.
+Both Perplexity v1.2 models let the original questions see the added question, so an earlier answer can change. Jev documents isolated question evaluation. That distinction does not guarantee numerically identical responses across repeated calls.
 
 </details>
 

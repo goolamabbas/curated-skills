@@ -105,8 +105,8 @@ decision, including work that still needs deeper reasoning.
 
 Choose grouping deliberately. Distinguish related judgments about one
 item from independently scored candidates. Evaluate standard and Flash
-with their documented grouping guidance rather than assuming batching
-is behaviorally neutral.
+with their documented grouping guidance rather than assuming putting questions
+in the same request is behaviorally neutral.
 
 When a later decision needs newly retrieved evidence or options selected
 by an earlier result, represent it as a separate workflow stage.
