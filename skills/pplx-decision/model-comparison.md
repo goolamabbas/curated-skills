@@ -12,7 +12,7 @@ Suppose a customer says, “After importing a CSV, my saved contacts disappeared
 
 The assessors are an analogy, and this ticket is illustrative—not a recorded model test.
 
-For an observed example, read [Can one more question change an answer you already depend on?](case-study.md). The case study explains asking separately versus together from the basics and shows what happened on 24 fictional support tickets. It investigates how changing the questionnaire affects application decisions; it does not establish an overall model winner.
+For an observed example, read [When an extra question changes an application's decision](case-study.md). The case study connects these documented differences to responses on 24 fictional support tickets. It distinguishes a change in routing from agreement with a disputed label, and a change in probability from crossing an application's review cutoff. It does not establish an overall model winner.
 
 ## Where to start with each model
 

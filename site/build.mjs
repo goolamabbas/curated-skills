@@ -72,7 +72,7 @@ for(const source of [...sources.map(f=>path.relative(root,f)),'ATTRIBUTION.md'])
  const readerPage=comparison||caseStudy||evidenceReport;
  const backPage=evidenceReport?'skills/pplx-decision/case-study.html':readerPage?'skills/pplx-decision/index.html':'index.html';
  const backLabel=evidenceReport?'Case study':readerPage?'Perplexity Decisions guide':'Collection';
- const description=comparison?'A practical comparison of Jev, Perplexity Standard, and Flash: question grouping, model differences, batching, and confidence.':caseStudy?'Can adding an AI question change an existing answer? A beginner walkthrough of 24 support tickets, with observed results and limits on model selection.':evidenceReport?'Complete saved results from the 18 October 2026 support-ticket experiment, including numerical warnings and paired comparisons.':undefined;
+ const description=comparison?'A practical comparison of Jev, Perplexity Standard, and Flash: question grouping, model differences, batching, and confidence.':caseStudy?'A recorded test of question grouping with Perplexity Standard, Flash, and TypeSafe Jev: routing changes, disputed labels, and review thresholds.':evidenceReport?'Complete saved results from the 18 October 2026 support-ticket experiment, including numerical warnings and paired comparisons.':undefined;
  write(current,shell(title,`<div class="breadcrumb"><a href="${relLink(current,backPage)}">← ${backLabel}</a></div><section class="section"><article class="article${readerPage?' beginner-guide':''}${caseStudy?' case-study':''}">${html}</article></section>`,current,description));
 }
 // Copy only the frozen evidence selected for this case study, never the workspace or maintainer notes.
