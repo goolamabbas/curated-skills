@@ -1,8 +1,40 @@
 # Perplexity Decisions
 
-Build applications that use Perplexity Decisions for structured judgments: yes/no probabilities, choices, and rubric scores. Explore project opportunities, implement an integration, evaluate its behavior, or migrate a TypeSafe/Jev workflow.
+Build applications with Perplexity Decisions: models that turn information and focused questions into structured judgments your software can use. This skill helps a coding agent explore opportunities, build an integration, evaluate it, or migrate from TypeSafe/Jev.
 
-Use this skill when a product needs to interpret context and turn that interpretation into a decision application code can use. It starts with the intended user outcome and keeps deterministic rules, permissions, and execution in code.
+## What is a decision model?
+
+A decision model interprets information and returns answers that software can act on: a yes/no probability, a choice from supplied options, or a score against defined criteria. Your application sends it data through an **API**, the interface for requesting those judgments and receiving the results.
+
+For example, a support application might ask whether a customer has lost data, which team should handle the ticket, and how severe the disruption is. The model judges the message; your code decides whether to escalate it or ask a person to review it.
+
+**Context + questions → model judgments → application rules → action or review.**
+
+### State, questions, and answers
+
+**State** is the information available for a decision: a message, document, image, or relevant application data. **Questions** describe what to judge, including the options or scoring criteria. Both providers below support three question types:
+
+| Type | Illustrative question | Result |
+| --- | --- | --- |
+| Yes/no (`noul`) | Does this ticket report lost data? | A probability of yes, from 0 to 1. |
+| Choice (`choice`) | Which team should handle it? | The selected option and probabilities for the supplied options. |
+| Rubric (`score`) | How serious is the disruption? | A numerical score and probabilities across defined severity levels. |
+
+These are illustrative questions, not recorded model results. A high probability is a model judgment, not proof. Test your questions and action thresholds on representative examples.
+
+### Jev, TypeSafe, and Perplexity Decisions
+
+**TypeSafe** provides **Jev**, its flagship decision model. It calls this approach “System One”: focused judgments that software combines using explicit rules. The [TypeSafe introduction](https://docs.typesafe.ai/introduction) explains the pattern.
+
+**Perplexity Decisions** is Perplexity’s API for its **`pplx-decider` models**. They return structured judgments; they do not write replies, generate code, or explain their reasoning. See the [Perplexity Decisions quickstart](https://docs.perplexity.ai/docs/decisions/quickstart).
+
+These are separate services with different behavior. For example, TypeSafe documents independent question evaluation, while Perplexity’s v1.2 models see the other questions in the same request. Moving between them requires checking those assumptions.
+
+### Where this skill fits
+
+The **`pplx-decision` skill instructs your coding agent** on designing and building a Perplexity integration. The **decision model runs inside the application workflow** through API calls. Installing the skill does not provide the model service or API credentials.
+
+Use ordinary code for exact rules, such as checking whether a date has passed. Consider a decision model when interpreting meaning or context is the hard part. If the workflow also needs a written reply, retrieval, or an action, connect the appropriate components; application code controls what happens next.
 
 ## When to use it
 
