@@ -1,6 +1,6 @@
 # Perplexity Decisions
 
-Build applications with Perplexity Decisions: models that turn information and focused questions into structured judgments your software can use. This skill helps a coding agent explore opportunities, build an integration, evaluate it, or migrate from TypeSafe/Jev.
+Use a coding agent to build applications with Perplexity Decisions, an API for models that turn context and focused questions into structured judgments. This guide takes you from the basic idea to installing the skill and choosing a prompt.
 
 ## What is a decision model?
 
@@ -22,19 +22,17 @@ For example, a support application might ask whether a customer has lost data, w
 
 These are illustrative questions, not recorded model results. A high probability is a model judgment, not proof. Test your questions and action thresholds on representative examples.
 
-### Jev, TypeSafe, and Perplexity Decisions
-
-**TypeSafe** provides **Jev**, its flagship decision model. It calls this approach “System One”: focused judgments that software combines using explicit rules. The [TypeSafe introduction](https://docs.typesafe.ai/introduction) explains the pattern.
+### Perplexity Decisions and TypeSafe/Jev
 
 **Perplexity Decisions** is Perplexity’s API for its **`pplx-decider` models**. They return structured judgments; they do not write replies, generate code, or explain their reasoning. See the [Perplexity Decisions quickstart](https://docs.perplexity.ai/docs/decisions/quickstart).
 
-These are separate services with different behavior. For example, TypeSafe documents independent question evaluation, while Perplexity’s v1.2 models see the other questions in the same request. Moving between them requires checking those assumptions.
+**TypeSafe** provides **Jev**, another decision model built around state and typed questions. The [TypeSafe introduction](https://docs.typesafe.ai/introduction) explains its approach. These are separate services; this skill helps you build with Perplexity or [migrate an existing TypeSafe/Jev workflow](#port-a-typesafejev-workflow).
 
 ### Where this skill fits
 
-The **`pplx-decision` skill instructs your coding agent** on designing and building a Perplexity integration. The **decision model runs inside the application workflow** through API calls. Installing the skill does not provide the model service or API credentials.
+A **coding agent** is an AI assistant that can work with your project’s files and tools to write and test software. The **`pplx-decision` skill** is a folder of instructions that helps the agent design a Perplexity integration. The **decision model** supplies judgments when the application calls its API.
 
-Use ordinary code for exact rules, such as checking whether a date has passed. Consider a decision model when interpreting meaning or context is the hard part. If the workflow also needs a written reply, retrieval, or an action, connect the appropriate components; application code controls what happens next.
+If the workflow also needs a written reply, retrieval, or an action, connect the appropriate components; application code controls what happens next.
 
 ## When to use it
 
@@ -43,23 +41,64 @@ Use ordinary code for exact rules, such as checking whether a date has passed. C
 - Design an evaluation of decision quality, thresholds, cost, and latency.
 - Port a TypeSafe/Jev workflow while checking differences in request grouping and answer interpretation.
 
-This is a software-building skill, not a general Perplexity search tool. A direct code change is usually enough when the rule is deterministic. It can recommend against an integration if the benefits do not justify the complexity.
+Use ordinary code for exact rules, such as checking whether a date has passed. Consider a decision model when interpreting meaning or context is the hard part. This skill helps build software; it does not provide general Perplexity search. It may recommend a simpler approach when an integration would add little value.
 
-## Copyable examples
+## Install this skill
 
-These are starting prompts, not recorded API runs. Choose the scope before you copy:
+Use an application that supports folder-based agent skills.
 
-| Starting point | Prompt |
+1. [Download the collection ZIP](https://github.com/goolamabbas/curated-skills/archive/refs/heads/main.zip) and unzip it.
+2. Open the extracted `skills/` directory and find `pplx-decision/`.
+3. Copy that **whole folder** into your application’s documented skills directory. Keep `SKILL.md`, `README.md`, `LICENSE`, and `references/` together. Back up an existing copy before replacing it.
+4. Follow your application’s reload instructions. Open the relevant project, or choose a workspace for a new one.
+5. In the agent’s chat, ask: “Find the installed pplx-decision skill, read its instructions, and tell me which file you loaded. Do not change any files.” If it cannot find the skill, check the folder location and reload before continuing.
+
+**Using Codex?** For a personal installation, place the folder at `~/.agents/skills/pplx-decision/`, where `~` means your home folder. Codex detects skill changes automatically; restart it if the skill does not appear. See the [official Codex skill locations](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills). Other applications may use different locations and reload procedures.
+
+**Supplying files manually?** Give the agent `SKILL.md` and the complete `references/` folder so it can follow the linked guidance. Keep the license with redistributed copies.
+
+Installing the skill does not provide API credentials or model-service access. Project exploration and offline tests—tests using saved example inputs without calling the model—can proceed without live inference. Calling Perplexity Decisions requires provider access and may incur charges; agree on data and spending limits before live testing, and keep credentials outside prompts and source files.
+
+## Choose a starting point
+
+Paste your chosen prompt into the coding agent’s chat with the project open or its files accessible. Replace the square-bracketed placeholders with your details. Describe the outcome and constraints in plain language; if you do not know the technical choices, ask the agent to recommend them.
+
+| Your starting point | Choose this prompt |
 | --- | --- |
-| Existing project; deciding where Decisions would help | [Explore before editing](#explore-a-project-before-editing) |
-| Existing project; a specific integration is already chosen | [Build a focused integration](#build-a-focused-integration) |
-| New project; you have state and questions in mind | [Build from state and questions](#build-a-new-project-from-state-and-questions) |
+| I have a project and want recommendations before changing it | [Explore before editing](#explore-a-project-before-editing) |
+| I know what behavior to add to an existing project | [Build a focused integration](#build-a-focused-integration) |
+| I want a new application and have some state and questions in mind | [Build from state and questions](#build-a-new-project-from-state-and-questions) |
 
-A concrete integration does not require a broad opportunity audit. The skill already supplies documentation, grouping, and validation guidance; use the prompts to describe your project and intended outcome.
+A specific build request does not require a broad project audit. For later work, jump to [evaluation](#evaluate-an-existing-workflow) or [TypeSafe/Jev migration](#port-a-typesafejev-workflow).
 
-If supplying files manually instead of installing the skill, include `SKILL.md` and the complete `references/` folder so the linked guidance remains available.
+### A filled-in example
+
+This illustrative new-project prompt carries the support-ticket example from the primer into a concrete request. It is not a recorded model run. Use it as a guide to filling in the [new-project template](#build-a-new-project-from-state-and-questions), or adapt it for a small practice project.
+
+```text
+Use the pplx-decision skill to build a small support-ticket triage demo in a new
+folder called support-triage-demo. Recommend a simple stack.
+
+State: the customer message is "After importing a CSV, my saved contacts disappeared."
+The product is a contact manager. Available teams are Technical Support and Billing.
+
+Questions:
+1. Does the message report lost data?
+2. Which team should handle the ticket?
+3. How serious is the disruption: minor inconvenience, blocked task, or possible data loss?
+
+Show the suggested team and severity. Propose a review threshold for the lost-data
+probability and label it unvalidated; flag matching tickets for human review.
+Show uncertain or unavailable results clearly. Do not send messages automatically.
+
+Refine the questions and grouping, then build the demo with saved example inputs
+and simulated answers. Keep action rules in code. Explain what needs live evaluation.
+Do not call the model API or deploy yet.
+```
 
 ### Explore a project before editing
+
+**Outcome:** recommendations and a proposed experiment, with no file changes. Provide the project, the behavior you want to improve, and any constraints that matter.
 
 ```text
 Use the pplx-decision skill to assess this project.
@@ -82,6 +121,8 @@ do not modify files or make live API calls.
 
 ### Build a focused integration
 
+**Outcome:** changes to an existing application, checked with offline tests. Describe the specific behavior, available data, and requirements to preserve. Live model quality still needs evaluation.
+
 ```text
 Use the pplx-decision skill to implement this integration.
 
@@ -98,6 +139,8 @@ needs. Do not deploy or make live API calls yet.
 ```
 
 ### Build a new project from state and questions
+
+**Outcome:** a small working application and offline tests. Supply representative information and the questions you want answered; the agent can refine both and recommend a stack.
 
 ```text
 Use the pplx-decision skill to build a new project.
@@ -123,12 +166,16 @@ Implement the smallest complete application demonstrating the intended behavior.
 Skip a broad opportunity audit unless an unresolved architectural issue requires it.
 
 Make reasonable implementation choices; ask only when missing information materially
-changes the product. Test with representative offline fixtures and report what was
-built, what was tested, and what still needs live evaluation. Do not deploy. Run live
-calls only within an established authorization and budget.
+changes the product. Test offline with representative saved example inputs. Report
+what was built, what was tested, and what still needs live evaluation. Do not deploy.
+Run live calls only within an established authorization and budget.
 ```
 
+## Optional next steps
+
 ### Evaluate an existing workflow
+
+**Outcome:** an evaluation plan for an existing workflow. Held-out cases are examples reserved for evaluation rather than used to tune the questions. Provide the workflow, its current baseline, and the errors that matter.
 
 ```text
 Use the pplx-decision skill to evaluate this decision workflow.
@@ -139,6 +186,8 @@ Distinguish fixture checks from measurements that require live calls.
 
 ### Port a TypeSafe/Jev workflow
 
+**Outcome:** a revised integration and offline checks of its application logic. Provide the existing request builder, answer handling, and tests. TypeSafe documents independent question evaluation, while Perplexity’s v1.2 models see other questions in the request; review the [migration guidance](references/porting-from-typesafe.md#reconsider-grouping-first) before carrying over assumptions.
+
 ```text
 Use the pplx-decision skill to port this TypeSafe/Jev integration to Perplexity
 Decisions. Inspect the existing request builder, answer consumer, and tests.
@@ -146,21 +195,9 @@ Preserve the intended product behavior, identify assumptions that do not transfe
 and verify the revised application logic with offline tests. Do not deploy.
 ```
 
-## What to provide
-
-Share the project or relevant files, the intended decision, and the constraints that matter: acceptable errors, response time, budget, and review requirements. State whether you want recommendations, implementation, or evaluation. For live measurements, specify the permitted data and spending boundary; keep credentials outside prompts and source files.
-
-## What to expect
-
-For exploration, expect a grounded recommendation and a small next experiment. For implementation, expect code and verification within the requested scope. For evaluation or migration, expect explicit assumptions, comparisons, and remaining measurement gaps.
-
-The skill checks current documentation when implementing or making current API claims. Its bundled API snapshot is a dated reference, not a promise that models, limits, or prices remain unchanged. Model probabilities and confidence are not proof of accuracy; evaluate them against the decisions your application will make.
-
-Installing the skill provides instructions, not API credentials or service access. Live inference requires access to the provider and may incur charges. Useful project analysis and offline tests can proceed without live calls.
-
 ## Supporting guidance
 
-The agent loads the references relevant to the task:
+These references are optional reading for you; the agent loads the ones needed for your task. It checks current provider documentation when implementing an integration or making current API claims. The bundled API snapshot is a dated reference, so model behavior, limits, and prices may have changed.
 
 - [Project opportunities](references/project-opportunities.md): investigate improvements and new capabilities.
 - [Implementation](references/implementation.md): request design, answer handling, and operational failures.
@@ -172,7 +209,7 @@ The agent loads the references relevant to the task:
 
 Adapted by Yusuf Goolamabbas for Perplexity Decisions, inspired by [TypeSafe’s skill for its Jev decision model](https://github.com/typesafe-ai/skills/blob/main/skills/typesafe-ai/SKILL.md) and [ryana’s Jevify project-investigation prompt](https://github.com/ryana/jevify/blob/87a9ef3674f111c74bb33cccd3bfa56bd0c4a15c/README.md).
 
-The adaptation covers Perplexity-specific implementation, evaluation, and migration guidance. The instructions and five reference files contributed from the personal `pplx-decision` installation are preserved. This is an independent adaptation, not an official Perplexity or TypeSafe publication.
+The adaptation covers Perplexity-specific implementation, evaluation, and migration guidance. This is an independent adaptation, not an official Perplexity or TypeSafe publication.
 
 [MIT](LICENSE). Keep the license notice with copies of this skill.
 
