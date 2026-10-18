@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "review_status": "user_reviewed_accepted",
+  "definition": "Labels describe the current report in the fictional text, not verified real-world data loss. Null means ambiguous and is excluded only from that quality metric.",
+  "labels": [
+    {
+      "ticket_id": "T01",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 1,
+      "rationale": "Explicit current loss of previously saved contacts; recovery is unresolved."
+    },
+    {
+      "ticket_id": "T02",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 0,
+      "rationale": "Saved notes count as saved data even though the parent records remain."
+    },
+    {
+      "ticket_id": "T03",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 1,
+      "rationale": "Current missing saved groups and memberships; multiple users observe it."
+    },
+    {
+      "ticket_id": "T04",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 0,
+      "rationale": "Even one unresolved missing saved record qualifies."
+    },
+    {
+      "ticket_id": "T05",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 0,
+      "rationale": "Missing saved fields are data loss reports; corroboration is in the text."
+    },
+    {
+      "ticket_id": "T06",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 1,
+      "rationale": "Unresolved technical loss takes routing precedence over the billing issue."
+    },
+    {
+      "ticket_id": "T07",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 0,
+      "rationale": "Saved attachments are in scope; an unresolved subset still qualifies."
+    },
+    {
+      "ticket_id": "T08",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 1,
+      "rationale": "Current missing saved metadata with no reported recovery."
+    },
+    {
+      "ticket_id": "T09",
+      "lost_data": 0,
+      "team": "Billing",
+      "severity": 0,
+      "callback_requested": 0,
+      "rationale": "Pricing inquiry without disruption or missing data."
+    },
+    {
+      "ticket_id": "T10",
+      "lost_data": 0,
+      "team": "Billing",
+      "severity": 0,
+      "callback_requested": 1,
+      "rationale": "Billing-only problem; no application disruption is described."
+    },
+    {
+      "ticket_id": "T11",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 1,
+      "callback_requested": 0,
+      "rationale": "A specific task is blocked; the message explicitly denies missing data."
+    },
+    {
+      "ticket_id": "T12",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 1,
+      "callback_requested": 1,
+      "rationale": "Single-user access task blocked without a data-loss report."
+    },
+    {
+      "ticket_id": "T13",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 0,
+      "callback_requested": 0,
+      "rationale": "Minor cosmetic defect with no blocked task."
+    },
+    {
+      "ticket_id": "T14",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 1,
+      "rationale": "Widespread core-service outage is severity 2 without implying missing saved data."
+    },
+    {
+      "ticket_id": "T15",
+      "lost_data": 0,
+      "team": "Other / Needs Review",
+      "severity": 0,
+      "callback_requested": 0,
+      "rationale": "Feature request; neither a technical incident nor billing."
+    },
+    {
+      "ticket_id": "T16",
+      "lost_data": 0,
+      "team": "Other / Needs Review",
+      "severity": 0,
+      "callback_requested": 1,
+      "rationale": "Partnership inquiry with explicit callback request and no disruption."
+    },
+    {
+      "ticket_id": "T17",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 1,
+      "callback_requested": 1,
+      "rationale": "Negation and visible full list outweigh empty search results; search is blocked."
+    },
+    {
+      "ticket_id": "T18",
+      "lost_data": 0,
+      "team": "Other / Needs Review",
+      "severity": 0,
+      "callback_requested": 0,
+      "rationale": "Pure hypothetical/general guidance request; no current incident."
+    },
+    {
+      "ticket_id": "T19",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 0,
+      "callback_requested": 0,
+      "rationale": "Resolved technical incident; historical appearance of loss is not current loss."
+    },
+    {
+      "ticket_id": "T20",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 0,
+      "callback_requested": 0,
+      "rationale": "Unsaved draft is excluded; no task remains blocked."
+    },
+    {
+      "ticket_id": "T21",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 1,
+      "rationale": "A proposed benign explanation was ruled out; loss is currently unresolved."
+    },
+    {
+      "ticket_id": "T22",
+      "lost_data": 0,
+      "team": "Billing",
+      "severity": 0,
+      "callback_requested": 0,
+      "rationale": "Historical loss belongs to another product; current issue is billing-only."
+    },
+    {
+      "ticket_id": "T23",
+      "lost_data": 0,
+      "team": "Technical Support",
+      "severity": 1,
+      "callback_requested": 0,
+      "rationale": "The message does not report that previously saved data is missing; it describes an empty workspace with unknown history. The question explicitly excludes inferring loss from that alone. The blocked task and technical routing are clear."
+    },
+    {
+      "ticket_id": "T24",
+      "lost_data": 1,
+      "team": "Technical Support",
+      "severity": 2,
+      "callback_requested": 1,
+      "rationale": "One teammate explicitly reports currently missing saved records. The simultaneous denial does not resolve or explain that report: report detection is positive and possible-loss severity is 2, without asserting actual data loss."
+    }
+  ],
+  "review_record": {
+    "date": "2026-10-18",
+    "statement": "User confirmed reviewing all 24 tickets and agreeing with the proposed labels.",
+    "independence": "not established",
+    "label_values_changed": false
+  }
+}

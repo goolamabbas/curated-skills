@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "provenance": "Synthetic text drafted by the assistant for user review; no real customer records.",
+  "tickets": [
+    {
+      "id": "T01",
+      "cohort": "clear_missing",
+      "message": "After importing a CSV, all 240 contacts that I saved last week disappeared from this workspace. Search and clearing filters do not bring them back. Please call me to help recover them."
+    },
+    {
+      "id": "T02",
+      "cohort": "clear_missing",
+      "message": "I merged two duplicate contacts. The notes saved on both records are now blank, and refreshing does not restore them. The contacts themselves are still present."
+    },
+    {
+      "id": "T03",
+      "cohort": "clear_missing",
+      "message": "Our shared address book had twelve saved groups yesterday. Today six groups and their saved membership lists are missing for every teammate. Could someone phone me about this?"
+    },
+    {
+      "id": "T04",
+      "cohort": "clear_missing",
+      "message": "I changed one contact name and clicked Save. A different contact, saved months ago, vanished and is absent from the trash. I have not recovered it."
+    },
+    {
+      "id": "T05",
+      "cohort": "clear_missing",
+      "message": "The nightly sync removed the saved company addresses from dozens of contact cards. I can still see the names, but the addresses are gone in both the app and an export."
+    },
+    {
+      "id": "T06",
+      "cohort": "clear_missing",
+      "message": "You charged us twice, and after our plan change the saved contact history disappeared. We checked the same workspace and still cannot find it. Please call me; restoring the history matters most."
+    },
+    {
+      "id": "T07",
+      "cohort": "clear_missing",
+      "message": "Several attachments that I previously saved to contact records now say file not found. They are still missing after sign-out and sign-in. Other contact fields look normal."
+    },
+    {
+      "id": "T08",
+      "cohort": "clear_missing",
+      "message": "My saved custom tags and the contact assignments attached to them are no longer in the workspace. They were there this morning. I have tried the normal view and search. Can you call me?"
+    },
+    {
+      "id": "T09",
+      "cohort": "clear_nonmissing",
+      "message": "Please explain the difference between your monthly and annual subscription prices. The contact manager works normally and all our saved records are present."
+    },
+    {
+      "id": "T10",
+      "cohort": "clear_nonmissing",
+      "message": "The invoice shows two charges for this month. The app and our contact records are fine. Please phone me about getting the duplicate charge refunded."
+    },
+    {
+      "id": "T11",
+      "cohort": "clear_nonmissing",
+      "message": "I can view and edit every saved contact, but Export CSV fails on each attempt. I cannot complete our required export today. Nothing has disappeared."
+    },
+    {
+      "id": "T12",
+      "cohort": "clear_nonmissing",
+      "message": "When I try to sign in, my password reset link says expired immediately. I cannot access the app. I am not claiming any records are missing. Please call me."
+    },
+    {
+      "id": "T13",
+      "cohort": "clear_nonmissing",
+      "message": "The sidebar icon is the wrong color after the update. All buttons still work and my saved contacts are unchanged. This is only a cosmetic issue."
+    },
+    {
+      "id": "T14",
+      "cohort": "clear_nonmissing",
+      "message": "Every person on our team gets a server error when opening any workspace, and nobody can use the app. We have no evidence of missing records. Could support call me?"
+    },
+    {
+      "id": "T15",
+      "cohort": "clear_nonmissing",
+      "message": "Would you consider adding a keyboard shortcut for creating contact groups? I can create groups with the mouse and have no current problem."
+    },
+    {
+      "id": "T16",
+      "cohort": "clear_nonmissing",
+      "message": "I have an idea for a partnership integrating our event platform with your product. Everything is working; please call me if your partnerships team is interested."
+    },
+    {
+      "id": "T17",
+      "cohort": "difficult",
+      "message": "No saved contacts are missing. The search box returns no results because it is broken, but I can see every contact in the full list. I cannot finish the search task. Please call me."
+    },
+    {
+      "id": "T18",
+      "cohort": "difficult",
+      "message": "If I import a CSV next month, could it erase my saved contacts? I have not imported anything and nothing is missing. I only want general advice before deciding."
+    },
+    {
+      "id": "T19",
+      "cohort": "difficult",
+      "message": "Earlier I thought all my saved contacts had disappeared. I found that a filter was hiding them, cleared it, and confirmed every record is back. No problem remains; this is a follow-up to close my technical ticket."
+    },
+    {
+      "id": "T20",
+      "cohort": "difficult",
+      "message": "I typed a new contact into a form but never clicked Save. The tab closed and that unsaved draft was lost. I entered it again successfully; all previously saved records are intact."
+    },
+    {
+      "id": "T21",
+      "cohort": "difficult",
+      "message": "I first assumed a filter was hiding my contacts, but I have now cleared every filter and confirmed the correct workspace. Three contacts saved yesterday are still missing. Please call me."
+    },
+    {
+      "id": "T22",
+      "cohort": "difficult",
+      "message": "Our previous vendor lost our contacts last year. That never happened in your contact manager; all current records are safe. My actual issue with you is a duplicate subscription charge."
+    },
+    {
+      "id": "T23",
+      "cohort": "difficult",
+      "message": "This workspace list is empty. I cannot remember whether I saved any contacts here or whether this is a new workspace. I cannot continue the import task until support helps me check."
+    },
+    {
+      "id": "T24",
+      "cohort": "difficult",
+      "message": "Two teammates checked the same saved contact list at the same time. One says every record is present; the other says every saved record is gone. We do not know which observation is right or whether any work is blocked. Please call us to investigate."
+    }
+  ]
+}

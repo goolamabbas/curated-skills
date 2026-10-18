@@ -1,0 +1,4252 @@
+{
+  "provenance": "live",
+  "warning": "Live responses; label review status: user_reviewed_accepted; independence is not established by a review attestation",
+  "planned_requests": 1800,
+  "attempts": 1801,
+  "successful_requests": 1800,
+  "missing_successful_requests": 0,
+  "failed_attempts": 1,
+  "unknown_usage_attempts": 1,
+  "accounted_cost_usd": "0.025413520",
+  "conditions": {
+    "standard:A": {
+      "lost_data_brier": 0.000546938501834004,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.0,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 0.0,
+      "severity_mae": 0.025594370724486157,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 1.487794582049052,
+      "cost_usd": "0.00210360",
+      "known_input_tokens": 105180,
+      "unknown_usage_attempts": 0
+    },
+    "standard:B": {
+      "lost_data_brier": 0.0025080810545867476,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.0,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 0.0,
+      "severity_mae": 0.014360568579554775,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 0.9121670067310333,
+      "cost_usd": "0.00176424",
+      "known_input_tokens": 80020,
+      "unknown_usage_attempts": 1
+    },
+    "standard:C": {
+      "lost_data_brier": 0.0040452688393631964,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.0,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 0.0,
+      "severity_mae": 0.009760007117905945,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 0.4405975878238678,
+      "cost_usd": "0.00175160",
+      "known_input_tokens": 87580,
+      "unknown_usage_attempts": 0
+    },
+    "flash:A": {
+      "lost_data_brier": 0.025265733073433636,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.041666666666666664,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 1.0,
+      "severity_mae": 0.039828903241926956,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 1.3478597362836202,
+      "cost_usd": "0.00105180",
+      "known_input_tokens": 105180,
+      "unknown_usage_attempts": 0
+    },
+    "flash:B": {
+      "lost_data_brier": 0.026558310214360035,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.0,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 0.0,
+      "severity_mae": 0.04860180147132553,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 0.34121147394180296,
+      "cost_usd": "0.00080020",
+      "known_input_tokens": 80020,
+      "unknown_usage_attempts": 0
+    },
+    "flash:C": {
+      "lost_data_brier": 0.02607313062896098,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.041666666666666664,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 1.0,
+      "severity_mae": 0.056789161663003095,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 0.3428321719169617,
+      "cost_usd": "0.00087580",
+      "known_input_tokens": 87580,
+      "unknown_usage_attempts": 0
+    },
+    "jev:A": {
+      "lost_data_brier": 0.002595833333333334,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.0,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 0.0,
+      "severity_mae": 0.04666666666666667,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 1.2396988809108733,
+      "cost_usd": "0.007738920",
+      "known_input_tokens": 184260,
+      "unknown_usage_attempts": 0
+    },
+    "jev:B": {
+      "lost_data_brier": 0.0025725000000000006,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.0,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 0.0,
+      "severity_mae": 0.04416666666666667,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 0.23796992103258768,
+      "cost_usd": "0.004545240",
+      "known_input_tokens": 108220,
+      "unknown_usage_attempts": 0
+    },
+    "jev:C": {
+      "lost_data_brier": 0.0026150000000000006,
+      "lost_data_labelled_tickets": 24,
+      "team_error_rate": 0.0,
+      "team_labelled_tickets": 24,
+      "team_errors_expected_cases_per_repeat": 0.0,
+      "severity_mae": 0.04558333333333334,
+      "severity_labelled_tickets": 24,
+      "missed_positive_expected_cases_per_repeat": 0.0,
+      "positive_labelled_tickets": 10,
+      "unnecessary_review_expected_cases_per_repeat": 0.0,
+      "negative_labelled_tickets": 14,
+      "complete_workflows": 120,
+      "mean_workflow_span_seconds": 0.23299504518508912,
+      "cost_usd": "0.004782120",
+      "known_input_tokens": 113860,
+      "unknown_usage_attempts": 0
+    }
+  },
+  "comparisons": {
+    "standard:B-A": {
+      "paired_tickets": 24,
+      "median_absolute_probability_shift": 0.0004552639987115185,
+      "max_absolute_probability_shift": 0.13146285480550063,
+      "mean_threshold_flips": 0,
+      "cases": [
+        {
+          "ticket_id": "T01",
+          "delta_mean_probability": 0.000423821557552273,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.00329861199435455
+        },
+        {
+          "ticket_id": "T02",
+          "delta_mean_probability": 0.0003960833249267992,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.003275073954932761
+        },
+        {
+          "ticket_id": "T03",
+          "delta_mean_probability": 0.0006034538541375145,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.003487200188240225
+        },
+        {
+          "ticket_id": "T04",
+          "delta_mean_probability": 0.00029628502783618504,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.002832141152667944
+        },
+        {
+          "ticket_id": "T05",
+          "delta_mean_probability": 0.0002730147256150284,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0065605269234820796
+        },
+        {
+          "ticket_id": "T06",
+          "delta_mean_probability": 0.00043805775668104285,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0056489796522489755
+        },
+        {
+          "ticket_id": "T07",
+          "delta_mean_probability": 0.0002555595514182052,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.007811094259086104
+        },
+        {
+          "ticket_id": "T08",
+          "delta_mean_probability": 0.0005996473053522244,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.004730781237709536
+        },
+        {
+          "ticket_id": "T09",
+          "delta_mean_probability": -0.00040271538294025665,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 3.8627794874125133e-05
+        },
+        {
+          "ticket_id": "T10",
+          "delta_mean_probability": -0.00024482189156973025,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.04255317365402991
+        },
+        {
+          "ticket_id": "T11",
+          "delta_mean_probability": -0.002363444021998659,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.002927352242919401
+        },
+        {
+          "ticket_id": "T12",
+          "delta_mean_probability": -0.0004616024544329152,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0009459393268708149
+        },
+        {
+          "ticket_id": "T13",
+          "delta_mean_probability": -0.00035986999256548707,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0012120872797678028
+        },
+        {
+          "ticket_id": "T14",
+          "delta_mean_probability": -0.0004489255429901218,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.002566200381830752
+        },
+        {
+          "ticket_id": "T15",
+          "delta_mean_probability": -0.00044160398237284816,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0005462162497244538
+        },
+        {
+          "ticket_id": "T16",
+          "delta_mean_probability": -0.0008574870221509345,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0017946363932528245
+        },
+        {
+          "ticket_id": "T17",
+          "delta_mean_probability": -0.0012120951727994582,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.015216164915907382
+        },
+        {
+          "ticket_id": "T18",
+          "delta_mean_probability": -0.000666239666402844,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0015050010161073862
+        },
+        {
+          "ticket_id": "T19",
+          "delta_mean_probability": -0.0003103949591797961,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0022547013498808435
+        },
+        {
+          "ticket_id": "T20",
+          "delta_mean_probability": -0.0006890249154125706,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0011305988860408085
+        },
+        {
+          "ticket_id": "T21",
+          "delta_mean_probability": 0.0006151363516989639,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.005857255172329712
+        },
+        {
+          "ticket_id": "T22",
+          "delta_mean_probability": -0.0007207142922754701,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.01974321284581476
+        },
+        {
+          "ticket_id": "T23",
+          "delta_mean_probability": 0.13146285480550063,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.14734316644205658
+        },
+        {
+          "ticket_id": "T24",
+          "delta_mean_probability": 0.008574293521376508,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.07151611106203215
+        }
+      ],
+      "median_repeat_range": 0.0,
+      "median_estimated_mean_difference_se": 0.0
+    },
+    "standard:C-B": {
+      "paired_tickets": 24,
+      "median_absolute_probability_shift": 8.054974022069796e-05,
+      "max_absolute_probability_shift": 0.06623138292188066,
+      "mean_threshold_flips": 0,
+      "cases": [
+        {
+          "ticket_id": "T01",
+          "delta_mean_probability": 2.9877753876861313e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0005593487409349951
+        },
+        {
+          "ticket_id": "T02",
+          "delta_mean_probability": 4.157443241137315e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.00032678944120090314
+        },
+        {
+          "ticket_id": "T03",
+          "delta_mean_probability": 0.00018552469819876904,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0008714591898435486
+        },
+        {
+          "ticket_id": "T04",
+          "delta_mean_probability": 7.917040589078272e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.00035367888683457416
+        },
+        {
+          "ticket_id": "T05",
+          "delta_mean_probability": 8.716542283015993e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.00042693846981056716
+        },
+        {
+          "ticket_id": "T06",
+          "delta_mean_probability": 6.169940243083705e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0002717535403924387
+        },
+        {
+          "ticket_id": "T07",
+          "delta_mean_probability": 7.9436253293097e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0006578674698796139
+        },
+        {
+          "ticket_id": "T08",
+          "delta_mean_probability": 0.00011263478170253638,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0012497379125939734
+        },
+        {
+          "ticket_id": "T09",
+          "delta_mean_probability": -3.0426143488427123e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0007326278264163987
+        },
+        {
+          "ticket_id": "T10",
+          "delta_mean_probability": 0.00040420268029167704,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.04385491924693946
+        },
+        {
+          "ticket_id": "T11",
+          "delta_mean_probability": -0.00010230122709207448,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 2.332825538609029e-05
+        },
+        {
+          "ticket_id": "T12",
+          "delta_mean_probability": -0.0002194934828013014,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0016776559028155447
+        },
+        {
+          "ticket_id": "T13",
+          "delta_mean_probability": -3.867997771004228e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 6.149832990864164e-05
+        },
+        {
+          "ticket_id": "T14",
+          "delta_mean_probability": 0.0009884806471341244,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.00023341741762172852
+        },
+        {
+          "ticket_id": "T15",
+          "delta_mean_probability": -5.26287672188862e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0002715806083382628
+        },
+        {
+          "ticket_id": "T16",
+          "delta_mean_probability": 2.881498566913881e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.00011882855053280995
+        },
+        {
+          "ticket_id": "T17",
+          "delta_mean_probability": 0.00014942798626748494,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0033762625559973225
+        },
+        {
+          "ticket_id": "T18",
+          "delta_mean_probability": -4.817488928882742e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.00023553112404943954
+        },
+        {
+          "ticket_id": "T19",
+          "delta_mean_probability": -2.2792382012079353e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0002646086215630945
+        },
+        {
+          "ticket_id": "T20",
+          "delta_mean_probability": -1.8110897286005155e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0003930548440403763
+        },
+        {
+          "ticket_id": "T21",
+          "delta_mean_probability": 0.00012734638044697988,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0006566524721438594
+        },
+        {
+          "ticket_id": "T22",
+          "delta_mean_probability": -8.166322714829892e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.08968410315360442
+        },
+        {
+          "ticket_id": "T23",
+          "delta_mean_probability": 0.06623138292188066,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.026998526039436088
+        },
+        {
+          "ticket_id": "T24",
+          "delta_mean_probability": -0.0011480687000062773,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.008766644782022492
+        }
+      ],
+      "median_repeat_range": 0.0,
+      "median_estimated_mean_difference_se": 0.0
+    },
+    "flash:B-A": {
+      "paired_tickets": 24,
+      "median_absolute_probability_shift": 0.005455879318853744,
+      "max_absolute_probability_shift": 0.04527160593179724,
+      "mean_threshold_flips": 0,
+      "cases": [
+        {
+          "ticket_id": "T01",
+          "delta_mean_probability": 0.004381083615217829,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.008820011684063322
+        },
+        {
+          "ticket_id": "T02",
+          "delta_mean_probability": 0.0045260230791696054,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.01671116173565612
+        },
+        {
+          "ticket_id": "T03",
+          "delta_mean_probability": 0.011439779349930013,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.006285621408652853
+        },
+        {
+          "ticket_id": "T04",
+          "delta_mean_probability": 0.004068305223220436,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.011441186478268861
+        },
+        {
+          "ticket_id": "T05",
+          "delta_mean_probability": 0.009120334453732504,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.013759053858551917
+        },
+        {
+          "ticket_id": "T06",
+          "delta_mean_probability": 0.005994008315699295,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.01664408153004815
+        },
+        {
+          "ticket_id": "T07",
+          "delta_mean_probability": 0.0030396751646339926,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.029564766350100857
+        },
+        {
+          "ticket_id": "T08",
+          "delta_mean_probability": 0.006273157164013998,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.043728598138089714
+        },
+        {
+          "ticket_id": "T09",
+          "delta_mean_probability": -0.0013309640185799874,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.002090247169497495
+        },
+        {
+          "ticket_id": "T10",
+          "delta_mean_probability": -0.003843453240755624,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.037911291236486504
+        },
+        {
+          "ticket_id": "T11",
+          "delta_mean_probability": -0.026209846543068453,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.02744161565972858
+        },
+        {
+          "ticket_id": "T12",
+          "delta_mean_probability": -0.0017313057867337682,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0789957142684522
+        },
+        {
+          "ticket_id": "T13",
+          "delta_mean_probability": -0.005537455359942684,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0008564080490985418
+        },
+        {
+          "ticket_id": "T14",
+          "delta_mean_probability": -0.017668862227534318,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.006327491783225225
+        },
+        {
+          "ticket_id": "T15",
+          "delta_mean_probability": -0.005137343634756535,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0007186244387682407
+        },
+        {
+          "ticket_id": "T16",
+          "delta_mean_probability": -0.003948847042613207,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.007723417848435871
+        },
+        {
+          "ticket_id": "T17",
+          "delta_mean_probability": -0.0064964474714895555,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.042958787612971006
+        },
+        {
+          "ticket_id": "T18",
+          "delta_mean_probability": -0.010176391014689454,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.011689710355947833
+        },
+        {
+          "ticket_id": "T19",
+          "delta_mean_probability": -0.002709979103454103,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.006180700633432018
+        },
+        {
+          "ticket_id": "T20",
+          "delta_mean_probability": -0.005374303277764805,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 5,
+          "delta_mean_severity": -0.010648372708114199
+        },
+        {
+          "ticket_id": "T21",
+          "delta_mean_probability": 0.00377636822820393,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.04342354529879966
+        },
+        {
+          "ticket_id": "T22",
+          "delta_mean_probability": -0.01116809393580606,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.057367228833031025
+        },
+        {
+          "ticket_id": "T23",
+          "delta_mean_probability": 0.024070402032982496,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0893869727335378
+        },
+        {
+          "ticket_id": "T24",
+          "delta_mean_probability": 0.04527160593179724,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.005811477805434118
+        }
+      ],
+      "median_repeat_range": 0.0,
+      "median_estimated_mean_difference_se": 0.0
+    },
+    "flash:C-B": {
+      "paired_tickets": 24,
+      "median_absolute_probability_shift": 0.0005760201510803225,
+      "max_absolute_probability_shift": 0.007575987275820761,
+      "mean_threshold_flips": 0,
+      "cases": [
+        {
+          "ticket_id": "T01",
+          "delta_mean_probability": -2.085065115786655e-06,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.01879813399508312
+        },
+        {
+          "ticket_id": "T02",
+          "delta_mean_probability": 0.00013710255351739864,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.015284313166554764
+        },
+        {
+          "ticket_id": "T03",
+          "delta_mean_probability": -0.00035414245085874096,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.016299372658917566
+        },
+        {
+          "ticket_id": "T04",
+          "delta_mean_probability": -0.0009381141816510175,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.009202143886628322
+        },
+        {
+          "ticket_id": "T05",
+          "delta_mean_probability": -0.001170792059489778,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0005404592331972324
+        },
+        {
+          "ticket_id": "T06",
+          "delta_mean_probability": -0.0006379192274674761,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.021017482902099927
+        },
+        {
+          "ticket_id": "T07",
+          "delta_mean_probability": -0.0007187481886763436,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.057403748601918325
+        },
+        {
+          "ticket_id": "T08",
+          "delta_mean_probability": -0.0011380448858719916,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.020414512170094046
+        },
+        {
+          "ticket_id": "T09",
+          "delta_mean_probability": 6.717531745581429e-07,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.00016714659457958518
+        },
+        {
+          "ticket_id": "T10",
+          "delta_mean_probability": 0.0003098119643831442,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.003549638124715872
+        },
+        {
+          "ticket_id": "T11",
+          "delta_mean_probability": 0.002294369362258011,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.004721087637460153
+        },
+        {
+          "ticket_id": "T12",
+          "delta_mean_probability": 0.00043944075800090004,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.02053105203751382
+        },
+        {
+          "ticket_id": "T13",
+          "delta_mean_probability": 0.0005906313657010336,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0005230122873994508
+        },
+        {
+          "ticket_id": "T14",
+          "delta_mean_probability": -0.0005614089364596115,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.010325430867647034
+        },
+        {
+          "ticket_id": "T15",
+          "delta_mean_probability": 6.100554546778795e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0022520364743162666
+        },
+        {
+          "ticket_id": "T16",
+          "delta_mean_probability": 0.00022341223403909093,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.005288669441499906
+        },
+        {
+          "ticket_id": "T17",
+          "delta_mean_probability": 7.94099910548054e-05,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0028881924067634124
+        },
+        {
+          "ticket_id": "T18",
+          "delta_mean_probability": 0.002995065697861861,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.050314671707097136
+        },
+        {
+          "ticket_id": "T19",
+          "delta_mean_probability": 0.0005437496700866754,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0004075437498163195
+        },
+        {
+          "ticket_id": "T20",
+          "delta_mean_probability": 0.0041726476969792085,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 5,
+          "delta_mean_severity": 0.00242711449171561
+        },
+        {
+          "ticket_id": "T21",
+          "delta_mean_probability": -0.0004897021907230847,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.049320982629413646
+        },
+        {
+          "ticket_id": "T22",
+          "delta_mean_probability": 0.0026627750333971054,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.005797548186402348
+        },
+        {
+          "ticket_id": "T23",
+          "delta_mean_probability": -0.007575987275820761,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0024616807330987145
+        },
+        {
+          "ticket_id": "T24",
+          "delta_mean_probability": -0.004347161684373546,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0045978606783201315
+        }
+      ],
+      "median_repeat_range": 0.0,
+      "median_estimated_mean_difference_se": 0.0
+    },
+    "jev:B-A": {
+      "paired_tickets": 24,
+      "median_absolute_probability_shift": 0.0,
+      "max_absolute_probability_shift": 0.004,
+      "mean_threshold_flips": 0,
+      "cases": [
+        {
+          "ticket_id": "T01",
+          "delta_mean_probability": 0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.010000000000000009,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0020000000000000018,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.004000000000000448
+        },
+        {
+          "ticket_id": "T02",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.0020000000000000018
+        },
+        {
+          "ticket_id": "T03",
+          "delta_mean_probability": -0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.010000000000000009,
+          "right_repeat_range": 0.010000000000000009,
+          "estimated_mean_difference_se": 0.0031622776601683824,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T04",
+          "delta_mean_probability": 0.002000000000000113,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.010000000000000009,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0020000000000000018,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T05",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T06",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T07",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.004000000000000448
+        },
+        {
+          "ticket_id": "T08",
+          "delta_mean_probability": 0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.010000000000000009,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0020000000000000018,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T09",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T10",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.009999999999999953
+        },
+        {
+          "ticket_id": "T11",
+          "delta_mean_probability": -0.0019999999999999983,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.009999999999999998,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0019999999999999996,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T12",
+          "delta_mean_probability": -0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.01,
+          "right_repeat_range": 0.01,
+          "estimated_mean_difference_se": 0.0031622776601683794,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T13",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T14",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T15",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T16",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T17",
+          "delta_mean_probability": -0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.010000000000000002,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0020000000000000005,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T18",
+          "delta_mean_probability": -0.004,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.01,
+          "right_repeat_range": 0.01,
+          "estimated_mean_difference_se": 0.0031622776601683794,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T19",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T20",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T21",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T22",
+          "delta_mean_probability": 0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.009999999999999998,
+          "right_repeat_range": 0.009999999999999998,
+          "estimated_mean_difference_se": 0.0034641016151377543,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.05600000000000005
+        },
+        {
+          "ticket_id": "T23",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.020000000000000018,
+          "right_repeat_range": 0.03,
+          "estimated_mean_difference_se": 0.0061644140029689775,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.008000000000000007
+        },
+        {
+          "ticket_id": "T24",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.020000000000000018,
+          "right_repeat_range": 0.010000000000000009,
+          "estimated_mean_difference_se": 0.004242640687119289,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        }
+      ],
+      "median_repeat_range": 0.0,
+      "median_estimated_mean_difference_se": 0.0
+    },
+    "jev:C-B": {
+      "paired_tickets": 24,
+      "median_absolute_probability_shift": 0.0,
+      "max_absolute_probability_shift": 0.004000000000000115,
+      "mean_threshold_flips": 0,
+      "cases": [
+        {
+          "ticket_id": "T01",
+          "delta_mean_probability": -0.0040000000000000036,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.010000000000000009,
+          "estimated_mean_difference_se": 0.0024494897427831805,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T02",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0020000000000000018
+        },
+        {
+          "ticket_id": "T03",
+          "delta_mean_probability": 0.0040000000000000036,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.010000000000000009,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0024494897427831805,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T04",
+          "delta_mean_probability": -0.004000000000000115,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.010000000000000009,
+          "estimated_mean_difference_se": 0.0024494897427831805,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T05",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T06",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.002000000000000446
+        },
+        {
+          "ticket_id": "T07",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T08",
+          "delta_mean_probability": -0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.010000000000000009,
+          "estimated_mean_difference_se": 0.0020000000000000018,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.002000000000000446
+        },
+        {
+          "ticket_id": "T09",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T10",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.00599999999999995
+        },
+        {
+          "ticket_id": "T11",
+          "delta_mean_probability": 0.004,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.009999999999999998,
+          "estimated_mean_difference_se": 0.002449489742783178,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T12",
+          "delta_mean_probability": 0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.01,
+          "right_repeat_range": 0.01,
+          "estimated_mean_difference_se": 0.0031622776601683794,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T13",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T14",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T15",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T16",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T17",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T18",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.01,
+          "right_repeat_range": 0.01,
+          "estimated_mean_difference_se": 0.0028284271247461905,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T19",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T20",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T21",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.0,
+          "right_repeat_range": 0.0,
+          "estimated_mean_difference_se": 0.0,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        },
+        {
+          "ticket_id": "T22",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.009999999999999998,
+          "right_repeat_range": 0.009999999999999998,
+          "estimated_mean_difference_se": 0.0034641016151377543,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.050000000000000044
+        },
+        {
+          "ticket_id": "T23",
+          "delta_mean_probability": 0.0,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.03,
+          "right_repeat_range": 0.020000000000000018,
+          "estimated_mean_difference_se": 0.0061644140029689775,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": -0.008000000000000007
+        },
+        {
+          "ticket_id": "T24",
+          "delta_mean_probability": -0.0020000000000000018,
+          "mean_threshold_flip": false,
+          "left_repeat_range": 0.010000000000000009,
+          "right_repeat_range": 0.020000000000000018,
+          "estimated_mean_difference_se": 0.0037416573867739447,
+          "team_repeat_disagreements": 0,
+          "delta_mean_severity": 0.0
+        }
+      ],
+      "median_repeat_range": 0.0,
+      "median_estimated_mean_difference_se": 0.0
+    }
+  },
+  "paired_quality": {
+    "standard:B-A": {
+      "lost_data": {
+        "metric": "Brier",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.000546938501834004,
+        "right": 0.0025080810545867476,
+        "delta": 0.0019611425527527437,
+        "actions": {
+          "missed_positive": {
+            "labelled_tickets": 10,
+            "A": 0.0,
+            "B": 0.0
+          },
+          "unnecessary_review": {
+            "labelled_tickets": 14,
+            "A": 0.0,
+            "B": 0.0
+          }
+        }
+      },
+      "team": {
+        "metric": "error_rate",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.0,
+        "right": 0.0,
+        "delta": 0.0,
+        "routing_baseline": {
+          "policy": "always Technical Support",
+          "labelled_tickets": 24,
+          "correct": 18,
+          "accuracy": 0.75
+        }
+      },
+      "severity": {
+        "metric": "MAE",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.025594370724486157,
+        "right": 0.014360568579554775,
+        "delta": -0.011233802144931382
+      }
+    },
+    "standard:C-B": {
+      "lost_data": {
+        "metric": "Brier",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.0025080810545867476,
+        "right": 0.0040452688393631964,
+        "delta": 0.0015371877847764489,
+        "actions": {
+          "missed_positive": {
+            "labelled_tickets": 10,
+            "B": 0.0,
+            "C": 0.0
+          },
+          "unnecessary_review": {
+            "labelled_tickets": 14,
+            "B": 0.0,
+            "C": 0.0
+          }
+        }
+      },
+      "team": {
+        "metric": "error_rate",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.0,
+        "right": 0.0,
+        "delta": 0.0,
+        "routing_baseline": {
+          "policy": "always Technical Support",
+          "labelled_tickets": 24,
+          "correct": 18,
+          "accuracy": 0.75
+        }
+      },
+      "severity": {
+        "metric": "MAE",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.014360568579554775,
+        "right": 0.009760007117905945,
+        "delta": -0.00460056146164883
+      }
+    },
+    "flash:B-A": {
+      "lost_data": {
+        "metric": "Brier",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.025265733073433636,
+        "right": 0.026558310214360035,
+        "delta": 0.0012925771409263986,
+        "actions": {
+          "missed_positive": {
+            "labelled_tickets": 10,
+            "A": 0.0,
+            "B": 0.0
+          },
+          "unnecessary_review": {
+            "labelled_tickets": 14,
+            "A": 0.0,
+            "B": 0.0
+          }
+        }
+      },
+      "team": {
+        "metric": "error_rate",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.041666666666666664,
+        "right": 0.0,
+        "delta": -0.041666666666666664,
+        "routing_baseline": {
+          "policy": "always Technical Support",
+          "labelled_tickets": 24,
+          "correct": 18,
+          "accuracy": 0.75
+        }
+      },
+      "severity": {
+        "metric": "MAE",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.039828903241926956,
+        "right": 0.04860180147132553,
+        "delta": 0.00877289822939857
+      }
+    },
+    "flash:C-B": {
+      "lost_data": {
+        "metric": "Brier",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.026558310214360035,
+        "right": 0.02607313062896098,
+        "delta": -0.0004851795853990544,
+        "actions": {
+          "missed_positive": {
+            "labelled_tickets": 10,
+            "B": 0.0,
+            "C": 0.0
+          },
+          "unnecessary_review": {
+            "labelled_tickets": 14,
+            "B": 0.0,
+            "C": 0.0
+          }
+        }
+      },
+      "team": {
+        "metric": "error_rate",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.0,
+        "right": 0.041666666666666664,
+        "delta": 0.041666666666666664,
+        "routing_baseline": {
+          "policy": "always Technical Support",
+          "labelled_tickets": 24,
+          "correct": 18,
+          "accuracy": 0.75
+        }
+      },
+      "severity": {
+        "metric": "MAE",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.04860180147132553,
+        "right": 0.056789161663003095,
+        "delta": 0.008187360191677567
+      }
+    },
+    "jev:B-A": {
+      "lost_data": {
+        "metric": "Brier",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.002595833333333334,
+        "right": 0.0025725000000000006,
+        "delta": -2.333333333333354e-05,
+        "actions": {
+          "missed_positive": {
+            "labelled_tickets": 10,
+            "A": 0.0,
+            "B": 0.0
+          },
+          "unnecessary_review": {
+            "labelled_tickets": 14,
+            "A": 0.0,
+            "B": 0.0
+          }
+        }
+      },
+      "team": {
+        "metric": "error_rate",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.0,
+        "right": 0.0,
+        "delta": 0.0,
+        "routing_baseline": {
+          "policy": "always Technical Support",
+          "labelled_tickets": 24,
+          "correct": 18,
+          "accuracy": 0.75
+        }
+      },
+      "severity": {
+        "metric": "MAE",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.04666666666666667,
+        "right": 0.04416666666666667,
+        "delta": -0.0025000000000000022
+      }
+    },
+    "jev:C-B": {
+      "lost_data": {
+        "metric": "Brier",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.0025725000000000006,
+        "right": 0.0026150000000000006,
+        "delta": 4.25e-05,
+        "actions": {
+          "missed_positive": {
+            "labelled_tickets": 10,
+            "B": 0.0,
+            "C": 0.0
+          },
+          "unnecessary_review": {
+            "labelled_tickets": 14,
+            "B": 0.0,
+            "C": 0.0
+          }
+        }
+      },
+      "team": {
+        "metric": "error_rate",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.0,
+        "right": 0.0,
+        "delta": 0.0,
+        "routing_baseline": {
+          "policy": "always Technical Support",
+          "labelled_tickets": 24,
+          "correct": 18,
+          "accuracy": 0.75
+        }
+      },
+      "severity": {
+        "metric": "MAE",
+        "paired_tickets": 24,
+        "ticket_ids": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24"
+        ],
+        "excluded_labelled_tickets": 0,
+        "left": 0.04416666666666667,
+        "right": 0.04558333333333334,
+        "delta": 0.0014166666666666702
+      }
+    }
+  },
+  "cohort_quality": {
+    "standard:B-A": {
+      "clear_missing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 5.196234400347836e-07,
+          "right": 9.123084599981358e-08,
+          "delta": -4.2839259403497e-07,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 8,
+              "A": 0.0,
+              "B": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 0,
+              "A": null,
+              "B": null
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 8,
+            "accuracy": 1.0
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0060556730770426614,
+          "right": 0.001350121906702445,
+          "delta": -0.004705551170340216
+        }
+      },
+      "clear_nonmissing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 1.8367817418119491e-06,
+          "right": 2.416838816702543e-07,
+          "delta": -1.595097860141695e-06,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 0,
+              "A": null,
+              "B": null
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 8,
+              "A": 0.0,
+              "B": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 4,
+            "accuracy": 0.5
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.007557547919606007,
+          "right": 0.011632469116423256,
+          "delta": 0.004074921196817249
+        }
+      },
+      "difficult": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0016384591003201652,
+          "right": 0.007523910249032572,
+          "delta": 0.005885451148712407,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 2,
+              "A": 0.0,
+              "B": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 6,
+              "A": 0.0,
+              "B": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 6,
+            "accuracy": 0.75
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0631698911768098,
+          "right": 0.03009911471553862,
+          "delta": -0.03307077646127117
+        }
+      }
+    },
+    "standard:C-B": {
+      "clear_missing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 9.123084599981358e-08,
+          "right": 4.8745275416851247e-08,
+          "delta": -4.248557058296233e-08,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 8,
+              "B": 0.0,
+              "C": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 0,
+              "B": null,
+              "C": null
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 8,
+            "accuracy": 1.0
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.001350121906702445,
+          "right": 0.0007604252002661183,
+          "delta": -0.0005896967064363268
+        }
+      },
+      "clear_nonmissing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 2.416838816702543e-07,
+          "right": 5.549620924107142e-07,
+          "delta": 3.132782107404599e-07,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 0,
+              "B": null,
+              "C": null
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 8,
+              "B": 0.0,
+              "C": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 4,
+            "accuracy": 0.5
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.011632469116423256,
+          "right": 0.005776111681655591,
+          "delta": -0.005856357434767665
+        }
+      },
+      "difficult": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.007523910249032572,
+          "right": 0.012135202810721762,
+          "delta": 0.004611292561689189,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 2,
+              "B": 0.0,
+              "C": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 6,
+              "B": 0.0,
+              "C": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 6,
+            "accuracy": 0.75
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.03009911471553862,
+          "right": 0.022743484471796128,
+          "delta": -0.007355630243742493
+        }
+      }
+    },
+    "flash:B-A": {
+      "clear_missing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.00012087802763424508,
+          "right": 2.5221443003851476e-05,
+          "delta": -9.56565846303936e-05,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 8,
+              "A": 0.0,
+              "B": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 0,
+              "A": null,
+              "B": null
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 8,
+            "accuracy": 1.0
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.04876707185185297,
+          "right": 0.06075358864485214,
+          "delta": 0.011986516792999169
+        }
+      },
+      "clear_nonmissing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0002671331546302475,
+          "right": 2.245794264236062e-05,
+          "delta": -0.00024467521198788685,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 0,
+              "A": null,
+              "B": null
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 8,
+              "A": 0.0,
+              "B": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 4,
+            "accuracy": 0.5
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.016001186551241088,
+          "right": 0.022120940663555005,
+          "delta": 0.006119754112313917
+        }
+      },
+      "difficult": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.07540918803803642,
+          "right": 0.0796272512574339,
+          "delta": 0.00421806321939748,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 2,
+              "A": 0.0,
+              "B": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 6,
+              "A": 0.0,
+              "B": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.125,
+          "right": 0.0,
+          "delta": -0.125,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 6,
+            "accuracy": 0.75
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.054718451322686816,
+          "right": 0.06293087510556941,
+          "delta": 0.008212423782882596
+        }
+      }
+    },
+    "flash:C-B": {
+      "clear_missing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 2.5221443003851476e-05,
+          "right": 3.187216881634235e-05,
+          "delta": 6.650725812490875e-06,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 8,
+              "B": 0.0,
+              "C": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 0,
+              "B": null,
+              "C": null
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 8,
+            "accuracy": 1.0
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.06075358864485214,
+          "right": 0.07538486662084101,
+          "delta": 0.014631277975988871
+        }
+      },
+      "clear_nonmissing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 2.245794264236062e-05,
+          "right": 2.9387002581701666e-05,
+          "delta": 6.929059939341045e-06,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 0,
+              "B": null,
+              "C": null
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 8,
+              "B": 0.0,
+              "C": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 4,
+            "accuracy": 0.5
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.022120940663555005,
+          "right": 0.01914630721104128,
+          "delta": -0.0029746334525137252
+        }
+      },
+      "difficult": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0796272512574339,
+          "right": 0.0781581327154849,
+          "delta": -0.001469118541949005,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 2,
+              "B": 0.0,
+              "C": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 6,
+              "B": 0.0,
+              "C": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.125,
+          "delta": 0.125,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 6,
+            "accuracy": 0.75
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.06293087510556941,
+          "right": 0.07583631115712697,
+          "delta": 0.012905436051557556
+        }
+      }
+    },
+    "jev:B-A": {
+      "clear_missing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0009900000000000017,
+          "right": 0.0009600000000000018,
+          "delta": -2.999999999999997e-05,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 8,
+              "A": 0.0,
+              "B": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 0,
+              "A": null,
+              "B": null
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 8,
+            "accuracy": 1.0
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.004750000000000004,
+          "right": 0.0040000000000000036,
+          "delta": -0.0007500000000000007
+        }
+      },
+      "clear_nonmissing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.00020250000000000002,
+          "right": 0.00018250000000000002,
+          "delta": -1.9999999999999998e-05,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 0,
+              "A": null,
+              "B": null
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 8,
+              "A": 0.0,
+              "B": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 4,
+            "accuracy": 0.5
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.027500000000000004,
+          "right": 0.028749999999999998,
+          "delta": 0.0012499999999999942
+        }
+      },
+      "difficult": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.006595,
+          "right": 0.006575,
+          "delta": -2.0000000000000052e-05,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 2,
+              "A": 0.0,
+              "B": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 6,
+              "A": 0.0,
+              "B": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 6,
+            "accuracy": 0.75
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.10775,
+          "right": 0.09974999999999999,
+          "delta": -0.008000000000000007
+        }
+      }
+    },
+    "jev:C-B": {
+      "clear_missing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0009600000000000018,
+          "right": 0.0010025000000000019,
+          "delta": 4.250000000000011e-05,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 8,
+              "B": 0.0,
+              "C": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 0,
+              "B": null,
+              "C": null
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 8,
+            "accuracy": 1.0
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T01",
+            "T02",
+            "T03",
+            "T04",
+            "T05",
+            "T06",
+            "T07",
+            "T08"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0040000000000000036,
+          "right": 0.0037500000000000033,
+          "delta": -0.0002500000000000002
+        }
+      },
+      "clear_nonmissing": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.00018250000000000002,
+          "right": 0.00021500000000000002,
+          "delta": 3.2500000000000004e-05,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 0,
+              "B": null,
+              "C": null
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 8,
+              "B": 0.0,
+              "C": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 4,
+            "accuracy": 0.5
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T09",
+            "T10",
+            "T11",
+            "T12",
+            "T13",
+            "T14",
+            "T15",
+            "T16"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.028749999999999998,
+          "right": 0.028000000000000004,
+          "delta": -0.0007499999999999937
+        }
+      },
+      "difficult": {
+        "lost_data": {
+          "metric": "Brier",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.006575,
+          "right": 0.0066275,
+          "delta": 5.2499999999999596e-05,
+          "actions": {
+            "missed_positive": {
+              "labelled_tickets": 2,
+              "B": 0.0,
+              "C": 0.0
+            },
+            "unnecessary_review": {
+              "labelled_tickets": 6,
+              "B": 0.0,
+              "C": 0.0
+            }
+          }
+        },
+        "team": {
+          "metric": "error_rate",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.0,
+          "right": 0.0,
+          "delta": 0.0,
+          "routing_baseline": {
+            "policy": "always Technical Support",
+            "labelled_tickets": 8,
+            "correct": 6,
+            "accuracy": 0.75
+          }
+        },
+        "severity": {
+          "metric": "MAE",
+          "paired_tickets": 8,
+          "ticket_ids": [
+            "T17",
+            "T18",
+            "T19",
+            "T20",
+            "T21",
+            "T22",
+            "T23",
+            "T24"
+          ],
+          "excluded_labelled_tickets": 0,
+          "left": 0.09974999999999999,
+          "right": 0.105,
+          "delta": 0.005250000000000005
+        }
+      }
+    }
+  },
+  "routing_baseline": {
+    "policy": "always Technical Support",
+    "labelled_tickets": 24,
+    "correct": 18,
+    "accuracy": 0.75
+  },
+  "analysis_note": "Paired quality uses a common complete labelled ticket set per question and comparison. Condition tables are unpaired descriptive summaries. Noise SE assumes independent repeated calls; five repeats are too few for strong inference.",
+  "numerical_consistency": {
+    "validation_policy": "format-v2-numerical-warnings-v1",
+    "warning_count": 34,
+    "responses_with_warnings": 34,
+    "warning_counts_by_code": {
+      "score_probability_mismatch": 34
+    },
+    "warnings": [
+      {
+        "request_id": "1:jev:T24:A:severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "A",
+        "repeat": 1,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "1:jev:T01:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T01",
+        "condition": "C",
+        "repeat": 1,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "1:jev:T01:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T01",
+        "condition": "B",
+        "repeat": 1,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "1:jev:T06:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T06",
+        "condition": "B",
+        "repeat": 1,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "1:jev:T22:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T22",
+        "condition": "C",
+        "repeat": 1,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.67,
+        "comparison_value": 0.66,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T08:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T08",
+        "condition": "B",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T06:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T06",
+        "condition": "C",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T24:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "B",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T22:A:severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T22",
+        "condition": "A",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.61,
+        "comparison_value": 0.6,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T07:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T07",
+        "condition": "C",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T01:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T01",
+        "condition": "C",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T08:A:severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T08",
+        "condition": "A",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T10:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T10",
+        "condition": "B",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.24,
+        "comparison_value": 0.23,
+        "difference": 0.009999999999999981,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T22:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T22",
+        "condition": "B",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.6,
+        "comparison_value": 0.59,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T08:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T08",
+        "condition": "C",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T24:A:severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "A",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "2:jev:T06:A:severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T06",
+        "condition": "A",
+        "repeat": 2,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "3:jev:T23:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T23",
+        "condition": "C",
+        "repeat": 3,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.15,
+        "comparison_value": 1.16,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "3:jev:T24:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "B",
+        "repeat": 3,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "3:jev:T24:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "C",
+        "repeat": 3,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "3:jev:T22:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T22",
+        "condition": "B",
+        "repeat": 3,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.61,
+        "comparison_value": 0.6,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "4:jev:T06:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T06",
+        "condition": "C",
+        "repeat": 4,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "4:jev:T01:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T01",
+        "condition": "C",
+        "repeat": 4,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "4:jev:T24:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "C",
+        "repeat": 4,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "4:jev:T24:A:severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "A",
+        "repeat": 4,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "4:jev:T08:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T08",
+        "condition": "C",
+        "repeat": 4,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "4:jev:T22:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T22",
+        "condition": "C",
+        "repeat": 4,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.67,
+        "comparison_value": 0.66,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "4:jev:T08:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T08",
+        "condition": "B",
+        "repeat": 4,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "5:jev:T24:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "C",
+        "repeat": 5,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "5:jev:T12:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T12",
+        "condition": "C",
+        "repeat": 5,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.0,
+        "comparison_value": 1.01,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "5:jev:T22:A:severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T22",
+        "condition": "A",
+        "repeat": 5,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.63,
+        "comparison_value": 0.62,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "5:jev:T06:C:lost_data+team+severity+callback_requested",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T06",
+        "condition": "C",
+        "repeat": 5,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.99,
+        "comparison_value": 2.0,
+        "difference": -0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "5:jev:T22:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T22",
+        "condition": "B",
+        "repeat": 5,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 0.58,
+        "comparison_value": 0.57,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      },
+      {
+        "request_id": "5:jev:T24:B:lost_data+team+severity",
+        "model": "jev",
+        "provider": "typesafe",
+        "ticket_id": "T24",
+        "condition": "B",
+        "repeat": 5,
+        "question": "severity",
+        "code": "score_probability_mismatch",
+        "reported_value": 1.98,
+        "comparison_value": 1.97,
+        "difference": 0.010000000000000009,
+        "tolerance": 0.001
+      }
+    ],
+    "score_answers_preserved": 1080,
+    "metric_policy": "Quality and actions use unchanged provider-reported values, including flagged answers. Derived scores are diagnostics only. No automatic normalization or correction."
+  }
+}

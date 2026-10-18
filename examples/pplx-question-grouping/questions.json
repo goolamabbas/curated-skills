@@ -1,0 +1,28 @@
+{
+  "lost_data": {
+    "type": "noul",
+    "instructions": "Does user_content.message report currently unresolved missing previously saved data in this contact manager? Count saved records, fields, notes, groups, tags, history, or attachments as data. A report of missing data counts without proof of permanent deletion. Exclude hypothetical concerns, loss in another product, unsaved drafts, and incidents explicitly resolved or explained by a filter. Do not infer missing data from blocked access, an outage, or an empty list without evidence it previously contained saved data. Detect whether at least one person reports unresolved missing previously saved data. A simultaneous denial by another person does not erase that report unless the message explicitly establishes recovery or explains the apparent loss. This detects a report, not whether loss actually occurred."
+  },
+  "team": {
+    "type": "choice",
+    "instructions": "Choose who should handle the message about the contact manager. Technical incidents take priority when a message also includes billing. Route follow-ups about resolved technical incidents to Technical Support too. A hypothetical general-advice question without an actual incident belongs in Other / Needs Review. Use only the message, not speculation.",
+    "criteria": {
+      "Technical Support": "An actual current or past technical incident, troubleshooting request, or uncertainty that requires technical investigation. Includes missing data, failed tasks, outages, and cosmetic defects. Takes precedence over a simultaneous billing issue.",
+      "Billing": "Payments, invoices, refunds, or subscription pricing when there is no technical incident to handle.",
+      "Other / Needs Review": "Feature requests, partnerships, general how-to or hypothetical advice, or messages not assignable to the other teams."
+    }
+  },
+  "severity": {
+    "type": "score",
+    "instructions": "Rate the current unresolved operational impact described in user_content.message, not historical maximum impact or emotional tone. Use the highest supported level. Previously saved data includes records, fields, notes, groups, tags, history, and attachments. Exclude hypothetical loss, another product, unsaved drafts, and explicitly recovered incidents from data loss. An outage alone does not imply missing data. A report of unresolved missing previously saved data supports possible loss even when another person denies seeing the problem; this does not establish actual loss. An explicit recovery or explanation of the apparent loss removes that basis.",
+    "criteria": [
+      "No disruption: no current blocked task or missing saved data. Includes inquiries, minor cosmetic issues, unsaved drafts that have been reentered, and resolved incidents.",
+      "Blocked task: a current specific task or a single user is blocked, without a supported report of unresolved missing saved data or a widespread core-service outage.",
+      "Possible data loss or widespread outage: a supported current report of unresolved missing previously saved data, or multiple users unable to use the core service. Permanent deletion need not be proven."
+    ]
+  },
+  "callback_requested": {
+    "type": "noul",
+    "instructions": "Does user_content.message explicitly ask the provider to call or phone the customer? A request for a phone conversation counts. A mere mention of a previous call or a request for an email does not count."
+  }
+}

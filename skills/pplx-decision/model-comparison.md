@@ -12,6 +12,8 @@ Suppose a customer says, “After importing a CSV, my saved contacts disappeared
 
 The assessors are an analogy, and this ticket is illustrative—not a recorded model test.
 
+For an observed example, read [Can one more question change an answer you already depend on?](case-study.md). The case study explains asking separately versus together from the basics and shows what happened on 24 fictional support tickets. It investigates how changing the questionnaire affects application decisions; it does not establish an overall model winner.
+
 ## Where to start with each model
 
 | Model | A practical starting point |
@@ -65,6 +67,6 @@ No. Perplexity echoes the requested name, and a retired version name can route t
 
 </details>
 
-Provider documentation for the behavior and contracts described here was checked on **18 October 2026**. This was a documentation check, not a live model evaluation. Recheck the linked provider pages when updating an integration; use the [API snapshot](references/api-snapshot.md) for dated operational details.
+Provider documentation for the behavior and contracts described here was checked on **18 October 2026**. This page explains those documented contracts; the separate [case study](case-study.md) reports live responses from a small experiment on the same date. The experiment does not validate every documented behavior. Recheck the linked provider pages when updating an integration; use the [API snapshot](references/api-snapshot.md) for dated operational details.
 
 [Back to the Perplexity Decisions guide](README.md) · [Choose a prompt](README.md#choose-a-starting-point)

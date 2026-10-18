@@ -79,6 +79,14 @@ A **coding agent** is an AI assistant that can work with your project’s files 
 
 If the workflow also needs a written reply, retrieval, or an action, connect the appropriate components; application code controls what happens next.
 
+## See a recorded experiment
+
+Suppose your application already asks an AI which team should receive a support message. You add a question about whether the customer wants a callback. Could that change the selected team, even though the message and routing instructions stayed the same?
+
+[Read the case study: can one more question change an answer you already depend on?](case-study.md) It explains asking separately versus together from the basics, then follows actual Perplexity Standard, Flash, and Jev responses to 24 fictional support tickets. One Flash routing choice changed when the callback question was added; changes in missing-data probabilities left the review decisions unchanged.
+
+The case study shows how to check an application's behavior as its questions change. It also explains what this small experiment can and cannot tell you about choosing a model. The [model comparison](model-comparison.md) covers the providers' documented differences; the case study supplies a recorded example, with complete inputs and results.
+
 ## When to use it
 
 ### Is a decision model the right tool?
@@ -244,6 +252,8 @@ Run live calls only within an established authorization and budget.
 
 ### Evaluate an existing workflow
 
+For a worked example, read the [recorded support-ticket experiment](case-study.md). Use its comparison of existing and added questions as a starting point, then evaluate cases representative of your own application.
+
 **Outcome:** an evaluation plan for an existing workflow. Held-out cases are examples reserved for evaluation rather than used to tune the questions. Provide the workflow, its current baseline, and the errors that matter.
 
 ```text
@@ -271,6 +281,7 @@ and verify the revised application logic with offline tests. Do not deploy.
 These references are optional reading for you; the agent loads the ones needed for your task. It checks current provider documentation when implementing an integration or making current API claims. The bundled API snapshot is a dated reference, so model behavior, limits, and prices may have changed.
 
 - [How Jev, Standard, and Flash differ](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
+- [Can one more question change an existing answer?](case-study.md): a beginner walkthrough of a recorded experiment, with results, limitations, and evidence.
 - [Project opportunities](references/project-opportunities.md): investigate improvements and new capabilities.
 - [Implementation](references/implementation.md): request design, answer handling, and operational failures.
 - [Evaluation](references/evaluation.md): representative cases, thresholds, and whole-workflow measurements.

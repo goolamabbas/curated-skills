@@ -1,0 +1,9 @@
+{
+  "completed": true,
+  "accounted_cost_usd": "0.025413520",
+  "attempts_by_model": {
+    "flash": 600,
+    "jev": 600,
+    "standard": 601
+  }
+}

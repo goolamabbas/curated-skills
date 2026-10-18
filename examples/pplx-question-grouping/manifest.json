@@ -1,0 +1,41 @@
+{
+  "mode": "live",
+  "created_at": "2026-10-18T07:46:47.673377+00:00",
+  "input_hashes": {
+    "tickets.json": "b01fa712c1284a74c8256690ab4c5d846a3accdaf8ccb11fe661de1712648abe",
+    "labels.json": "759c53a78b946ae8a1f7038715ca74ead170b153a1c776d0655e106368f0e1e8",
+    "questions.json": "91856bbce9b3530856c8c1e6f1e68f4ca5e9ea4fb6b5ac0ade29689718a9c031",
+    "protocol.json": "12924a77cb1e2893d58a81c393da611d3071a2c9e6cd1950fdd9d8c01243b85a"
+  },
+  "schedule_sha256": "6df7442da8c7b4c432316b4a4a876842941247f0577b15c0f2cc2af8e06eb762",
+  "requests": 1800,
+  "runner_sha256": "00edd267016d80511cdd1ad500a4c3642fcfee5350ba28465d45e63eb4422c0e",
+  "validation_policy": "format-v2-numerical-warnings-v1",
+  "cost_estimate": {
+    "standard": {
+      "requests": 600,
+      "estimated_input_tokens": 356280,
+      "estimated_usd": "0.0071256",
+      "max_request_bytes": 3675
+    },
+    "flash": {
+      "requests": 600,
+      "estimated_input_tokens": 357200,
+      "estimated_usd": "0.003572",
+      "max_request_bytes": 3681
+    },
+    "jev": {
+      "requests": 600,
+      "estimated_input_tokens": 355220,
+      "estimated_usd": "0.01491924",
+      "max_request_bytes": 3668
+    },
+    "total_estimated_usd": "0.02561684",
+    "method": "Serialized UTF-8-decoded character count / 4, rounded up, plus 50 tokens/request. Heuristic, not provider tokenizer or actual billing."
+  },
+  "operator_attestations": {
+    "live_authorized": true,
+    "draft_labels_reviewed": true,
+    "budget_usd": "0.50"
+  }
+}

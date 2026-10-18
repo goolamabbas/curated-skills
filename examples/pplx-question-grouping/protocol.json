@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "status": "draft_for_review",
+  "documentation_checked": "2026-10-18",
+  "models": {
+    "standard": {
+      "name": "pplx-decider-v1.2",
+      "usd_per_million_input": "0.02",
+      "provider": "perplexity"
+    },
+    "flash": {
+      "name": "pplx-decider-flash-v1.2",
+      "usd_per_million_input": "0.01",
+      "provider": "perplexity"
+    },
+    "jev": {
+      "name": "jev-1.13.0",
+      "usd_per_million_input": "0.042",
+      "provider": "typesafe"
+    }
+  },
+  "repeats": 5,
+  "seed": 20261018,
+  "review_threshold": 0.8,
+  "max_attempts_per_model": 660,
+  "max_attempts_per_request": 3,
+  "requests_per_second": 2,
+  "timeout_seconds": 30,
+  "budget_usd": "0.50",
+  "max_request_bytes": 8000,
+  "reserve_input_tokens_per_attempt": 8192,
+  "estimated_chars_per_token": 4,
+  "estimated_overhead_tokens": 50,
+  "sources": [
+    "https://docs.perplexity.ai/docs/decisions/quickstart",
+    "https://docs.perplexity.ai/api-reference/decisions-post",
+    "https://docs.typesafe.ai/api",
+    "https://docs.typesafe.ai/models",
+    "https://docs.typesafe.ai/intro"
+  ],
+  "note": "Reservation is a conservative planning allowance, not a provider-guaranteed token upper bound. Refuse larger payloads. Stop if observed usage exceeds the allowance. Recheck prices before any authorized live run. Both providers bill input tokens; output is free under the checked rates. The global 2 RPS is a local policy, not verified account entitlement. Jev question isolation is a documented design, not an assumption of deterministic outputs.",
+  "providers": {
+    "perplexity": {
+      "endpoint": "https://api.perplexity.ai/v1/decisions",
+      "key_env": "PERPLEXITY_API_KEY"
+    },
+    "typesafe": {
+      "endpoint": "https://api.typesafe.ai/v1/systemone",
+      "key_env": "TYPESAFE_API_KEY"
+    }
+  },
+  "budget_authorization": {
+    "date": "2026-10-18",
+    "scope": "User-run 1800-request experiment with a maximum accounted budget of USD 0.50; no publication."
+  }
+}

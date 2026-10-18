@@ -1,0 +1,4 @@
+# Preserve frozen evidence bytes so the recorded SHA-256 values remain valid.
+examples/pplx-question-grouping/* -text
+# The original CSV exports use CRLF line endings.
+examples/pplx-question-grouping/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

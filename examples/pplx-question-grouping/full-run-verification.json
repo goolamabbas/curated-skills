@@ -1,0 +1,41 @@
+{
+  "run": "runs/full-live-001",
+  "review_date": "2026-10-18",
+  "verified_raw_responses": 1800,
+  "attempts": 1801,
+  "all_primary_cells_have_five_repeats": true,
+  "frozen_inputs_and_schedule_verified": true,
+  "condition_quality_metrics_recomputed": true,
+  "paired_probability_shift_medians_recomputed": true,
+  "missing_data_threshold_decisions_matching_labels": 1080,
+  "missing_data_threshold_flips": 0,
+  "warnings": 34,
+  "warning_models": {
+    "jev": 34
+  },
+  "warning_type": "score_probability_mismatch",
+  "absolute_warning_gap": 0.01,
+  "jev_score_answers": 360,
+  "known_usage_calculated_cost_usd": "0.025249680",
+  "unknown_usage_reserve_usd": "0.00016384",
+  "accounted_cost_usd": "0.025413520",
+  "source_file_hashes": {
+    "numerical-warnings.json": "d5778c292f68f57f3b55295c7aee2a22c98282834e72e89e8b0714b5d14ec566",
+    "labels.json": "258a4c3730f176abe12f8460130b265783ebd14dcc9656ad34a2f66ef13358d9",
+    "summary.json": "a1d9d54a17e48cff3073cbccbbfe066d939e5d616b6b70f12b113a63b835c29d",
+    "execution-status.json": "60782589c5b59751a02aa6ab2fa448b40bbe8fa76815480623dc73e8f9ec81dc",
+    "probabilities.svg": "439e796847b900c74d0d92c05281bbae3f9cffdab574975a7bd55deb736175cc",
+    "score-comparison.csv": "c147bd8487f14ba2090c859b83f316b914e388627b332a1175f327c4b62c3f08",
+    "response-diagnostics.json": "f4cc464b88e6bc154892772923252f87fc17f061eb360d2124b65eff4b59333e",
+    "report.md": "94e00c7ccd77897ea91532fe798498a0ec273f45912481ff6e3d3401967046d3",
+    "requests.jsonl": "599b23ac7deeb9fe5c2ac780fba642ea900f89c19715a49536c91411965720ad",
+    "per-ticket.csv": "e13f15be98921ed611a68708a3e22910261a012f13114a91db8a050328b86ad9",
+    "questions.json": "d4117ae48619daf29710beca69fd8e6f567dfb8fa2d8e57be5b5802c62e8f79d",
+    "results.jsonl": "f24be690579500d9ba1fb58f595b62bb94bcb7f70452452a158213b14c14e5e7",
+    "tickets.json": "ccccc314c916546136f181292ab81c60093b686e12c660f27dff35c81f24b4a1",
+    "manifest.json": "c194c80fd4ffb172b8bcbf4abf577d2df4793ca67dee3f1c5a88db585febaa7c",
+    "protocol.json": "47d86c431b4bc1b26feb17a1abf5f8e04b3546419d7fd01c0d65f5ad9d4025ff"
+  },
+  "new_api_calls": 0,
+  "published": false
+}
