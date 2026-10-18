@@ -15,25 +15,85 @@ This is a software-building skill, not a general Perplexity search tool. A direc
 
 ## Copyable examples
 
-These are starting prompts, not recorded API runs.
+These are starting prompts, not recorded API runs. Choose the scope before you copy:
+
+| Starting point | Prompt |
+| --- | --- |
+| Existing project; deciding where Decisions would help | [Explore before editing](#explore-a-project-before-editing) |
+| Existing project; a specific integration is already chosen | [Build a focused integration](#build-a-focused-integration) |
+| New project; you have state and questions in mind | [Build from state and questions](#build-a-new-project-from-state-and-questions) |
+
+A concrete integration does not require a broad opportunity audit. The skill already supplies documentation, grouping, and validation guidance; use the prompts to describe your project and intended outcome.
+
+If supplying files manually instead of installing the skill, include `SKILL.md` and the complete `references/` folder so the linked guidance remains available.
 
 ### Explore a project before editing
 
 ```text
-Use the pplx-decision skill to assess this repository for useful Perplexity
-Decisions integrations. Identify the strongest opportunity, explain the user
-benefit and tradeoffs, and propose a small experiment that could change your
-recommendation. Give recommendations only; do not modify files or make paid calls.
+Use the pplx-decision skill to assess this project.
+
+Project: [repository/path]
+Goal: [user problem or behavior to improve]
+Constraints: [stack, workload, latency, cost, privacy, or other requirements]
+
+Inspect the relevant code and assess where Perplexity Decisions could improve
+existing behavior or enable useful capabilities. Audit enough of the architecture
+to support recommendations within my goal.
+
+For the strongest opportunity, identify the available state and its sources,
+proposed questions, integration points, and application behavior after the answers.
+Compare simpler alternatives and propose the smallest useful experiment.
+
+Keep this pass read-only. Give recommendations and a proposed implementation scope;
+do not modify files or make live API calls.
 ```
 
 ### Build a focused integration
 
 ```text
-Use the pplx-decision skill to add support-ticket triage to this application.
-Preserve the existing stack. Keep permissions and actions in application code,
-handle missing or invalid results explicitly, and include offline tests.
-Treat routing thresholds as provisional until evaluated on representative tickets.
-Do not deploy or make live API calls yet.
+Use the pplx-decision skill to implement this integration.
+
+Project: [repository/path]
+Behavior to add or change: [specific outcome, such as support-ticket triage]
+Available state and sources: [fields, representative data, or relevant files]
+Behavior after the answers: [routes, rankings, flags, actions, or UI changes]
+Constraints: [requirements to preserve]
+
+Implement this behavior in the existing stack. Investigate architecture only where
+needed to resolve implementation decisions; skip a broad opportunity audit.
+Verify the affected behavior with offline tests and report remaining live-evaluation
+needs. Do not deploy or make live API calls yet.
+```
+
+### Build a new project from state and questions
+
+```text
+Use the pplx-decision skill to build a new project.
+
+Product goal: [what users should be able to do]
+Preferred stack and location: [details, or recommend a simple stack]
+Constraints: [workload, latency, cost, privacy, or other requirements]
+
+Representative state and its sources:
+[paste example JSON or describe the available fields and where they come from]
+
+Questions I have in mind:
+1. [question]
+2. [question]
+3. [question]
+
+Intended behavior after receiving answers:
+[routes, rankings, flags, actions, or UI changes]
+
+Treat the state and questions as a starting design. Refine ambiguities, identify
+missing evidence, choose decision types and grouping, and explain material changes.
+Implement the smallest complete application demonstrating the intended behavior.
+Skip a broad opportunity audit unless an unresolved architectural issue requires it.
+
+Make reasonable implementation choices; ask only when missing information materially
+changes the product. Test with representative offline fixtures and report what was
+built, what was tested, and what still needs live evaluation. Do not deploy. Run live
+calls only within an established authorization and budget.
 ```
 
 ### Evaluate an existing workflow
