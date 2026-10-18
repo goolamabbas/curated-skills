@@ -103,6 +103,14 @@ Prefer ordinary code when exact rules already work. A decision model alone will 
 
 This skill helps build software; it does not provide general Perplexity search. It may recommend a simpler approach when an integration would add little value.
 
+### What a small workflow might cost
+
+Here, **Standard** means `pplx-decider-v1.2`, and **Flash** means `pplx-decider-flash-v1.2`, Perplexity’s smaller decision model.
+
+As checked on **18 October 2026**, [Perplexity’s input-token rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing) are $0.02 per million for Standard and $0.01 for Flash, with free output tokens and no request fee.
+
+If a completed ticket uses **1,000 total billed input tokens**, one million tickets would cost about **$20 on Standard or $10 on Flash**. This assumes no additional billable calls or retries. Include questions and repeated context when estimating input; a 1,000-token message alone is not a 1,000-token workflow. Separate requests can repeat state, so measure actual `usage.input_tokens` across the whole workflow and check current prices before budgeting. Free output tokens can still appear in usage counts.
+
 ## Install this skill
 
 Use an application that supports folder-based agent skills.
@@ -118,14 +126,6 @@ Use an application that supports folder-based agent skills.
 **Supplying files manually?** Give the agent `SKILL.md` and the complete `references/` folder so it can follow the linked guidance. Keep the license with redistributed copies.
 
 Installing the skill does not provide API credentials or model-service access. Project exploration and offline tests—tests using saved example inputs without calling the model—can proceed without live inference. Calling Perplexity Decisions requires provider access and may incur charges; agree on data and spending limits before live testing, and keep credentials outside prompts and source files.
-
-### What a small workflow might cost
-
-Here, **Standard** means `pplx-decider-v1.2`, and **Flash** means `pplx-decider-flash-v1.2`, Perplexity’s smaller decision model.
-
-As checked on **18 October 2026**, [Perplexity’s input-token rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing) are $0.02 per million for Standard and $0.01 for Flash, with free output tokens and no request fee.
-
-If a completed ticket uses **1,000 total billed input tokens**, one million tickets would cost about **$20 on Standard or $10 on Flash**. This assumes no additional billable calls or retries. Include questions and repeated context when estimating input; a 1,000-token message alone is not a 1,000-token workflow. Separate requests can repeat state, so measure actual `usage.input_tokens` across the whole workflow and check current prices before budgeting. Free output tokens can still appear in usage counts.
 
 ## Choose a starting point
 

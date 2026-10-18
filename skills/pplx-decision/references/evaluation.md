@@ -61,6 +61,18 @@ important probability on extreme levels.
 
 Keep examples from documentation as examples, not universal cutoffs.
 
+### Optional confidence diagnostic
+
+During an already-authorized evaluation, optionally log the provider's returned
+`confidence` beside a statistic computed from its `probabilities` using the
+[documented TypeSafe formula](https://docs.typesafe.ai/confidence) for that question
+type. Preserve the rubric's numeric level order for scores, and record the formula
+and source date used. This requires no additional inference calls and lets you
+compare the returned field with a consistently computed statistic. Keep them as
+separate fields: the derived value is not automatically better calibrated or more
+reliable, and its action thresholds still need evaluation against labelled outcomes.
+This diagnostic does not test question-grouping effects; evaluate those separately.
+
 ## Measure the full workflow
 
 Measure end-to-end latency, usage, throughput, retries, fallbacks, and
