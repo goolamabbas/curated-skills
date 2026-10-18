@@ -81,11 +81,9 @@ If the workflow also needs a written reply, retrieval, or an action, connect the
 
 ## See a recorded experiment
 
-Suppose your application already asks an AI which team should receive a support message. You add a question about whether the customer wants a callback. Could that change the selected team, even though the message and routing instructions stayed the same?
+Suppose your application uses a decision model to choose a support team. You add a question about whether the customer wants a callback. Could the chosen team change even though the message and routing instructions stay the same?
 
-[Read the case study: when an extra question changes an application's decision](case-study.md) It explains the models' documented differences before following their responses to 24 fictional support tickets. Standard and Jev kept their team choices across arrangements; Flash changed one choice on a message with a disputed expected label. Missing-data probabilities changed without crossing the chosen review cutoff, with one Flash result close to the boundary.
-
-The case study shows how to check an application's behavior as its questions change. It also explains what this small experiment can and cannot tell you about choosing a model. The [model comparison](model-comparison.md) covers the providers' documented differences; the case study supplies a recorded example, with complete inputs and results.
+[Read the case study: when an extra question changes an application's decision](case-study.md). Follow Standard, Flash, and Jev through 24 fictional support messages to see how question grouping can affect an application, and how to check your own workflow. For the documented differences behind the experiment, see the [model comparison](model-comparison.md).
 
 ## When to use it
 
@@ -157,7 +155,8 @@ Use the pplx-decision skill to build a small support-ticket triage demo in a new
 folder called support-triage-demo. Recommend a simple stack.
 
 State: the customer message is "After importing a CSV, my saved contacts disappeared."
-The product is a contact manager. Available teams are Technical Support and Billing.
+The product is a contact manager. Available teams are Technical Support, Billing,
+and Other / Needs Review for messages outside those categories or needing review.
 
 Questions:
 1. Does the message report lost data?

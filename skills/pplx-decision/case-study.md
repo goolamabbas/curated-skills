@@ -8,7 +8,7 @@ To understand the test, start with a **request**: one submission to the model co
 
 ## What the providers say to expect
 
-[Perplexity documents](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request) that Standard and Flash let questions in the same request influence one another. For Flash, its suggested starting point is one question per request, with grouped routing among the exceptions to test. [TypeSafe documents](https://docs.typesafe.ai/introduction) that Jev evaluates each question independently against the same information. The [model comparison](model-comparison.md) explains these differences in more detail.
+[Perplexity documents](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request) that Standard and Flash let questions in the same request influence one another. For Flash, it recommends one question per request by default, grouping only select-all-that-apply decisions or steps of one routing decision, and checking those on the intended task. [TypeSafe documents](https://docs.typesafe.ai/introduction) that Jev evaluates each question independently against the same information. The [model comparison](model-comparison.md) explains these differences in more detail.
 
 These designs give developers different starting assumptions. Keeping an existing answer unchanged may be an application requirement, but Perplexity does not promise that adding a grouped question will leave it unchanged. Our experiment asks what those documented differences mean for one application's decisions.
 
@@ -32,7 +32,9 @@ The model supplies judgments; the application's rules determine what happens nex
 
 ## Asking separately and asking together
 
-The developer can send the customer message three times, asking one question in each request, or send it once with all three questions. We compared those arrangements, then added the callback question to the grouped request.
+The developer can send the customer message three times, asking one question per request, or send it once with all three questions. Grouping avoids repeatedly billing that shared message in Perplexity's API. Related questions can also improve some judgments on Standard. Those potential benefits make grouping worth evaluating alongside changes in answers.
+
+We compared both arrangements, then added the callback question to the grouped request. Our grouped arrangements combine missing-data detection, team selection, and severity; they should not automatically be treated as steps of one routing decision within Flash's documented exception.
 
 | Arrangement | What the application sends |
 | --- | --- |
@@ -42,9 +44,7 @@ The developer can send the customer message three times, asking one question in 
 
 The application ignored the callback answer, but the added question was still part of the model's input. That distinction matters: unused by the application does not mean invisible to the model.
 
-Comparing A with B tests asking separately versus together. Comparing B with C tests adding this callback question to a grouped request. The message and original question wording stay fixed. The experiment does not separate the effect of the added question's meaning from other effects of changing the request.
-
-We did not test adding the callback question as a separate fourth request. The B-to-C comparison therefore concerns grouped requests; it does not evaluate that separate-request alternative.
+Comparing A with B tests asking separately versus together. Comparing B with C tests adding the callback question to an already-grouped request. The message and original question wording stay fixed. We did not test adding the callback as a separate fourth request.
 
 ## What we tested
 
@@ -107,13 +107,11 @@ We chose these two examples after inspecting the results: the unsaved-draft mess
 
 **Evaluate both the model and the questions you plan to send together.** The documented designs suggest different checks:
 
-- **Jev:** distinguish question isolation from variation across repeated calls. Its small differences between arrangements are consistent with its documented design, but this experiment does not independently prove that mechanism. Check repeated answers against the margins around your application's cutoffs.
-- **Standard:** test whether grouping related questions helps the decisions you need, and recheck existing answers when the question set changes. Here, grouping brought severity scores closer to the accepted labels while moving missing-data probabilities farther from theirs; no single arrangement improved every measure.
-- **Flash:** start with the documented one-question-per-request default. Test any grouped routing arrangement on your own cases. Our observed callback effect concerns a grouped request, not adding a separate call.
+- **Jev:** question isolation does not guarantee identical answers across repeated calls. Check repeat variation against the margins around your application's cutoffs.
+- **Standard:** test whether grouping related questions helps the decisions you need, and recheck existing answers when the question set changes.
+- **Flash:** start with one question per request. Test select-all-that-apply decisions or steps of one routing decision before grouping them in your application.
 
-Jev's largest change between arrangement averages was 0.4 percentage points for missing-data probability; repeated identical requests varied by up to 3 points. Those are different comparisons. Small differences between arrangements could reflect ordinary variation between calls. Standard and Flash repeated identical missing-data probabilities and severity scores in this run, which is not a guarantee for future calls. The supporting section gives the full variation measures.
-
-Using the same arrangements across models helps compare their sensitivity to those arrangements. It does not compare each model's best possible deployment. Choosing a model still requires **decision quality on representative cases**, **behavior when questions change**, and **cost, response time, and reliability for the completed workflow**. These results do not justify “Jev is always stable,” “Flash is unsuitable,” or “Standard is the best model.”
+The same arrangements let us compare sensitivity to those arrangements, not each model's best possible deployment. Choose using **decision quality on representative cases**, **behavior when questions change**, and **cost, response time, and reliability for the completed workflow**.
 
 ## Try the same check in your application
 
@@ -148,6 +146,8 @@ The **Brier score** is the average squared gap between a missing-data probabilit
 
 Team choices were consistent across the five repetitions of each ticket/arrangement combination. These measures use the original accepted labels, including the disputed team assignment for T20. Brier and severity MAE summarize numerical error; they do not directly measure how many application actions changed or establish probability calibration on real support traffic.
 
+Standard's increase in missing-data Brier score is driven by T23, the empty-workspace message; changes on the other tickets collectively offset a small part of that increase. Its severity MAE decreased with grouping, but there was no severity action rule. These aggregate movements do not establish a general benefit or disadvantage from grouping.
+
 </details>
 
 <details>
@@ -155,7 +155,7 @@ Team choices were consistent across the five repetitions of each ticket/arrangem
 
 There are 72 message/arrangement combinations per model: 24 messages under A, B, and C. Within each combination, Standard and Flash returned identical missing-data probabilities and severity scores across the five repetitions. This observation does not establish that their services always return identical answers or explain whether caching was involved.
 
-Jev's missing-data probability varied in 26 of its 72 combinations, with a maximum range of 0.03. Its largest absolute difference between arrangement mean probabilities was 0.004. Those differences sit alongside the observed repeat variation, so this pilot cannot confidently attribute them to asking the questions together. Its severity score varied in 20 combinations, by at most 0.10.
+Jev's missing-data probability varied in 26 of its 72 combinations, with a maximum range of 0.03 (3 percentage points). Its largest absolute difference between arrangement mean probabilities was 0.004 (0.4 percentage points). Those differences sit alongside the observed repeat variation, so this pilot cannot confidently attribute them to asking the questions together. They are consistent with Jev's documented question isolation, but do not independently prove that mechanism. Its severity score varied in 20 combinations, by at most 0.10.
 
 </details>
 
@@ -184,6 +184,8 @@ Each model processed every ticket under A, B, and C five times. A needed three r
 The run completed all planned requests in approximately 16 minutes 13 seconds. One Perplexity Standard request timed out and succeeded on retry, giving 1,801 attempts and no missing result cells. The runner limited requests to two per second, so total runtime is not a model-speed benchmark.
 
 The scope is one contact-manager policy, 24 constructed tickets, one fixed primary questionnaire, one question order, and one extra callback question. Five repetitions help describe variation on those cases; they do not expand the dataset to hundreds of independent examples. The results cannot establish universal grouping behavior or an overall model winner.
+
+Adding the callback question introduces new wording and changes the amount of content and the request structure together. This comparison cannot identify which of those changes caused the observed effect.
 
 </details>
 

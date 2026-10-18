@@ -25,8 +25,8 @@ Classify the original questions by their relationship:
 
 - Related facets of one decision may form a useful group on Standard.
 - Independently scored candidates should start in separate requests.
-- Intentional comparisons can benefit from joint context; justify and evaluate them.
-- Flash defaults to one question, with task-tested multi-label/routing exceptions.
+- Intentional comparisons on Standard can benefit from joint context; justify and evaluate them.
+- Flash defaults to one question per request. Its documented grouping exceptions are select-all-that-apply decisions or steps of one routing decision; test those on the intended task.
 - A branch needing newly retrieved evidence or generated options is a later stage.
 
 Do not translate speculative fan-out by copying the old batch unchanged. Keep

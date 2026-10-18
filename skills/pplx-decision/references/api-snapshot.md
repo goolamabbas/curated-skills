@@ -79,9 +79,11 @@ encoded body size, and total input limits require separate checks.
 ## Grouping, models, and billing
 
 Both v1.2 models see all questions in a request. Standard benefits from related
-facets; isolate independently scored candidates. Intentional comparison can
-justify grouping (for example duplicate detection or multi-hop evidence). Flash
-defaults to one question; evaluate multi-label/routing groups on the actual task.
+facets; isolate independently scored candidates. Intentional comparison on Standard
+can justify grouping (for example duplicate detection or multi-hop evidence).
+Flash defaults to one question per request. Its documented grouping exceptions
+are select-all-that-apply decisions or steps of one routing decision; evaluate
+those on the actual task.
 Do not treat adding an unused question as behaviorally neutral.
 
 The grouping section describes state being billed once per group and automatic

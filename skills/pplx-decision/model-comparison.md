@@ -12,7 +12,7 @@ Suppose a customer says, “After importing a CSV, my saved contacts disappeared
 
 The assessors are an analogy, and this ticket is illustrative—not a recorded model test.
 
-For an observed example, read [When an extra question changes an application's decision](case-study.md). The case study connects these documented differences to responses on 24 fictional support tickets. It distinguishes a change in routing from agreement with a disputed label, and a change in probability from crossing an application's review cutoff. It does not establish an overall model winner.
+For an observed example, read [When an extra question changes an application's decision](case-study.md). The case study connects these documented differences to responses on 24 fictional support tickets. It distinguishes a change in routing from agreement with a debatable expected label, and a change in probability from crossing an application's review cutoff. It does not establish an overall model winner.
 
 ## Where to start with each model
 
@@ -20,7 +20,7 @@ For an observed example, read [When an extra question changes an application's d
 | --- | --- |
 | TypeSafe Jev | Submit questions together when useful; they are evaluated independently against the same state. |
 | Perplexity Standard | Test related questions together. Start with separate requests when independently scoring competing candidates. |
-| Perplexity Flash | Start with one question per request. Test exceptions such as select-all-that-apply or routing decisions. |
+| Perplexity Flash | Start with one question per request. Group only select-all-that-apply decisions or steps of one routing decision, and test those on your task. |
 
 **Flash is a different, smaller model.** It was trained to learn the probability distributions of larger decision models. It is not simply Standard with a faster execution setting, and a question grouping that helps Standard may hurt Flash. The [Flash model card](https://huggingface.co/perplexity-ai/pplx-decider-flash-v1.2) documents this distinction. Evaluate both on examples representative of your application.
 

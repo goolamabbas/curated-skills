@@ -45,9 +45,12 @@ and preserve their source mapping. Check candidate coverage.
 ## Choose grouping and model
 
 For standard v1.2, group related facets; isolate independent candidates.
-For Flash v1.2, default to one question, testing multi-label or routing
-groups where useful. Intentional comparisons, such as duplicate detection,
-can warrant grouping; evaluate that choice explicitly.
+Intentional comparisons, such as duplicate detection, can warrant grouping
+on Standard; evaluate that choice explicitly.
+For Flash v1.2, default to one question per request. Its documented grouping
+exceptions are select-all-that-apply decisions or steps of one routing decision;
+test those on the intended task. Several judgments about one ticket do not
+automatically qualify as steps of one routing decision.
 
 Grouping affects predictions. Changing it requires reevaluation.
 
