@@ -121,6 +121,8 @@ Installing the skill does not provide API credentials or model-service access. P
 
 ### What a small workflow might cost
 
+Here, **Standard** means `pplx-decider-v1.2`, and **Flash** means `pplx-decider-flash-v1.2`, Perplexity’s smaller decision model.
+
 As checked on **18 October 2026**, [Perplexity’s input-token rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing) are $0.02 per million for Standard and $0.01 for Flash, with free output tokens and no request fee.
 
 If a completed ticket uses **1,000 total billed input tokens**, one million tickets would cost about **$20 on Standard or $10 on Flash**. This assumes no additional billable calls or retries. Include questions and repeated context when estimating input; a 1,000-token message alone is not a 1,000-token workflow. Separate requests can repeat state, so measure actual `usage.input_tokens` across the whole workflow and check current prices before budgeting. Free output tokens can still appear in usage counts.
@@ -131,6 +133,7 @@ Paste your chosen prompt into the coding agent’s chat with the project open or
 
 | Your starting point | Choose this prompt |
 | --- | --- |
+| I just want to try a small demo | [Try the filled-in example](#a-filled-in-example) |
 | I have a project and want recommendations before changing it | [Explore before editing](#explore-a-project-before-editing) |
 | I know what behavior to add to an existing project | [Build a focused integration](#build-a-focused-integration) |
 | I want a new application and have some state and questions in mind | [Build from state and questions](#build-a-new-project-from-state-and-questions) |
