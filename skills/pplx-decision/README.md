@@ -83,7 +83,7 @@ If the workflow also needs a written reply, retrieval, or an action, connect the
 
 Suppose your application uses a decision model to choose a support team. You add a question about whether the customer wants a callback. Could the chosen team change even though the message and routing instructions stay the same?
 
-[Read the case study: when an extra question changes an application's decision](case-study.md). Follow Standard, Flash, and Jev through 24 fictional support messages to see how question grouping can affect an application, and how to check your own workflow. For the documented differences behind the experiment, see the [model comparison](model-comparison.md).
+[Read the case study: when an extra question changes an application's decision](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html). Follow Standard, Flash, and Jev through 24 fictional support messages to see how question grouping can affect an application, and how to check your own workflow. For the documented differences behind the experiment, see the [model comparison](model-comparison.md).
 
 ## When to use it
 
@@ -130,6 +130,8 @@ Use an application that supports folder-based agent skills.
 **Using Codex?** For a personal installation, place the folder at `~/.agents/skills/pplx-decision/`, where `~` means your home folder. Codex detects skill changes automatically; restart it if the skill does not appear. See the [official Codex skill locations](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills). Other applications may use different locations and reload procedures.
 
 **Supplying files manually?** Give the agent `SKILL.md` and the complete `references/` folder so it can follow the linked guidance. Keep the license with redistributed copies.
+
+The [case study](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html) and original experiment records are repository documentation outside the skill folder; they are not needed for installation. When updating an older installation, remove its bundled `case-study.md` copy.
 
 Installing the skill does not provide API credentials or model-service access. Project exploration and offline tests—tests using saved example inputs without calling the model—can proceed without live inference. Calling Perplexity Decisions requires provider access and may incur charges; agree on data and spending limits before live testing, and keep credentials outside prompts and source files.
 
@@ -251,7 +253,7 @@ Run live calls only within an established authorization and budget.
 
 ### Evaluate an existing workflow
 
-For a worked example, read the [recorded support-ticket experiment](case-study.md). Use its comparison of existing and added questions as a starting point, then evaluate cases representative of your own application.
+For a worked example, read the [recorded support-ticket experiment](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html). Use its comparison of existing and added questions as a starting point, then evaluate cases representative of your own application.
 
 **Outcome:** an evaluation plan for an existing workflow. Held-out cases are examples reserved for evaluation rather than used to tune the questions. Provide the workflow, its current baseline, and the errors that matter.
 
@@ -280,7 +282,7 @@ and verify the revised application logic with offline tests. Do not deploy.
 These references are optional reading for you; the agent loads the ones needed for your task. It checks current provider documentation when implementing an integration or making current API claims. The bundled API snapshot is a dated reference, so model behavior, limits, and prices may have changed.
 
 - [How Jev, Standard, and Flash differ](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
-- [When an extra question changes an application's decision](case-study.md): a beginner walkthrough of a recorded experiment, with results, limitations, and evidence.
+- [When an extra question changes an application's decision](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html): a beginner walkthrough of a recorded experiment, with results, limitations, and evidence.
 - [Project opportunities](references/project-opportunities.md): investigate improvements and new capabilities.
 - [Implementation](references/implementation.md): request design, answer handling, and operational failures.
 - [Evaluation](references/evaluation.md): representative cases, thresholds, and whole-workflow measurements.
@@ -295,4 +297,4 @@ The adaptation covers Perplexity-specific implementation, evaluation, and migrat
 
 [MIT](LICENSE). Keep the license notice with copies of this skill.
 
-[Read the agent instructions (SKILL.md)](SKILL.md) · [Back to all skills](../../README.md)
+[Read the agent instructions (SKILL.md)](SKILL.md) · [Back to all skills](https://goolamabbas.github.io/curated-skills/)
