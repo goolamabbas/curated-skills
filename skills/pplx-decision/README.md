@@ -78,7 +78,9 @@ The agent loads the references relevant to the task:
 
 ## Origin and license
 
-Created by Yusuf Goolamabbas and contributed to this collection from his personal `pplx-decision` skill. The original instructions and five reference files are preserved. This is an independent guide, not an official Perplexity or TypeSafe publication.
+Adapted by Yusuf Goolamabbas for Perplexity Decisions, inspired by [TypeSafe’s skill for its Jev decision model](https://github.com/typesafe-ai/skills/blob/main/skills/typesafe-ai/SKILL.md) and [ryana’s Jevify project-investigation prompt](https://github.com/ryana/jevify/blob/87a9ef3674f111c74bb33cccd3bfa56bd0c4a15c/README.md).
+
+The adaptation covers Perplexity-specific implementation, evaluation, and migration guidance. The instructions and five reference files contributed from the personal `pplx-decision` installation are preserved. This is an independent adaptation, not an official Perplexity or TypeSafe publication.
 
 [MIT](LICENSE). Keep the license notice with copies of this skill.
 

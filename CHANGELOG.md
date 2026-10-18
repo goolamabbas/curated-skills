@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Credit the TypeSafe Jev skill and ryana’s Jevify prompt as inspirations for the MIT-licensed Perplexity adaptation.
 - Add Perplexity Decisions (`pplx-decision`) with its original instructions and five references, a reader guide, and a catalogue entry.
 - Update collection introductions and installation choices for five skills.
 
