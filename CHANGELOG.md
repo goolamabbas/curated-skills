@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add Perplexity Decisions (`pplx-decision`) with its original instructions and five references, a reader guide, and a catalogue entry.
+- Update collection introductions and installation choices for five skills.
+
 - Make the Pages Guide’s consistency check explicit: search related source/template occurrences and read changed rendered prose.
 
 - Correct installation copy, download behavior, attribution naming, and duplicate guide setup content; add basic sharing metadata.

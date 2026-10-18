@@ -8,4 +8,6 @@ Curated and maintained by Yusuf Goolamabbas.
 
 - **GitHub Pages Guide:** Developed by Yusuf Goolamabbas from work on the [Separate Intelligence and Search](https://goolamabbas.github.io/separate-intelligence-and-search/) and [Portable LLM Council](https://goolamabbas.github.io/portable-llm-council/) sites. See [its guide](skills/github-pages-guide/README.md#origin-and-license).
 
+- **Perplexity Decisions:** Created by Yusuf Goolamabbas; the original `pplx-decision` instructions and references are preserved. See [its guide](skills/pplx-decision/README.md#origin-and-license). This is not an official Perplexity or TypeSafe publication.
+
 Permissions above apply to these adaptations; they do not assert that all upstream work is MIT-licensed. Attribution does not imply endorsement of the collection.

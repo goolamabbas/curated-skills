@@ -10,13 +10,14 @@ Each skill provides focused instructions for an AI agent. Choose the skill that 
 | **Xray** | Examine public news through incentives, evidence, competing explanations, and possible next events. | [Use Xray](skills/xray/README.md) |
 | **AGENTS.md Author** | Create, audit, or prune a project’s AGENTS.md. | [Use AGENTS.md Author](skills/agents-md-author/README.md) |
 | **GitHub Pages Guide** | Build educational sites that explain repository content and help readers get started. | [Use GitHub Pages Guide](skills/github-pages-guide/README.md) |
+| **Perplexity Decisions** | Build, evaluate, or migrate applications that use structured model judgments. | [Use Perplexity Decisions](skills/pplx-decision/README.md) |
 
 Read the [Curated Skills website](https://goolamabbas.github.io/curated-skills/) for examples, guided introductions, and installation help.
 
 ## Installation
 
 1. [Download the collection ZIP](https://github.com/goolamabbas/curated-skills/archive/refs/heads/main.zip) and unzip it.
-2. Inside the extracted collection folder, open `skills/` and choose one folder: `minto`, `xray`, `agents-md-author`, or `github-pages-guide`.
+2. Inside the extracted collection folder, open `skills/` and choose one folder: `minto`, `xray`, `agents-md-author`, `github-pages-guide`, or `pplx-decision`.
 3. Copy that **whole folder** into your application's documented skills directory. Keep `SKILL.md`, the license, and any `references/` or `agents/` subfolders together. Back up an existing copy before replacing it.
 4. Follow your application's reload instructions, then ask for the skill by its slug using an example from its guide.
 
