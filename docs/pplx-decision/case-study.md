@@ -15,7 +15,7 @@ These designs give developers different starting assumptions. Keeping an existin
 ## What we found
 
 - **Standard and Jev** kept the same team choices across arrangements on all 24 messages.
-- **Flash** changed its team choice for one message whose expected label is debatable. The pattern repeated in all five trials of each arrangement.
+- **Flash's team choice differed across arrangements** for one message whose expected label is debatable. The test included grouped requests beyond its documented one-question default; the pattern repeated in all five trials of each arrangement.
 - **Some missing-data probabilities changed, but none crossed the chosen 0.8 review cutoff.** Flash came close on one message: approximately 79.79% against an 80% cutoff.
 
 This is a worked example of checking existing decisions when an application's questions change. Its 24 fictional situations do not establish an overall model winner or how often these effects occur in real support traffic.
@@ -50,7 +50,7 @@ Comparing A with B tests asking separately versus together. Comparing B with C t
 
 We used the same **24 fictional customer messages** with three models: Perplexity Standard, Perplexity Flash, and TypeSafe Jev. Each model saw every message under all three arrangements, and we repeated each arrangement five times to see how much the answers varied.
 
-To assess the results, we recorded expected answers under our support policy. These were proposed by the assistant and reviewed and accepted by Yusuf, the maintainer of this case study, before the run. Matching these labels is our quality measure, but the labels remain open to scrutiny—as the routing example below shows.
+To assess the results, we recorded expected answers under our support policy. These were proposed by Codex, an AI coding assistant, and reviewed and accepted by Yusuf, the maintainer of this case study, before the run. Matching these labels is our quality measure, but the labels remain open to scrutiny—as the routing example below shows.
 
 The full run completed 1,800 requests. That number includes the repeated trials and the three requests needed when asking separately. **There were still only 24 distinct situations.** The repetitions help us examine consistency on those situations; they do not make this a broad test of customer-support accuracy.
 
@@ -96,6 +96,8 @@ Our instructions say not to infer missing saved data from an empty list without 
 Percentages are rounded here; the [per-ticket results](../../examples/pplx-question-grouping/per-ticket.csv) retain the full values. Each value repeated across all five trials of its arrangement.
 
 Standard's estimate rose by about 20 percentage points on this message, its largest shift. Flash's highest value was only about **0.21 percentage points below the 80% cutoff**. None triggered review, but the margin matters: at a hypothetical cutoff of 79%, the recorded separate answer would stay below it while both grouped answers would exceed it. This illustrates the effect of the application rule; it is not a recommendation to change the cutoff.
+
+Our five repeats were identical. In an [earlier September 2026 example](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-ticket-triage/README.md#reading-the-numbers), Perplexity reported values of 0.29–0.32 that changed a decision at a 0.30 cutoff. That supports checking repeated boundary cases on the model and workflow you use; it does not show that our Flash result would cross 80%. Choose thresholds using the costs of errors and available review capacity, rather than moving a cutoff solely to clear one cluster.
 
 Across the full run, all 1,080 missing-data answers produced the expected yes/no review decision at 0.8, and none changed sides across arrangements. Most observed probabilities were away from that cutoff. This limits what the absence of crossings tells us: it does not establish robustness on messages near the boundary, or that 0.8 is a suitable production threshold.
 
@@ -175,7 +177,7 @@ Rounding is a plausible explanation for the discrepancies, but the run does not 
 
 The run used these requested model names: Perplexity Standard `pplx-decider-v1.2`, Perplexity Flash `pplx-decider-flash-v1.2`, and TypeSafe `jev-1.13.0`. Request names and returned model fields are preserved with the responses; this experiment does not independently identify the underlying serving implementation.
 
-The assistant drafted 24 synthetic tickets: eight clear missing-data reports, eight clear nonmissing cases, and eight difficult cases. Yusuf reviewed all 24 and accepted the proposed labels before the full run. This was not an independently blinded labelling exercise. Labels describe what a fictional message reports under the supplied policy, rather than proving that data was actually lost.
+Codex drafted 24 synthetic tickets: eight clear missing-data reports, eight clear nonmissing cases, and eight difficult cases. Yusuf reviewed all 24 and accepted the proposed labels before the full run. This was not an independently blinded labelling exercise. Labels describe what a fictional message reports under the supplied policy, rather than proving that data was actually lost.
 
 The constructed difficult cases often correspond to explicit instruction clauses: unsaved drafts, filters, hypothetical concerns, another product, an empty list, and conflicting reports. They test those specified distinctions; they do not establish broad performance on unfamiliar ambiguity. The routing ambiguity identified above is a later interpretation of the preserved records, not a change to the accepted labels or reported metrics.
 
@@ -212,7 +214,7 @@ The examples above are **T20, the unsaved draft**, and **T23, the empty workspac
 - **Numerical checks:** [all warnings](../../examples/pplx-question-grouping/numerical-warnings.json) and [reported and calculated scores](../../examples/pplx-question-grouping/score-comparison.csv).
 - **Reproducibility:** [request schedule and payloads](../../examples/pplx-question-grouping/requests.jsonl), [run manifest](../../examples/pplx-question-grouping/manifest.json), and [verification record](../../examples/pplx-question-grouping/full-run-verification.json).
 
-The evidence comes from completed Perplexity and TypeSafe API calls in the user's run. The verification performed for that run checked the frozen inputs, request schedule, all 1,800 responses, numerical diagnostics, quality calculations, threshold decisions, and cost arithmetic. This presentation revision preserves the original records and does not rerun the experiment. The protocol retains its historical `draft_for_review` status; the completed run and verification records document what followed.
+The evidence comes from completed Perplexity and TypeSafe API calls in the run conducted for this case study. The verification performed for that run checked the frozen inputs, request schedule, all 1,800 responses, numerical diagnostics, quality calculations, threshold decisions, and cost arithmetic. This presentation revision preserves the original records and does not rerun the experiment. The protocol retains its historical `draft_for_review` status; the completed run and verification records document what followed.
 
 </details>
 

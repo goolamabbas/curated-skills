@@ -150,7 +150,8 @@ Choose a small experiment that could overturn the recommendation.
 Define the baseline, representative cases, relevant error costs, and
 a practical acceptance criterion.
 
-Run it when data, credentials, and an established budget permit.
+Run it when the user's request allows live calls and data, credentials, and an
+established budget permit.
 Otherwise provide a runnable design and identify what remains unmeasured.
 Do not let unavailable credentials prevent useful architectural analysis.
 

@@ -14,7 +14,7 @@ For example, a support application might ask whether a customer has lost data, w
 
 ### State, questions, and answers
 
-**State** is the information available for a decision: a message, document, image, or relevant application data. **Questions** describe what to judge, including the options or scoring criteria. Both providers below support three question types:
+**State** is the information available for a decision: a message, document, image, or relevant application data. Supported inputs vary: [Perplexity accepts images](https://docs.perplexity.ai/docs/decisions/quickstart#images-in-state); [Jev currently takes text](https://docs.typesafe.ai/models). **Questions** describe what to judge, including the options or scoring criteria. Both providers below support three question types:
 
 | Type | Illustrative question | Result |
 | --- | --- | --- |
@@ -258,10 +258,18 @@ For a worked example, read the [recorded support-ticket experiment](https://gool
 **Outcome:** an evaluation plan for an existing workflow. Held-out cases are examples reserved for evaluation rather than used to tune the questions. Provide the workflow, its current baseline, and the errors that matter.
 
 ```text
-Use the pplx-decision skill to evaluate this decision workflow.
+Use the pplx-decision skill to plan an evaluation of this decision workflow.
+Workflow, current baseline, and errors that matter: [details]
+Proposed question or grouping change, if any: [details]
+
 Inspect the questions, grouping, answer handling, and action thresholds.
-Propose representative held-out cases and compare against the current baseline.
-Distinguish fixture checks from measurements that require live calls.
+Propose representative held-out cases and a comparison with the current baseline.
+For an added question, compare existing decisions before and after adding it,
+holding the original state, question wording, grouping, and order otherwise fixed.
+Evaluate deliberate regrouping separately. When comparing complete model workflows,
+use each provider's documented guidance and report differences in request design.
+Include repeated cases near action thresholds and distinguish offline fixture checks
+from live measurements. Return a plan; do not modify files or call model APIs yet.
 ```
 
 ### Port a TypeSafe/Jev workflow

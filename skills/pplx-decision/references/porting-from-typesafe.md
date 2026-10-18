@@ -54,8 +54,12 @@ version; otherwise write a thin wrapper around the documented HTTP endpoint.
 The reviewed cookbook uses HTTP for Decisions and a separate SDK for Agent API
 calls; that is not evidence for a `client.decisions.*` method.
 
-Put complete question meaning in instructions. Do not assume Perplexity hides
-question IDs from the model: the reviewed docs do not establish that behavior.
+Put complete question meaning in instructions. The [Standard](https://huggingface.co/perplexity-ai/pplx-decider-v1.2)
+and [Flash](https://huggingface.co/perplexity-ai/pplx-decider-flash-v1.2) model cards
+say question IDs are hidden and question order is visible in their documented
+implementation. The [hosted API reference](https://docs.perplexity.ai/api-reference/decisions-post)
+does not specify either behavior; do not treat the model-card description as a
+hosted-API guarantee. Keep question order fixed when comparing runs.
 Use meaningful choice-option names, particularly when their descriptions are null.
 Structured instructions can clarify definitions and exclusions, but preserve each
 primitive's outer criteria shape.
