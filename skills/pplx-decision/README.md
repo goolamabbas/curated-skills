@@ -28,6 +28,8 @@ These are illustrative questions, not recorded model results. A high probability
 
 **TypeSafe** provides **Jev**, another decision model built around state and typed questions. The [TypeSafe introduction](https://docs.typesafe.ai/introduction) explains its approach. These are separate services; this skill helps you build with Perplexity or [migrate an existing TypeSafe/Jev workflow](#port-a-typesafejev-workflow).
 
+For a practical comparison, read [How Jev, Standard, and Flash differ](model-comparison.md). It explains how questions can influence one another and why Flash needs different starting assumptions.
+
 ### Where this skill fits
 
 A **coding agent** is an AI assistant that can work with your project’s files and tools to write and test software. The **`pplx-decision` skill** is a folder of instructions that helps the agent design a Perplexity integration. The **decision model** supplies judgments when the application calls its API.
@@ -185,6 +187,8 @@ Distinguish fixture checks from measurements that require live calls.
 ```
 
 ### Port a TypeSafe/Jev workflow
+
+Start with [How Jev, Standard, and Flash differ](model-comparison.md) for the conceptual differences, then use the migration prompt below.
 
 **Outcome:** a revised integration and offline checks of its application logic. Provide the existing request builder, answer handling, and tests. TypeSafe documents independent question evaluation, while Perplexity’s v1.2 models see other questions in the request; review the [migration guidance](references/porting-from-typesafe.md#reconsider-grouping-first) before carrying over assumptions.
 
