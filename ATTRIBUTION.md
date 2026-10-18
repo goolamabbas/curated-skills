@@ -8,6 +8,6 @@ Curated and maintained by Yusuf Goolamabbas.
 
 - **GitHub Pages Guide:** Developed by Yusuf Goolamabbas from work on the [Separate Intelligence and Search](https://goolamabbas.github.io/separate-intelligence-and-search/) and [Portable LLM Council](https://goolamabbas.github.io/portable-llm-council/) sites. See [its guide](skills/github-pages-guide/README.md#origin-and-license).
 
-- **Perplexity Decisions:** Adapted by Yusuf Goolamabbas for Perplexity Decisions, inspired by [TypeSafe’s Jev skill](https://github.com/typesafe-ai/skills/blob/main/skills/typesafe-ai/SKILL.md) and [ryana’s Jevify prompt](https://github.com/ryana/jevify/blob/87a9ef3674f111c74bb33cccd3bfa56bd0c4a15c/README.md). The contributed `pplx-decision` adaptation is MIT-licensed. See [its guide](skills/pplx-decision/README.md#origin-and-license). This is not an official Perplexity or TypeSafe publication.
+- **Perplexity Decisions:** Adapted by Yusuf Goolamabbas for Perplexity Decisions, inspired by [TypeSafe’s Jev skill](https://github.com/typesafe-ai/skills/blob/main/skills/typesafe-ai/SKILL.md) and [ryana’s Jevify prompt](https://github.com/ryana/jevify/blob/87a9ef3674f111c74bb33cccd3bfa56bd0c4a15c/README.md). The contributed `pplx-decision` adaptation is MIT-licensed. See [its guide](docs/pplx-decision/guide.md#origin-and-license). This is not an official Perplexity or TypeSafe publication.
 
 Permissions above apply to these adaptations; they do not assert that all upstream work is MIT-licensed. Attribution does not imply endorsement of the collection.

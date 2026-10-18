@@ -8,7 +8,7 @@ To understand the test, start with a **request**: one submission to the model co
 
 ## What the providers say to expect
 
-[Perplexity documents](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request) that Standard and Flash let questions in the same request influence one another. For Flash, it recommends one question per request by default, grouping only select-all-that-apply decisions or steps of one routing decision, and checking those on the intended task. [TypeSafe documents](https://docs.typesafe.ai/introduction) that Jev evaluates each question independently against the same information. The [model comparison](../../skills/pplx-decision/model-comparison.md) explains these differences in more detail.
+[Perplexity documents](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request) that Standard and Flash let questions in the same request influence one another. For Flash, it recommends one question per request by default, grouping only select-all-that-apply decisions or steps of one routing decision, and checking those on the intended task. [TypeSafe documents](https://docs.typesafe.ai/introduction) that Jev evaluates each question independently against the same information. The [model comparison](model-comparison.md) explains these differences in more detail.
 
 These designs give developers different starting assumptions. Keeping an existing answer unchanged may be an application requirement, but Perplexity does not promise that adding a grouped question will leave it unchanged. Our experiment asks what those documented differences mean for one application's decisions.
 
@@ -218,4 +218,4 @@ The evidence comes from completed Perplexity and TypeSafe API calls in the user'
 
 
 
-[Back to the Perplexity Decisions guide](../../skills/pplx-decision/README.md#see-a-recorded-experiment) · [Compare Jev, Standard, and Flash](../../skills/pplx-decision/model-comparison.md) · [Plan your own evaluation](../../skills/pplx-decision/README.md#evaluate-an-existing-workflow)
+[Back to the Perplexity Decisions guide](guide.md#see-a-recorded-experiment) · [Compare Jev, Standard, and Flash](model-comparison.md) · [Plan your own evaluation](guide.md#evaluate-an-existing-workflow)

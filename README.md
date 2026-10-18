@@ -10,7 +10,7 @@ Each skill provides focused instructions for an AI agent. Choose the skill that 
 | **Xray** | Examine public news through incentives, evidence, competing explanations, and possible next events. | [Use Xray](skills/xray/README.md) |
 | **AGENTS.md Author** | Create, audit, or prune a project’s AGENTS.md. | [Use AGENTS.md Author](skills/agents-md-author/README.md) |
 | **GitHub Pages Guide** | Build educational sites that explain repository content and help readers get started. | [Use GitHub Pages Guide](skills/github-pages-guide/README.md) |
-| **Perplexity Decisions** | Build, evaluate, or migrate applications that use structured model judgments. | [Use Perplexity Decisions](skills/pplx-decision/README.md) |
+| **Perplexity Decisions** | Build, evaluate, or migrate applications that use structured model judgments. | [Use Perplexity Decisions](docs/pplx-decision/guide.md) |
 
 Read the [Curated Skills website](https://goolamabbas.github.io/curated-skills/) for examples, guided introductions, and installation help.
 
@@ -23,7 +23,7 @@ Read the [Curated Skills website](https://goolamabbas.github.io/curated-skills/)
 
 Your application must support folder-based agent skills. Its documentation determines the installation location and reload procedure; these vary by application. The collection itself needs no additional runtime packages.
 
-The README in each folder is the human guide; `SKILL.md` contains the agent instructions. Downloading `SKILL.md` alone is not a complete installation.
+The README in each folder introduces the skill and provides or links to its human guide; `SKILL.md` contains the agent instructions. Downloading `SKILL.md` alone is not a complete installation.
 
 ## Usage
 
