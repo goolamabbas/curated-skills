@@ -6,7 +6,7 @@ An agent skill for building, evaluating, and migrating applications that use Per
 
 Copy this entire `pplx-decision` folder into your application's supported skills directory. Keep [SKILL.md](SKILL.md), this README, [LICENSE](LICENSE), and all five files in [references/](references/) together. Follow the application's reload instructions.
 
-Before updating, back up the existing installation. Replace its files with this package and remove any older bundled `model-comparison.md` or `case-study.md` copies. The full guide and comparison now live outside the skill, alongside the case study and experiment documentation.
+Before updating, back up the existing installation. Replace the complete folder with the current package so obsolete files are not retained. The reader guide, model comparison, and worked example live on the website, outside the installable skill.
 
 Example request:
 
@@ -22,7 +22,7 @@ live API calls yet.
 
 - [Full guide and copyable prompts](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/index.html)
 - [How Jev, Standard, and Flash differ](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/model-comparison.html)
-- [Recorded question-grouping case study](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html)
+- [Support decision worked example](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/worked-example.html)
 
 ## Origin and license
 

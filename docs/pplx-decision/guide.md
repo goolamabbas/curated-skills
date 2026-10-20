@@ -1,6 +1,6 @@
 # Perplexity Decisions
 
-Use a coding agent to build applications with Perplexity Decisions, an API for models that turn context and focused questions into structured judgments. This guide takes you from the basic idea to installing the skill and choosing a prompt.
+Understand decision models, choose between Perplexity Standard, Flash, and TypeSafe/Jev, and turn their judgments into useful application behavior. Then use the Perplexity Decisions skill with a coding agent to build and evaluate an integration.
 
 An independent guide and skill adapted by Yusuf Goolamabbas. See [origin and license](#origin-and-license) for attribution.
 
@@ -12,7 +12,22 @@ For example, a support application might ask whether a customer has lost data, w
 
 **Context + questions → model judgments → application rules → action or review.**
 
-### State, questions, and answers
+## When to use it
+
+### Is a decision model the right tool?
+
+| The hard part | A useful starting approach |
+| --- | --- |
+| Applying an exact rule, such as whether an invoice is overdue | Ordinary code. |
+| Interpreting meaning, such as whether a ticket reports lost data | A decision model whose probabilities your code can use. |
+| Writing a reply or explanation for a person | A generative LLM. |
+| Finding missing facts, such as the customer’s recent orders | Search or retrieval to supply the evidence. |
+
+These components can work together: retrieval gathers context, a model judges it, code applies policy, and an LLM drafts a reply when needed. General LLMs can also return structured answers. A decision model provides a specialized interface for focused, probability-based judgments; evaluate whether it improves your workflow.
+
+Prefer ordinary code when exact rules already work. A decision model alone will not provide a written explanation or retrieve missing evidence. Before relying on its thresholds, check representative examples with known answers.
+
+## State, questions, and answers
 
 **State** is the information available for a decision: a message, document, image, or relevant application data. Supported inputs vary: [Perplexity accepts images](https://docs.perplexity.ai/docs/decisions/quickstart#images-in-state); [Jev currently takes text](https://docs.typesafe.ai/models). **Questions** describe what to judge, including the options or scoring criteria. Both providers below support three question types:
 
@@ -65,6 +80,18 @@ Your application compares `noul` with its review threshold. Noul answers have no
 
 </details>
 
+## Choose a model to evaluate
+
+Start with the application's hardest judgment, available inputs, and acceptable errors. These are starting candidates, not measured winners:
+
+| Consider | When it is a useful starting point |
+| --- | --- |
+| **Perplexity Standard** | Nuanced criteria, costly mistakes, or several related judgments about the same content. Test those questions together within one processing group. |
+| **Perplexity Flash** | High-volume decisions with clear criteria. Start with one question per request and keep it only if it meets your quality target. |
+| **TypeSafe/Jev** | Text workflows built from independent, focused judgments that your code combines. Evaluate it as a separate service with its own limits and response interpretation. |
+
+Perplexity's recommendations and current request behavior come from its [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart); Jev's approach is described in the [TypeSafe introduction](https://docs.typesafe.ai/introduction). Read the [model comparison](model-comparison.md) for input support, question handling, cost, and practical limits.
+
 ### Perplexity Decisions and TypeSafe/Jev
 
 **Perplexity Decisions** is Perplexity’s API for its **`pplx-decider` models**. They return structured judgments; they do not write replies, generate code, or explain their reasoning. See the [Perplexity Decisions quickstart](https://docs.perplexity.ai/docs/decisions/quickstart).
@@ -79,36 +106,6 @@ A **coding agent** is an AI assistant that can work with your project’s files 
 
 If the workflow also needs a written reply, retrieval, or an action, connect the appropriate components; application code controls what happens next.
 
-## See a recorded experiment
-
-Suppose your application uses a decision model to choose a support team. You add a question about whether the customer wants a callback. Could the chosen team change even though the message and routing instructions stay the same?
-
-[Read the case study: when an extra question changes an application's decision](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html). The October 18 experiment records Standard, Flash, and Jev responses to 24 fictional support messages under different request arrangements. Its opening note explains the updated hosted Flash documentation checked on October 20; the recorded results do not establish today’s internal serving behavior. For current documented behavior, see the [model comparison](model-comparison.md).
-
-## When to use it
-
-### Is a decision model the right tool?
-
-| The hard part | A useful starting approach |
-| --- | --- |
-| Applying an exact rule, such as whether an invoice is overdue | Ordinary code. |
-| Interpreting meaning, such as whether a ticket reports lost data | A decision model whose probabilities your code can use. |
-| Writing a reply or explanation for a person | A generative LLM. |
-| Finding missing facts, such as the customer’s recent orders | Search or retrieval to supply the evidence. |
-
-These components can work together: retrieval gathers context, a model judges it, code applies policy, and an LLM drafts a reply when needed. General LLMs can also return structured answers. A decision model provides a specialized interface for focused, probability-based judgments; evaluate whether it improves your workflow.
-
-Prefer ordinary code when exact rules already work. A decision model alone will not provide a written explanation or retrieve missing evidence. Before relying on its thresholds, check representative examples with known answers.
-
-### What this skill helps with
-
-- Investigate where contextual judgments could improve an existing product.
-- Implement a Perplexity Decisions integration within your current stack.
-- Design an evaluation of decision quality, thresholds, cost, and latency.
-- Port a TypeSafe/Jev workflow while checking differences in request grouping and answer interpretation.
-
-This skill helps build software; it does not provide general Perplexity search. It may recommend a simpler approach when an integration would add little value.
-
 ### What a small workflow might cost
 
 Here, **Standard** means `pplx-decider-v1.2`, and **Flash** means `pplx-decider-flash-v1.2`, Perplexity’s smaller decision model.
@@ -118,6 +115,21 @@ As checked on **20 October 2026**, [Perplexity’s input-token rates](https://do
 If a completed ticket uses **1,000 total billed input tokens**, one million tickets would cost about **$20 on Standard or $10 on Flash**. This assumes no additional billable calls or retries. Include questions and repeated context when estimating input; a 1,000-token message alone is not a 1,000-token workflow. Separate requests can repeat state, so measure actual `usage.input_tokens` across the whole workflow and check current prices before budgeting. Free output tokens can still appear in usage counts.
 
 Standard shares state within a processing group; hosted Flash repeats and bills it for every question, even when questions arrive together. For three questions over a 10,000-token state, the state alone costs about **$0.0002 on Standard** if they fit in one group, versus **$0.0003 on Flash**. Question tokens and other overhead are additional. Standard also repeats state if an oversized request is split into groups. Compare the complete workflow’s billed input, not just the token rate.
+
+## Walk through a support decision
+
+Follow [From a customer message to an actionable support decision](worked-example.md). The example defines a review question, an owning team, and an urgency rubric; shows how to submit them with Standard, Flash, and Jev; and connects simulated answers to application rules. It includes clear and ambiguous messages so you can see when more evidence or human review is needed.
+
+This is a teaching example, not a benchmark or a report of live model performance.
+
+## Evaluate before relying on the answers
+
+1. **Define success and the baseline.** Compare with the current workflow, including simple rules or manual triage. Specify costly errors, review capacity, and latency requirements.
+2. **Prepare representative cases with expected decisions.** Include ordinary traffic, missing information, overlapping categories, and consequential mistakes. Keep difficult stress cases visible rather than treating them as representative traffic.
+3. **Tune on development cases; assess on held-out cases.** Use one set to refine questions and thresholds, then freeze that design and evaluate on examples you have not tuned against. Choose thresholds for each workflow against the same application objectives.
+4. **Measure actions and the whole cost.** Count missed urgent cases, incorrect automatic routes, and the fraction sent for review. Include billed model usage, retries, retrieval, generated replies, and human review; measure typical and slow responses.
+
+A model's confidence is not a measured accuracy rate. Check whether predicted probabilities agree with observed outcomes on your cases. Offline fixtures can check your code; live calls are needed to measure model quality. Reevaluate when the model, evidence, questions, or action policy changes. The [evaluation prompt](#evaluate-an-existing-workflow) helps turn these steps into a plan.
 
 ## Install this skill
 
@@ -133,9 +145,18 @@ Use an application that supports folder-based agent skills.
 
 **Supplying files manually?** Give the agent `SKILL.md` and the complete `references/` folder so it can follow the linked guidance. Keep the license with redistributed copies.
 
-The full guide, [model comparison](model-comparison.md), [case study](case-study.md), and original experiment records are repository documentation outside the skill folder; they are not needed for installation. When updating an older installation, remove its bundled `model-comparison.md` and `case-study.md` copies.
+The full guide, [model comparison](model-comparison.md), and [worked example](worked-example.md) are website documentation outside the skill folder. Install the current package as a complete folder rather than retaining files from older packages.
 
 Installing the skill does not provide API credentials or model-service access. Project exploration and offline tests—tests using saved example inputs without calling the model—can proceed without live inference. Calling Perplexity Decisions requires provider access and may incur charges; agree on data and spending limits before live testing, and keep credentials outside prompts and source files.
+
+### What this skill helps with
+
+- Investigate where contextual judgments could improve an existing product.
+- Implement a Perplexity Decisions integration within your current stack.
+- Design an evaluation of decision quality, thresholds, cost, and latency.
+- Port a TypeSafe/Jev workflow while checking differences in request grouping and answer interpretation.
+
+This skill helps build software; it does not provide general Perplexity search. It may recommend a simpler approach when an integration would add little value.
 
 ## Choose a starting point
 
@@ -158,17 +179,20 @@ This illustrative new-project prompt carries the support-ticket example from the
 Use the pplx-decision skill to build a small support-ticket triage demo in a new
 folder called support-triage-demo. Recommend a simple stack.
 
-State: the customer message is "After importing a CSV, my saved contacts disappeared."
-The product is a contact manager. Available teams are Technical Support, Billing,
-and Other / Needs Review for messages outside those categories or needing review.
+State: the customer message is "After importing a CSV, my saved contacts disappeared.
+My team cannot work." The product is a contact manager. Technical Support owns
+product failures and missing records; Billing owns charges and invoices. Review
+handles unclear ownership. Possible lost data or insufficient information requires
+human review. Treat the message as a report, not a verified incident.
 
 Questions:
-1. Does the message report lost data?
-2. Which team should handle the ticket?
-3. How serious is the disruption: minor inconvenience, blocked task, or possible data loss?
+1. Does this message require human review under that policy?
+2. Which team should own it: Technical Support, Billing, or Review?
+3. What urgency is justified: routine request with no disruption; impaired work
+   without lost data or complete blockage; or possible lost data / blocked work?
 
-Show the suggested team and severity. Propose a review threshold for the lost-data
-probability and label it unvalidated; flag matching tickets for human review.
+Show the suggested team and urgency. Propose review and routing thresholds and
+label them unvalidated. A suggested team must not bypass required human review.
 Show uncertain or unavailable results clearly. Do not send messages automatically.
 
 Refine the questions and grouping, then build the demo with saved example inputs
@@ -255,23 +279,27 @@ Run live calls only within an established authorization and budget.
 
 ### Evaluate an existing workflow
 
-For a worked example, read the [recorded support-ticket experiment](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html). Use its comparison of existing and added questions as a starting point, then evaluate cases representative of your own application.
+Use the [evaluation steps](#evaluate-before-relying-on-the-answers) and [worked example](worked-example.md#evaluate-the-workflow) to define a comparison for your own application.
 
 **Outcome:** an evaluation plan for an existing workflow. Held-out cases are examples reserved for evaluation rather than used to tune the questions. Provide the workflow, its current baseline, and the errors that matter.
 
 ```text
 Use the pplx-decision skill to plan an evaluation of this decision workflow.
-Workflow, current baseline, and errors that matter: [details]
-Proposed question or grouping change, if any: [details]
+Workflow and current baseline: [details]
+Errors that matter and acceptable review workload: [details]
+Candidate models, request designs, and cost or latency constraints: [details]
 
-Inspect the questions, grouping, answer handling, and action thresholds.
-Propose representative held-out cases and a comparison with the current baseline.
-For an added question, compare existing decisions before and after adding it,
-holding the original state, question wording, grouping, and order otherwise fixed.
-Evaluate deliberate regrouping separately. When comparing complete model workflows,
-use each provider's documented guidance and report differences in request design.
-Include repeated cases near action thresholds and distinguish offline fixture checks
-from live measurements. Return a plan; do not modify files or call model APIs yet.
+Inspect the available state, questions, answer handling, and action thresholds.
+Compare the current workflow and simpler alternatives with the proposed designs.
+Propose representative labelled development and held-out cases, including missing
+information and consequential errors. Tune questions and thresholds on development
+cases, then freeze the design before assessing the held-out set.
+Use each provider's documented request guidance and report design differences.
+Measure action errors, review rate, latency, and total workflow cost. Include
+repeated cases near thresholds. Investigate question or grouping sensitivity when
+it could change an important application action.
+Distinguish offline fixture checks from live measurements. Return a plan and a
+proposed live-test budget; do not modify files or call model APIs yet.
 ```
 
 ### Port a TypeSafe/Jev workflow
@@ -292,7 +320,7 @@ and verify the revised application logic with offline tests. Do not deploy.
 These references are optional reading for you; the agent loads the ones needed for your task. It checks current provider documentation when implementing an integration or making current API claims. The bundled API snapshot is a dated reference, so model behavior, limits, and prices may have changed.
 
 - [How Jev, Standard, and Flash differ](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
-- [When an extra question changes an application's decision](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html): a beginner walkthrough of a recorded experiment, with results, limitations, and evidence.
+- [From a customer message to an actionable support decision](worked-example.md): one illustrative workflow across Standard, Flash, and Jev, with simulated answers and application rules.
 - [Project opportunities](../../skills/pplx-decision/references/project-opportunities.md): investigate improvements and new capabilities.
 - [Implementation](../../skills/pplx-decision/references/implementation.md): request design, answer handling, and operational failures.
 - [Evaluation](../../skills/pplx-decision/references/evaluation.md): representative cases, thresholds, and whole-workflow measurements.

@@ -20,8 +20,10 @@ Include ordinary cases, category overlaps, missing evidence, out-of-scope
 inputs, and cases near action thresholds. Add adversarial or conflicting
 content when relevant to the application.
 
-Reserve held-out cases for evaluating the selected design. Avoid tuning
-and reporting success on the same small sample.
+Use development cases to refine questions and thresholds, then freeze the design
+before assessing held-out cases. Keep representative traffic separate from
+deliberately difficult stress cases; report both. Avoid tuning and reporting
+success on the same small sample.
 
 ## Compare meaningful alternatives
 
@@ -39,7 +41,9 @@ Do not combine results from different configurations as one unchanged predictor.
 ## Tune policy to consequences
 
 Inspect distributions and resulting actions. Choose thresholds using
-the error tradeoffs and review capacity of the application.
+the error tradeoffs and review capacity of the application. Compare candidate
+workflows against the same acceptance criteria; their numerical thresholds need
+not be identical.
 
 Check repeated runs around important boundaries. Where variation causes
 unstable actions, consider a review band or other explicit policy.

@@ -1,37 +1,53 @@
-# How Jev, Standard, and Flash differ
+# Choose between Standard, Flash, and Jev
 
-Jev and Perplexity Decisions share a useful pattern: give a model some information and focused questions, then use its structured answers in your application. Their handling of several questions differs, and Perplexity’s Standard (`pplx-decider-v1.2`) and Flash (`pplx-decider-flash-v1.2`) models need different starting assumptions.
+All three return structured judgments that your code can use: a yes/no probability, a choice, or a rubric score. Choose a candidate from the work it must do, then evaluate the resulting application decisions on your own examples.
 
-## How questions influence each other
+## Where to start
 
-Suppose a customer says, “After importing a CSV, my saved contacts disappeared.” Your application asks whether this reports lost data, which team should handle it, and how serious the disruption is.
+| Candidate | Consider it when | What to verify |
+| --- | --- | --- |
+| **Perplexity Standard** (`pplx-decider-v1.2`) | Criteria are nuanced, errors are costly, or several related questions describe one decision. Perplexity recommends it as the default. | Whether the chosen grouping improves your outcomes, and whether cost and latency meet your requirements. |
+| **Perplexity Flash** (`pplx-decider-flash-v1.2`) | You have high volumes of clear, focused judgments. | Whether it meets the same quality bar; repeated state can outweigh its lower token rate. |
+| **TypeSafe/Jev** | You want independent, focused judgments on text, combined in application code, or already have a TypeSafe integration. | Quality on your task, context limits, and provider-specific confidence and version handling. |
 
-**Jev is like separate assessors working from the same case file.** Each evaluates its own question against the shared state. Sending the questions together does not make them part of one another’s context. The state itself is still shared: if it contains several documents, those documents are available to each evaluation. This is the question-isolation behavior described in the [TypeSafe introduction](https://docs.typesafe.ai/introduction).
+These are starting recommendations based on the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart) and [TypeSafe introduction](https://docs.typesafe.ai/introduction), not measured rankings. None removes the need to evaluate your workflow.
 
-**Perplexity Standard is like an assessor who can see the whole questionnaire.** Each question can be influenced by the others in its processing group. Adding a severity question can therefore change another answer, even when the customer’s message stays the same. Grouping related judgments may help; grouping competing documents or tools can hurt.
+## How the requests differ
 
-**Hosted Perplexity Flash answers each question separately.** Sending several in one request does not give them joint context: the API repeats and bills the state for every question. This is the hosted behavior in the [Perplexity grouping guidance](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request), checked on October 20.
+Imagine a support message with three questions: does it need human review, which team should own it, and how urgent is it?
 
-The assessors are an analogy, and this ticket is illustrative—not a recorded model test.
+**Standard evaluates related questions together.** Within a processing group, each question sees the state and the other questions. That can help when the questions describe facets of one decision. For independent candidate scoring, such as rating unrelated documents against the same criterion, start with separate requests. If a request is too large, the API splits its questions into consecutive groups and repeats the state for each; state plus any single question must still fit the limit.
 
-For an observed example, read [When an extra question changes an application's decision](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html). The case study records October 18 responses on 24 fictional support tickets; a dated note distinguishes those observations from the updated hosted Flash documentation. It distinguishes a change in routing from agreement with a debatable expected label, and a change in probability from crossing an application's review cutoff. It does not establish an overall model winner.
+**Hosted Flash evaluates each question separately.** Start with one question per request. If several arrive in one request, the API still evaluates them separately and bills the state again for each question. Packing questions together does not create Standard's joint context or shared-state savings.
 
-## Where to start with each model
+**Jev evaluates questions independently against shared state.** Questions can be submitted together, but each is evaluated in isolation. TypeSafe recommends atomic questions—one specific judgment per question—whose results your code combines. Put the necessary evidence in state; do not expect one question's instructions or answer to supply another's missing context.
 
-| Model | A practical starting point |
-| --- | --- |
-| TypeSafe Jev | Submit questions together when useful; they are evaluated independently against the same state. |
-| Perplexity Standard | Test related questions together. Start with separate requests when independently scoring competing candidates. |
-| Perplexity Flash | Start with one question per request. Hosted Flash processes questions separately and bills state per question even when several are submitted together. |
+Question isolation does not mean responses are guaranteed to be numerically identical across repeated calls. Measure whether variation changes important application actions.
 
-**Flash is a different, smaller model.** It was trained to learn the probability distributions of larger decision models. The [Flash model card](https://huggingface.co/perplexity-ai/pplx-decider-flash-v1.2) describes a checkpoint implementation capable of joint evaluation, with limited recommended uses for grouping. That implementation differs from the hosted API’s per-question processing. Use the hosted contract when building against the API, and evaluate both models on examples representative of your application.
+See the [same support workflow across all three](worked-example.md#choose-the-request-layout). These descriptions concern the hosted services. A downloadable model checkpoint or a different serving implementation can have a different contract.
 
-## Two other distinctions
+## Inputs, limits, and cost
 
-Two other distinctions matter:
+Documentation checked **20 October 2026**. Prices below are USD per million input tokens; all three currently have free output tokens.
 
-- **Grouping questions and batching requests are different.** Joint evaluation, as on Standard, lets questions influence one another. Multiple questions in one API request do not necessarily share model context, as hosted Flash illustrates. Processing separate requests together for efficiency also need not combine their contexts. The [Standard model card](https://huggingface.co/perplexity-ai/pplx-decider-v1.2) describes its serving implementation; consult the hosted API documentation for API features.
-- **Probability and confidence are different signals.** Confidence is not simply the selected answer’s probability. [TypeSafe publishes its calculation from the probability distribution](https://docs.typesafe.ai/confidence). [Perplexity now publishes its formulas](https://docs.perplexity.ai/docs/decisions/quickstart): choice uses the same formula for more than one option, while score uses a different normalization baseline. The [practitioner checklist](#practitioner-checklist) compares their documented choice and score examples. Do not assume a formula or threshold transfers without checking the target provider and task.
+| Hosted option | Inputs and default context | Input rate and shared state |
+| --- | --- | --- |
+| Standard v1.2 | Text and images; state plus each question must fit under 256K tokens. Oversized collections of questions are split into groups. | **$0.02/M**; state billed once per processing group. |
+| Flash v1.2 | Text and images; state plus each question must fit under 256K tokens. | **$0.01/M**; state billed for every question. |
+| Jev 1.13 / 1.14 | Text; 64K per request and 32K for state plus each question by default. | **$0.042/M**; TypeSafe describes ingesting state once for a multi-question request. Measure returned usage for the complete request. |
+
+Sources: [Perplexity models, grouping, and pricing](https://docs.perplexity.ai/docs/decisions/quickstart), [TypeSafe models and limits](https://docs.typesafe.ai/models). Jev has an optional long-context mode; TypeSafe warns it is slower and less accurate, so assess it separately rather than treating its expanded limits as the default. Perplexity image input has additional format, size, and request-body limits; see the [API reference](../../skills/pplx-decision/references/api-snapshot.md#limits-and-images).
+
+For **three questions over a 10,000-token state**, the state alone costs about **$0.0002 on Standard** in one group versus **$0.0003 on Flash**. This is arithmetic from documented rates and repetition rules, excluding questions, other overhead, and retries. Tokenization and usage can differ by provider. Compare actual billed usage, quality, latency, and review workload—not rates alone. The [guide's cost explanation](guide.md#what-a-small-workflow-might-cost) shows how to estimate a complete workflow.
+
+## Interpreting the answers
+
+- **Yes/no probability** estimates whether the supplied statement is true. Near 0.5 means uncertainty, not medium urgency. `noul` has no separate confidence field.
+- **Choice** selects among the options you supplied. Good option coverage matters: a confident answer cannot repair a missing category.
+- **Score** averages over ordered rubric levels. The average can hide uncertainty between extremes, so inspect the distribution when it matters.
+- **Confidence** summarizes a distribution; it is not a demonstrated accuracy rate. Perplexity and TypeSafe use different score-confidence normalization, so thresholds should not be transferred blindly.
+
+The [worked example](worked-example.md#turn-answers-into-application-behavior) connects these signals to rules. Exact formulas, version identity, and migration checks are optional detail below.
 
 ## Practitioner checklist
 
@@ -69,6 +85,6 @@ No. Perplexity echoes the requested name, and a retired version name can route t
 
 </details>
 
-The original documentation review was on **18 October 2026**; Perplexity grouping, input splitting, pricing, and both providers’ confidence formulas were rechecked on **20 October 2026**. This page explains documented contracts; the separate [case study](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html) preserves live responses from October 18 and explains the subsequent documentation clarification. The experiment does not validate every documented behavior. Recheck the linked provider pages when updating an integration; use the [API snapshot](../../skills/pplx-decision/references/api-snapshot.md) for dated operational details.
+Documented behavior was checked on **20 October 2026**. No model-quality or latency comparison was run for this guide. Recheck linked provider documentation before implementation and evaluate thresholds on your own data.
 
-[Back to the Perplexity Decisions guide](guide.md) · [Choose a prompt](guide.md#choose-a-starting-point)
+[Back to the guide](guide.md) · [Follow the worked example](worked-example.md) · [Choose a prompt](guide.md#choose-a-starting-point)

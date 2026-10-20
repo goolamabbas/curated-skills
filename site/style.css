@@ -5,16 +5,12 @@
 /* Keep the two-column prompt chooser readable without sideways scrolling. */
 .beginner-guide .table-scroll table:has(th:nth-child(2):last-child){min-width:0;table-layout:fixed}
 
-/* Keep the case study's long question and optional evidence readable. */
-.case-study h1{font-size:clamp(38px,5.8vw,62px);line-height:1.08}
-.case-study>p:first-of-type{font-size:20px;line-height:1.6;color:var(--ink)}
-.case-study>p:nth-of-type(2){font-size:13px;color:var(--muted)}
-.case-study>p:nth-of-type(3){font-size:21px;color:var(--muted)}
-.case-study blockquote{margin:26px 0;padding:22px 28px;border-left:3px solid var(--green);background:var(--white);font:20px/1.6 Georgia,serif}
-.case-study blockquote p{margin:0}
-.case-study details{margin:25px 0;border:1px solid var(--line);border-radius:5px;padding:18px 22px;background:var(--white)}
-.case-study details[open] summary{margin-bottom:22px}
-.case-study summary{line-height:1.5}
-.case-study table{font-variant-numeric:tabular-nums}
-.case-study a{overflow-wrap:anywhere}
-@media(max-width:600px){.case-study blockquote{padding:18px;font-size:19px}.case-study details{padding:16px}}
+/* Supporting reader pages keep long titles and optional technical detail readable. */
+.reader-page h1{font-size:clamp(38px,5.8vw,62px);line-height:1.08}
+.reader-page>p:first-of-type{font-size:20px;line-height:1.6;color:var(--ink)}
+.reader-page details{margin:25px 0;border:1px solid var(--line);border-radius:5px;padding:18px 22px;background:var(--white)}
+.reader-page details[open] summary{margin-bottom:22px}
+.reader-page summary{line-height:1.5}
+.reader-page table{font-variant-numeric:tabular-nums}
+.reader-page a{overflow-wrap:anywhere}
+@media(max-width:600px){.reader-page details{padding:16px}}
