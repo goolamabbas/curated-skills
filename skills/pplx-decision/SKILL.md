@@ -54,8 +54,9 @@ uncertainty, not medium intensity.
 Treat probabilities as model judgments requiring task-specific validation.
 Keep confidence distinct from the probability of the selected answer.
 
-Question grouping is part of the model input. Current v1.2 models see
-other questions in the request; do not import Jev's independence assumption.
+Standard v1.2 evaluates questions jointly within each processing group.
+Hosted Flash v1.2 evaluates questions separately and bills state per question.
+Distinguish the hosted API contract from checkpoint implementations.
 
 Use a separate component when the workflow needs generated prose,
 retrieval, or execution. Validate permissions and action arguments in code.

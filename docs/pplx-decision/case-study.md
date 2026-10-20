@@ -1,18 +1,18 @@
 # When an extra question changes an application's decision
 
-The test includes grouped Flash requests beyond its recommended one-question default. It examines sensitivity to request design, rather than ranking the models.
+This experiment records responses from 18 October 2026. As checked on 20 October, Perplexity documents that hosted Flash processes each question separately and bills state per question. How the recorded differences across request arrangements relate to that serving behavior remains unresolved; this study does not rank the models.
 
 **Perplexity Standard, Flash, and TypeSafe's Jev · 24 fictional support tickets · Run on 18 October 2026**
 
 Suppose your support application uses a decision model to choose which team should receive a customer's message. Later, you add a question about whether the customer wants a phone call. The message and routing instructions stay the same. Could the selected team change?
 
-To understand the test, start with a **request**: one submission to the model containing information to assess and one or more questions. **Grouping questions** means asking several questions in that same request.
+To understand the test, start with a **request**: one submission to the model containing information to assess and one or more questions. Here, **grouping questions** means submitting several questions in that same request; it does not establish that the service evaluated them jointly.
 
 ## What the providers say to expect
 
-[Perplexity documents](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request) that Standard and Flash let questions in the same request influence one another. For Flash, it recommends one question per request by default, grouping only select-all-that-apply decisions or steps of one routing decision, and checking those on the intended task. [TypeSafe documents](https://docs.typesafe.ai/introduction) that Jev evaluates each question independently against the same information. The [model comparison](model-comparison.md) explains these differences in more detail.
+The [current hosted API documentation](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request), checked on October 20, says Standard evaluates questions jointly within a processing group, while Flash answers each separately and bills state per question. The [Flash checkpoint model card](https://huggingface.co/perplexity-ai/pplx-decider-flash-v1.2#when-to-group-questions) describes a joint-request implementation; it is not the hosted API contract. [TypeSafe documents](https://docs.typesafe.ai/introduction) that Jev evaluates each question independently against the same information. The [model comparison](model-comparison.md) explains the current documented distinctions.
 
-These designs give developers different starting assumptions. Keeping an existing answer unchanged may be an application requirement, but Perplexity does not promise that adding a grouped question will leave it unchanged. Our experiment asks what those documented differences mean for one application's decisions.
+The October 18 experiment was designed under guidance describing joint Flash requests. The newer hosted documentation does not establish whether serving changed or the description was corrected. We retain the original observations without assigning their differences to a confirmed internal mechanism. Keeping an existing answer unchanged may still be an application requirement; evaluate that outcome on the serving path you use.
 
 ## What we found
 
@@ -34,9 +34,9 @@ The model supplies judgments; the application's rules determine what happens nex
 
 ## Asking separately and asking together
 
-The developer can send the customer message three times, asking one question per request, or send it once with all three questions. Grouping avoids repeatedly billing that shared message in Perplexity's API. Related questions can also improve some judgments on Standard. Those potential benefits make grouping worth evaluating alongside changes in answers.
+The developer can send the customer message three times, asking one question per request, or send it once with all three questions. On Standard, questions that fit in one processing group share the state charge, and related questions can improve some judgments. Current hosted Flash documentation instead specifies a repeated state charge per question. Those distinctions matter when comparing complete workflows.
 
-We compared both arrangements, then added the callback question to the grouped request. Our grouped arrangements combine missing-data detection, team selection, and severity; they should not automatically be treated as steps of one routing decision within Flash's documented exception.
+We compared both arrangements, then added the callback question to the grouped request. Our multi-question arrangements combine missing-data detection, team selection, and severity. They record submitted payloads, not a verified account of the hosted service's internal processing.
 
 | Arrangement | What the application sends |
 | --- | --- |
@@ -44,7 +44,7 @@ We compared both arrangements, then added the callback question to the grouped r
 | B · Together | One request containing the message and all three questions |
 | C · Plus callback | The same request as B, with a fourth question asking whether the customer explicitly requests a phone call |
 
-The application ignored the callback answer, but the added question was still part of the model's input. That distinction matters: unused by the application does not mean invisible to the model.
+The application ignored the callback answer, but the added question was still part of the submitted request. On Standard, a question can affect others in its processing group even when its answer is unused. The recorded Flash differences do not establish that the hosted model saw the callback alongside the original questions.
 
 Comparing A with B tests asking separately versus together. Comparing B with C tests adding the callback question to an already-grouped request. The message and original question wording stay fixed. We did not test adding the callback as a separate fourth request.
 
@@ -76,7 +76,7 @@ The label itself is less clear. The message describes losing an unsaved draft an
 
 This was the only message with a team-choice change across arrangements. Flash matched the accepted team labels on 23 of 24 messages in A, all 24 in B, and 23 in C. Standard and Jev matched all 24 under every arrangement. Those totals depend on the accepted labels. The dataset also favors Technical Support: always selecting it would match 18 of 24 labels. That shows class imbalance, not how easy every message is to interpret.
 
-**A changed answer is not automatically a worse answer, and an unchanged answer is not automatically correct.** Here, B matched our accepted label while A and C differed from it. The clearest finding is sensitivity to the accompanying questions; deciding which destination is preferable requires a clearer policy for this boundary case.
+**A changed answer is not automatically a worse answer, and an unchanged answer is not automatically correct.** Here, B matched our accepted label while A and C differed from it. The clearest observation is that the recorded destinations differed across request arrangements; their internal cause remains unresolved. Deciding which destination is preferable also requires a clearer policy for this boundary case.
 
 ## A changed number does not always change the action
 
@@ -113,9 +113,9 @@ We chose these two examples after inspecting the results: the unsaved-draft mess
 
 - **Jev:** question isolation does not guarantee identical answers across repeated calls. Check repeat variation against the margins around your application's cutoffs.
 - **Standard:** test whether grouping related questions helps the decisions you need, and recheck existing answers when the question set changes.
-- **Flash:** start with one question per request. Test select-all-that-apply decisions or steps of one routing decision before grouping them in your application.
+- **Hosted Flash:** start with one question per request and account for state billed per question. Verify current response and usage behavior separately from this historical run; do not treat a multi-question API request as joint evaluation.
 
-The same arrangements let us compare sensitivity to those arrangements, not each model's best possible deployment. Choose using **decision quality on representative cases**, **behavior when questions change**, and **cost, response time, and reliability for the completed workflow**.
+The same submitted arrangements let us compare recorded outputs, not establish identical internal processing or each model's best possible deployment. Choose using **decision quality on representative cases**, **behavior when questions change**, and **cost, response time, and reliability for the completed workflow**.
 
 ## Try the same check in your application
 
@@ -216,7 +216,7 @@ The examples above are **T20, the unsaved draft**, and **T23, the empty workspac
 - **Numerical checks:** [all warnings](../../examples/pplx-question-grouping/numerical-warnings.json) and [reported and calculated scores](../../examples/pplx-question-grouping/score-comparison.csv).
 - **Reproducibility:** [request schedule and payloads](../../examples/pplx-question-grouping/requests.jsonl), [run manifest](../../examples/pplx-question-grouping/manifest.json), and [verification record](../../examples/pplx-question-grouping/full-run-verification.json).
 
-The evidence comes from completed Perplexity and TypeSafe API calls in the run conducted for this case study. The verification performed for that run checked the frozen inputs, request schedule, all 1,800 responses, numerical diagnostics, quality calculations, threshold decisions, and cost arithmetic. This presentation revision preserves the original records and does not rerun the experiment. The protocol retains its historical `draft_for_review` status; the completed run and verification records document what followed.
+The evidence comes from completed Perplexity and TypeSafe API calls in the run conducted for this case study. The verification performed for that run checked the frozen inputs, request schedule, all 1,800 responses, numerical diagnostics, quality calculations, threshold decisions, and cost arithmetic. This presentation revision preserves the original records and does not rerun the experiment. The linked generated report is the frozen October 18 output; its contemporary explanations have not been rewritten to reflect the October 20 hosted API clarification. The protocol retains its historical `draft_for_review` status; the completed run and verification records document what followed.
 
 </details>
 

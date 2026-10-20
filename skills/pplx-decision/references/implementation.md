@@ -47,25 +47,26 @@ and preserve their source mapping. Check candidate coverage.
 For standard v1.2, group related facets; isolate independent candidates.
 Intentional comparisons, such as duplicate detection, can warrant grouping
 on Standard; evaluate that choice explicitly.
-For Flash v1.2, default to one question per request. Its documented grouping
-exceptions are select-all-that-apply decisions or steps of one routing decision;
-test those on the intended task. Several judgments about one ticket do not
-automatically qualify as steps of one routing decision.
+For hosted Flash v1.2, start with one question per request. The API processes
+each question separately and bills state per question even in a multi-question
+request. The checkpoint's joint-request implementation is a different serving path.
 
-Grouping affects predictions. Changing it requires reevaluation.
+Standard grouping affects predictions. Reevaluate changes to joint context.
 
 Prefer a selected versioned name for evaluated deployments. Use an alias when
 automatic upgrades are intentional and evaluated. Retired versions can also
 reroute; the returned name echoes the request and does not establish immutable
 serving identity. Check change notices and revalidate affected thresholds.
 
-Budget state, questions, and images together below the documented input limit
-with headroom. The [snapshot](api-snapshot.md#grouping-models-and-billing) records
-unresolved rejection-versus-splitting guidance; do not rely on server splitting.
-Split deliberately when needed, preserve related groups, and reevaluate changed
-grouping. If state alone is too large, splitting questions cannot fix it. Correct
-limit-related 400s before resubmission. Compare usage with input size and grouping;
-elevated usage is a diagnostic signal, not proof of server splitting.
+Keep state, images, and each question below the input limit with headroom.
+Standard automatically splits questions into consecutive groups if they do not
+fit together, repeating and billing state per group. Choose groups deliberately
+when joint context matters; automatic splitting need not preserve the intended
+relationships. State plus a single question that cannot fit produces an
+input-limit 400; shorten that input before resubmission. Also enforce the body
+size limit. See the [snapshot](api-snapshot.md#grouping-models-and-billing).
+Compare returned usage with expected grouping and Flash's per-question state
+repetition; elevated usage alone is not proof of a Standard split.
 
 ## Consume answers explicitly
 

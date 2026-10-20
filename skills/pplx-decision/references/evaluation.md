@@ -32,8 +32,9 @@ the intended request shapes.
 Record state preparation, question wording, rubric, grouping, requested
 model, and policy. Change one factor at a time when diagnosing failures.
 
-Test alternative groupings deliberately. Do not combine results from
-different groupings as though they came from one unchanged predictor.
+Test alternative Standard groupings deliberately. Hosted Flash processes questions
+separately; distinguish the submitted request layout from joint model context.
+Do not combine results from different configurations as one unchanged predictor.
 
 ## Tune policy to consequences
 
@@ -63,16 +64,18 @@ Keep examples from documentation as examples, not universal cutoffs.
 
 ### Optional confidence diagnostic
 
-For `choice` and `score` answers during an already-authorized evaluation,
-optionally log the provider's returned
-`confidence` beside a statistic computed from its `probabilities` using the
-[documented TypeSafe formula](https://docs.typesafe.ai/confidence) for that question
-type. Preserve the rubric's numeric level order for scores, and record the formula
-and source date used. This requires no additional inference calls and lets you
-compare the returned field with a consistently computed statistic. Keep them as
-separate fields: the derived value is not automatically better calibrated or more
-reliable, and its action thresholds still need evaluation against labelled outcomes.
-This diagnostic does not test question-grouping effects; evaluate those separately.
+During an already-authorized evaluation, optionally compare returned `choice` and
+`score` confidence with the [Perplexity calculation](api-snapshot.md#confidence-calculations)
+applied to the returned probabilities. Use numeric rubric order, the documented
+single-option/level case, and a rounding tolerance. Where score modes tie,
+mark the check inconclusive unless the provider's tie rule is known.
+
+A separate optional statistic can use the [TypeSafe formula](https://docs.typesafe.ai/confidence).
+Its score baseline differs from Perplexity's; label it as a comparison statistic,
+not corrected Perplexity confidence. Record formulas and source dates. Neither
+agreement with a formula nor a different statistic establishes calibration;
+evaluate action thresholds against labelled outcomes. These checks need no extra
+inference calls and do not test question-grouping effects.
 
 ## Measure the full workflow
 
@@ -89,8 +92,10 @@ For input-only token billing, compute:
 Use the applicable model's rate; [api-snapshot.md](api-snapshot.md#grouping-models-and-billing)
 contains dated rates and source links. Recheck billing terms when they change.
 Calculate from returned usage; do not add speculative repeated-state charges.
-Investigate unexpected usage against the submitted input and grouping, accounting
-for the unresolved splitting behavior described in the snapshot. Sum known billed retry usage too,
+Investigate unexpected usage against the submitted input: Standard repeats state
+per processing group when split, and hosted Flash repeats it per question.
+Returned usage already counts that repetition; do not charge it twice.
+Sum known billed retry usage too,
 and mark failed-call costs unknown when usage is absent. Estimate missing costs
 explicitly instead of treating them as zero. Keep retrieval, generation, review,
 and other downstream costs separate from this inference subtotal.

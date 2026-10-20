@@ -77,11 +77,11 @@ before adapting its design; examples do not override current model guidance.
 
 | Pattern | Starting example | Grouping consideration |
 | --- | --- | --- |
-| Route and escalate | [Ticket triage](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-ticket-triage/README.md) | Test related facets together on Standard. Flash defaults to one question per request; its documented grouping exceptions are select-all-that-apply decisions or steps of one routing decision, to be tested on the task. |
+| Route and escalate | [Ticket triage](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-ticket-triage/README.md) | Test related facets together on Standard. Hosted Flash evaluates questions separately and bills state per question, even in a multi-question request. |
 | Select instead of generate; rerank | [Quote finder](https://docs.perplexity.ai/docs/cookbook/examples/decisions-quote-finder/README.md) | Start independent candidate scores in separate requests; deliberate comparison is a different design to evaluate. |
 | Verify claims and repair | [Answer gate](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-answer-gate/README.md) | Isolate independent claims; retain joint evidence where the judgment depends on relationships. |
-| Check proposed actions | [Action gate](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-action-gate/README.md) | Related checks of one action may group; isolate independent proposed actions. Code still enforces permission. |
-| Respond to changing state | [Browser agent](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-browser-agent/README.md) | Related judgments of one observation may group; a newly observed state is a new stage. |
+| Check proposed actions | [Action gate](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-action-gate/README.md) | Related checks of one action may group on Standard; isolate independent proposed actions. Code still enforces permission. |
+| Respond to changing state | [Browser agent](https://docs.perplexity.ai/docs/cookbook/examples/decisions-api-browser-agent/README.md) | Related judgments of one observation may group on Standard; a newly observed state is a new stage. |
 
 ## Make the strongest ideas concrete
 

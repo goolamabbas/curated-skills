@@ -1,7 +1,8 @@
 # Perplexity Decisions API baseline
 
-Documentation verified **2026-10-18**, covering `pplx-decider-v1.2` and
-`pplx-decider-flash-v1.2`. Use this selective baseline for drafting, fixtures,
+Baseline documentation checked **2026-10-18**, covering `pplx-decider-v1.2` and
+`pplx-decider-flash-v1.2`. Grouping, input splitting, pricing, and confidence
+rechecked **2026-10-20**. Use this selective baseline for drafting, fixtures,
 and comparison with current documentation.
 
 Sources: [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart.md),
@@ -46,6 +47,24 @@ probability or demonstrated accuracy. Distributions sum approximately to one.
 Top-level responses contain `model`, `answers`, and
 `usage: {input_tokens, output_tokens}`. `model` echoes the requested name.
 
+### Confidence calculations
+
+The [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart.md) and
+[schema](https://docs.perplexity.ai/api-reference/decisions-post.md) define:
+
+- `choice`, for `n > 1` options: `(p_top - 1/n) / (1 - 1/n)`,
+  where `p_top` is the largest probability.
+- `score`, for `n > 1` levels: `max(0, 1 - spread / baseline)`,
+  where `m` is the most likely level, `spread = sum(p_i * abs(i - m))`,
+  and `baseline = sum(abs(i - m)) / n` across every rubric level.
+- One choice option or one score level has confidence 1.
+
+For scores, use numeric level order. The most likely level is not necessarily
+the highest rubric level. Tie selection is not specified in these passages;
+do not invent a tie rule for an exact consistency check.
+TypeSafe's score normalization instead uses distances from the rubric midpoint
+for its baseline; see [porting-from-typesafe.md](porting-from-typesafe.md).
+
 ## Limits and images
 
 | Constraint | Documented value |
@@ -53,7 +72,7 @@ Top-level responses contain `model`, `answers`, and
 | Questions per request | 1–128 |
 | Options per choice | 1–255 |
 | Levels per score | 1–10; one level always scores zero |
-| Input | Under 256K tokens, including state, questions, and images |
+| Input | State, its images, and each individual question must fit under 256K tokens; Standard splits questions that do not fit together |
 | Request body | 32 MiB |
 | Images | Up to 8 per question; PNG, JPEG, or WebP data URLs |
 | Image size | At most 2,048 tiles of 32 × 32 pixels per image |
@@ -78,23 +97,28 @@ encoded body size, and total input limits require separate checks.
 
 ## Grouping, models, and billing
 
-Both v1.2 models see all questions in a request. Standard benefits from related
-facets; isolate independently scored candidates. Intentional comparison on Standard
+Standard v1.2 evaluates questions jointly within a processing group. Related
+facets can benefit; isolate independently scored candidates. Intentional comparison
 can justify grouping (for example duplicate detection or multi-hop evidence).
-Flash defaults to one question per request. Its documented grouping exceptions
-are select-all-that-apply decisions or steps of one routing decision; evaluate
-those on the actual task.
-Do not treat adding an unused question as behaviorally neutral.
+An unused question in the same group can still influence another answer.
 
-The grouping section describes state being billed once per group and automatic
-consecutive question groups with repeated state when aggregate input is too large.
-The limits/error sections and endpoint schema also describe an input limit and
-limit-related 400 responses. The conditions distinguishing rejection from
-automatic splitting are unverified. Keep each request below the documented limit
-with headroom, and correct limit-related 400s rather than retrying unchanged.
-Do not depend on server splitting to accept a request or preserve grouping. If
-splitting occurs, grouping and billed input may change; the inspected response
-schema has no explicit split indicator.
+If Standard's state plus all questions exceeds the input limit, the hosted API
+splits questions into consecutive groups. Each group includes and bills the state
+again; returned `usage.input_tokens` includes that repetition. Groups run
+sequentially, increasing latency and potentially reaching a timeout. State plus
+any single question that cannot fit produces an input-limit 400. Correct that
+input rather than retrying unchanged.
+
+Choose groups deliberately and keep headroom when joint context matters:
+automatic splitting can change which questions see each other. This is a client
+design recommendation, not a claim that splitting is unsupported. The inspected
+hosted response schema has no explicit split indicator.
+
+Hosted Flash v1.2 answers each question separately, even when several are sent
+in one request. State is repeated and billed for every question. Start with one
+question per request; a multi-question request does not create joint context or
+shared-state savings. The Flash checkpoint model card describes a joint-request
+implementation; its grouping exceptions are not the hosted API's processing policy.
 
 | Model | Alias | USD per million input tokens |
 | --- | --- | --- |
@@ -105,10 +129,11 @@ Output tokens are free; there is no request fee. Aliases follow newer models and
 bill at the selected model's rate. Retired version names reroute to replacements;
 neither an alias nor a versioned name proves immutable serving identity.
 
-The schema's generic Usage description lists a single rate, while its model
-descriptions and the quickstart distinguish Standard/Flash. Use model-specific
-pricing and check announced changes. See [evaluation.md](evaluation.md) for cost
-calculation and [implementation.md](implementation.md) for operational policy.
+The schema's Usage description and quickstart agree on these model-specific rates.
+Compare total billed input: repeated state can make a multi-question Flash workflow
+costlier than Standard despite Flash's lower token price. See
+[evaluation.md](evaluation.md) for cost calculation and
+[implementation.md](implementation.md) for operational policy.
 
 ## Errors and headers
 

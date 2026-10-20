@@ -71,7 +71,7 @@ Your application compares `noul` with its review threshold. Noul answers have no
 
 **TypeSafe** provides **Jev**, another decision model built around state and typed questions. The [TypeSafe introduction](https://docs.typesafe.ai/introduction) explains its approach. These are separate services; this skill helps you build with Perplexity or [migrate an existing TypeSafe/Jev workflow](#port-a-typesafejev-workflow).
 
-For a practical comparison, read [How Jev, Standard, and Flash differ](model-comparison.md). It explains how questions can influence one another and why Flash needs different starting assumptions.
+For a practical comparison, read [How Jev, Standard, and Flash differ](model-comparison.md). It explains Standard’s joint evaluation, hosted Flash’s separate question processing, and what those differences mean for your application.
 
 ### Where this skill fits
 
@@ -83,7 +83,7 @@ If the workflow also needs a written reply, retrieval, or an action, connect the
 
 Suppose your application uses a decision model to choose a support team. You add a question about whether the customer wants a callback. Could the chosen team change even though the message and routing instructions stay the same?
 
-[Read the case study: when an extra question changes an application's decision](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html). Follow Standard, Flash, and Jev through 24 fictional support messages to see how question grouping can affect an application, and how to check your own workflow. For the documented differences behind the experiment, see the [model comparison](model-comparison.md).
+[Read the case study: when an extra question changes an application's decision](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/case-study.html). The October 18 experiment records Standard, Flash, and Jev responses to 24 fictional support messages under different request arrangements. Its opening note explains the updated hosted Flash documentation checked on October 20; the recorded results do not establish today’s internal serving behavior. For current documented behavior, see the [model comparison](model-comparison.md).
 
 ## When to use it
 
@@ -113,9 +113,11 @@ This skill helps build software; it does not provide general Perplexity search. 
 
 Here, **Standard** means `pplx-decider-v1.2`, and **Flash** means `pplx-decider-flash-v1.2`, Perplexity’s smaller decision model.
 
-As checked on **18 October 2026**, [Perplexity’s input-token rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing) are $0.02 per million for Standard and $0.01 for Flash, with free output tokens and no request fee.
+As checked on **20 October 2026**, [Perplexity’s input-token rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing) are $0.02 per million for Standard and $0.01 for Flash, with free output tokens and no request fee.
 
 If a completed ticket uses **1,000 total billed input tokens**, one million tickets would cost about **$20 on Standard or $10 on Flash**. This assumes no additional billable calls or retries. Include questions and repeated context when estimating input; a 1,000-token message alone is not a 1,000-token workflow. Separate requests can repeat state, so measure actual `usage.input_tokens` across the whole workflow and check current prices before budgeting. Free output tokens can still appear in usage counts.
+
+Standard shares state within a processing group; hosted Flash repeats and bills it for every question, even when questions arrive together. For three questions over a 10,000-token state, the state alone costs about **$0.0002 on Standard** if they fit in one group, versus **$0.0003 on Flash**. Question tokens and other overhead are additional. Standard also repeats state if an oversized request is split into groups. Compare the complete workflow’s billed input, not just the token rate.
 
 ## Install this skill
 
@@ -276,7 +278,7 @@ from live measurements. Return a plan; do not modify files or call model APIs ye
 
 Start with [How Jev, Standard, and Flash differ](model-comparison.md) for the conceptual differences, then use the migration prompt below.
 
-**Outcome:** a revised integration and offline checks of its application logic. Provide the existing request builder, answer handling, and tests. TypeSafe documents independent question evaluation, while Perplexity’s v1.2 models see other questions in the request; review the [migration guidance](../../skills/pplx-decision/references/porting-from-typesafe.md#reconsider-grouping-first) before carrying over assumptions.
+**Outcome:** a revised integration and offline checks of its application logic. Provide the existing request builder, answer handling, and tests. TypeSafe documents independent question evaluation. Standard evaluates questions jointly within each processing group; hosted Flash evaluates them separately and bills state per question. Review the [migration guidance](../../skills/pplx-decision/references/porting-from-typesafe.md#reconsider-grouping-first) before carrying over assumptions.
 
 ```text
 Use the pplx-decision skill to port this TypeSafe/Jev integration to Perplexity

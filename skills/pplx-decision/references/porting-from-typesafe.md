@@ -18,19 +18,21 @@ TypeSafe's [state guide](https://docs.typesafe.ai/concepts/state.md) describes
 independent question evaluation; its [fan-out guide](https://docs.typesafe.ai/patterns/fan-out.md)
 encourages speculative branch questions whose unused results code ignores.
 Perplexity's [v1.2 guidance](https://docs.perplexity.ai/docs/decisions/quickstart.md#grouping-questions-in-one-request)
-says each question sees the others. An unused speculative question can therefore
-change an answer the application does consume.
+says Standard questions see the others in their processing group. An unused
+speculative question can therefore change an answer the application consumes.
+Hosted Flash evaluates each question separately, repeating and billing state
+per question. Do not infer joint hosted behavior from the Flash checkpoint card.
 
 Classify the original questions by their relationship:
 
 - Related facets of one decision may form a useful group on Standard.
 - Independently scored candidates should start in separate requests.
 - Intentional comparisons on Standard can benefit from joint context; justify and evaluate them.
-- Flash defaults to one question per request. Its documented grouping exceptions are select-all-that-apply decisions or steps of one routing decision; test those on the intended task.
+- Hosted Flash should start with one question per request. Sending several together does not create joint context or shared-state savings.
 - A branch needing newly retrieved evidence or generated options is a later stage.
 
-Do not translate speculative fan-out by copying the old batch unchanged. Keep
-group composition fixed during comparison and retune policy on the new model.
+Review speculative fan-out for Standard context effects and Flash's repeated-state
+cost. Keep request composition fixed during comparison and retune policy on the new model.
 Isolation is a baseline for independent judgments, not a universal prohibition
 on comparisons.
 
@@ -67,11 +69,14 @@ primitive's outer criteria shape.
 Treat response similarities as interface conveniences, not calibrated equivalence.
 Noul has no separate confidence; choice/score confidence is distinct from the
 selected probability. TypeSafe [publishes its confidence formulas](https://docs.typesafe.ai/confidence).
-Perplexity's [published choice example](https://docs.perplexity.ai/docs/decisions/quickstart)
-matches TypeSafe's choice formula, but its score example lists confidence of about
-0.78 where TypeSafe's score formula gives about 0.68 for the same probabilities.
-This documentation comparison does not establish a general Perplexity formula or
-current live behavior. Do not assume a recomputed confidence formula transfers;
+Perplexity's [published choice formula](https://docs.perplexity.ai/docs/decisions/quickstart)
+matches TypeSafe's for more than one option. Their score formulas normalize
+distance differently: Perplexity's baseline is the average distance of all levels
+from the most likely level; TypeSafe's is measured from the rubric midpoint.
+Both are normalized. Perplexity's three-level example has spread about 0.2161:
+dividing by 1 gives confidence about 0.78, while TypeSafe's baseline of 2/3 gives
+about 0.68. See the [exact Perplexity formulas](api-snapshot.md#confidence-calculations).
+Matching formulas do not establish matching predictions or calibration;
 reevaluate probability and confidence thresholds on the target provider and model.
 Check score-index meaning, string probability keys, answer
 IDs, and required values explicitly. Follow [implementation.md](implementation.md)
