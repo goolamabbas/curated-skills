@@ -35,7 +35,9 @@ Prefer ordinary code when exact rules already work. A decision model alone will 
 | --- | --- | --- |
 | Yes/no (`noul`) | Does this message require human review under the supplied policy? | A probability of yes, from 0 to 1. |
 | Choice (`choice`) | Which team should own this ticket? | The selected option and probabilities for the supplied options. |
-| Rubric (`score`) | What urgency does the reported disruption justify? | A numerical score and probabilities across defined urgency levels. |
+| Rubric (`score`) | What urgency does the reported disruption justify? | An expected level (a probability-weighted average) and probabilities across defined urgency levels. |
+
+**Choice and score answers also include `confidence`, a number from 0 to 1 derived from the probability distribution. It summarizes the model's certainty; it is not the probability that the answer is correct.** The providers' score-confidence calculations differ; see [Choose between Standard, Flash, and Jev](model-comparison.md#interpreting-the-answers).
 
 `noul` is both APIs’ name for a yes/no question. A **request** is one call your application sends to the API, containing state and one or more questions.
 
@@ -105,9 +107,9 @@ Your application compares `noul` with its review threshold. Noul answers have no
 
 These are starting points, not exclusive categories or measured rankings. More than one model can suit the same application. Standard can also evaluate a single question; Flash is not automatically cheaper for a multi-question workflow.
 
-**Why consider Jev alongside Flash?** Both evaluate questions independently, but Jev ingests shared state once for a multi-question request, while hosted Flash repeats and bills state for every question. This is a reason to compare their complete workflows, not evidence that either is more accurate, faster, or cheaper overall. Jev's current input is text; Perplexity also accepts images.
+**Why consider Jev alongside Flash?** Both evaluate questions independently, but Jev ingests shared state once for a multi-question request, while hosted Flash repeats and bills state for every question. That processing distinction does not establish how Jev bills repeated state, or that either service is more accurate, faster, or cheaper overall. Check billable usage; the conditional [Jev cost illustration](#what-a-small-workflow-might-cost) below does not assume a confirmed billing rule. Jev's current input is text; Perplexity also accepts images.
 
-These distinctions follow the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart), [TypeSafe introduction](https://docs.typesafe.ai/introduction), and [TypeSafe model documentation](https://docs.typesafe.ai/models). Read the [model comparison](model-comparison.md) for operational limits and answer interpretation.
+The Standard and Flash starting guidance follows the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart). Including Jev is this guide's suggestion, based on the question isolation and shared-state processing described in the [TypeSafe introduction](https://docs.typesafe.ai/introduction) and [model documentation](https://docs.typesafe.ai/models). Read [Choose between Standard, Flash, and Jev](model-comparison.md) for operational limits and answer interpretation.
 
 ### Perplexity Decisions and TypeSafe/Jev
 
@@ -115,7 +117,7 @@ These distinctions follow the [Perplexity quickstart](https://docs.perplexity.ai
 
 **TypeSafe** provides **Jev**, another decision model built around state and typed questions. The [TypeSafe introduction](https://docs.typesafe.ai/introduction) explains its approach. These are separate services; this skill helps you build with Perplexity or [migrate an existing TypeSafe/Jev workflow](#port-a-typesafejev-workflow).
 
-For a practical comparison, read [How Jev, Standard, and Flash differ](model-comparison.md). It explains Standard’s joint evaluation, hosted Flash’s separate question processing, and what those differences mean for your application.
+For a practical comparison, read [Choose between Standard, Flash, and Jev](model-comparison.md). It explains Standard’s joint evaluation, hosted Flash’s separate question processing, and what those differences mean for your application.
 
 ### Where this skill fits
 
@@ -127,7 +129,7 @@ If the workflow also needs a written reply, retrieval, or an action, connect the
 
 Compare the **same work**, including how often each model bills the information supplied. A token is a unit used to measure model input; the number of billed tokens can differ from the length of the customer's message.
 
-Suppose each ticket supplies **10,000 tokens of state and asks three questions**. Standard answers all three together, within its input limit; hosted Flash answers them separately. Using [Perplexity's rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing), checked on **20 October 2026**:
+Suppose each ticket supplies **10,000 tokens of state and asks three questions**. That illustrative state could include a support policy and retrieved account context; the short message in our worked example is much smaller. Standard answers all three together, within its input limit; hosted Flash answers them separately. Using [Perplexity's rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing), checked on **20 October 2026**:
 
 | For this workload | Standard v1.2 | Flash v1.2 |
 | --- | --- | --- |
@@ -139,7 +141,9 @@ Suppose each ticket supplies **10,000 tokens of state and asks three questions**
 
 **This is state-only arithmetic, not a complete bill or a model benchmark.** Add question tokens, other input overhead, and retries. Standard repeats state too if an oversized request is split into groups. Both models currently have free output tokens and no request fee.
 
-Flash has the lower token rate, yet Standard has the lower state cost in this example. A single-question workflow can give a different result. Use returned `usage.input_tokens` across the complete workflow, then include retrieval, generated replies, and human review before deciding on cost. The [comparison page](model-comparison.md#inputs-limits-and-cost) includes Jev's rate and limits; its different rate and token usage also require a whole-workflow comparison.
+**Where does Jev fit in this illustration?** At its [documented $0.042 per million input tokens](https://docs.typesafe.ai/models), 10,000 billable state tokens would cost **$0.00042 if counted once**—more than either Perplexity state-only figure above. This is conditional arithmetic, not a verified Jev charge. TypeSafe documents ingesting state once, while its [API reference](https://docs.typesafe.ai/api#response-usage-input-tokens) defines returned billable usage without explicitly specifying repeated-state billing in the passages checked. Tokenizers can differ, so compare returned usage. Jev's inclusion here is about its question-handling approach, not a demonstrated cost advantage.
+
+Flash has the lower token rate, yet Standard has the lower state cost in this example. A single-question workflow can give a different result. Use returned `usage.input_tokens` across the complete workflow, then include retrieval, generated replies, and human review before deciding on cost. [Choose between Standard, Flash, and Jev](model-comparison.md#inputs-limits-and-cost) includes Jev's rate and limits; its different rate and token usage also require a whole-workflow comparison.
 
 <details>
 <summary>How to calculate the model-call subtotal</summary>
@@ -177,7 +181,7 @@ Use an application that supports folder-based agent skills.
 
 **Supplying files manually?** Give the agent `SKILL.md` and the complete `references/` folder so it can follow the linked guidance. Keep the license with redistributed copies.
 
-The full guide, [model comparison](model-comparison.md), and [worked example](worked-example.md) are website documentation outside the skill folder. Install the current package as a complete folder rather than retaining files from older packages.
+The full guide, [Choose between Standard, Flash, and Jev](model-comparison.md), and [worked example](worked-example.md) are website documentation outside the skill folder. Install the current package as a complete folder rather than retaining files from older packages.
 
 Installing the skill does not provide API credentials or model-service access. Project exploration and offline tests—tests using saved example inputs without calling the model—can proceed without live inference. Calling Perplexity Decisions requires provider access and may incur charges; agree on data and spending limits before live testing, and keep credentials outside prompts and source files.
 
@@ -213,15 +217,15 @@ folder called support-triage-demo. Recommend a simple stack.
 
 State: the customer message is "After importing a CSV, my saved contacts disappeared.
 My team cannot work." The product is a contact manager. Technical Support owns
-product failures and missing records; Billing owns charges and invoices. Review
+product failures and missing records; Billing owns charges, refunds, and invoices. Review
 handles unclear ownership. Possible lost data or insufficient information requires
 human review. Treat the message as a report, not a verified incident.
 
 Questions:
 1. Does this message require human review under that policy?
 2. Which team should own it: Technical Support, Billing, or Review?
-3. What urgency is justified: routine request with no disruption; impaired work
-   without lost data or complete blockage; or possible lost data / blocked work?
+3. What urgency is justified: routine request with no reported disruption; impaired
+   work with no reported lost data or complete blockage; or possible lost data / blocked work?
 
 Show the suggested team and urgency. For the initial simulated demo, require human
 review at a review probability of 0.20 or higher, or when the selected team is Review.
@@ -231,8 +235,11 @@ the expected urgency score to order the queue. Label all cutoffs unvalidated.
 A suggested team must not bypass required human review.
 Show uncertain or unavailable results clearly. Do not send messages automatically.
 
-Refine the questions and grouping, then build the demo with saved example inputs
-and simulated answers. Keep action rules in code. Explain what needs live evaluation.
+Design the initial requests for pplx-decider-v1.2 with all three related questions
+in one request. Clarify ambiguous wording while preserving this example's policy
+and initial layout; explain any proposed changes before adopting them. Build the
+demo with saved example inputs and simulated answers. Send missing or malformed
+required answers to Review. Keep action rules in code. Explain what needs live evaluation.
 Do not call the model API or deploy yet.
 ```
 
@@ -340,7 +347,7 @@ proposed live-test budget; do not modify files or call model APIs yet.
 
 ### Port a TypeSafe/Jev workflow
 
-Start with [How Jev, Standard, and Flash differ](model-comparison.md) for the conceptual differences, then use the migration prompt below.
+Start with [Choose between Standard, Flash, and Jev](model-comparison.md) for the conceptual differences, then use the migration prompt below.
 
 **Outcome:** a revised integration and offline checks of its application logic. Provide the existing request builder, answer handling, and tests. TypeSafe documents independent question evaluation. Standard evaluates questions jointly within each processing group; hosted Flash evaluates them separately and bills state per question. Review the [migration guidance](../../skills/pplx-decision/references/porting-from-typesafe.md#reconsider-grouping-first) before carrying over assumptions.
 
@@ -355,7 +362,7 @@ and verify the revised application logic with offline tests. Do not deploy.
 
 These references are optional reading for you; the agent loads the ones needed for your task. It checks current provider documentation when implementing an integration or making current API claims. The bundled API snapshot is a dated reference, so model behavior, limits, and prices may have changed.
 
-- [How Jev, Standard, and Flash differ](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
+- [Choose between Standard, Flash, and Jev](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
 - [From a customer message to an actionable support decision](worked-example.md): one illustrative workflow across Standard, Flash, and Jev, with simulated answers and application rules.
 - [Project opportunities](../../skills/pplx-decision/references/project-opportunities.md): investigate improvements and new capabilities.
 - [Implementation](../../skills/pplx-decision/references/implementation.md): request design, answer handling, and operational failures.

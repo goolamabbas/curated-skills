@@ -6,7 +6,7 @@ A support application needs to decide who should handle a message, whether a per
 
 ## Start with the application policy
 
-Our fictional product is a contact manager. Technical Support handles product failures and missing records; Billing handles charges and invoices. A Review queue handles unclear ownership. Possible lost data and insufficient information require human review. An urgency rubric determines queue priority, independently of which team owns the case.
+Our fictional product is a contact manager. Technical Support handles product failures and missing records; Billing handles charges, refunds, and invoices. A Review queue handles unclear ownership. Possible lost data and insufficient information require human review. An urgency rubric determines queue priority, independently of which team owns the case.
 
 The application may suggest a team or flag a ticket. It does not automatically contact a customer, issue a refund, or confirm that data was actually lost. Those are separate actions with their own evidence and permissions.
 
@@ -121,7 +121,19 @@ A demonstration policy might work as follows. All cutoffs are unvalidated:
 
 With the invented values above, code sends the ticket for **high-priority human review**, showing **Technical Support as the suggested owner**. The 0.90 team probability does not bypass the separate review requirement. A person still investigates what happened to the contacts.
 
-Probability, confidence, and urgency are different. A `noul` value near 0.5 means uncertainty about the yes/no judgment. A middle urgency score can mean moderate disruption or uncertainty between extremes. Confidence summarizes the probability distribution, using provider-specific calculations; see the [comparison](model-comparison.md#interpreting-the-answers).
+### Follow all three messages through the rules
+
+**Every value below is invented for teaching, not an observed model output.** Urgency distributions list levels 0, 1, and 2 in that order; the score is their weighted average. Team figures show the selected option's probability; the omitted probability belongs to the other options.
+
+| Message | Invented signals | Outcome under the demo rules |
+| --- | --- | --- |
+| Invoice request: “Please send the invoice for last month's subscription. Everything is working.” | Review probability **0.05**; selected team **Billing, 0.93**; urgency probabilities **(0.95, 0.04, 0.01)**, score **0.06**. | Automatic Billing route: review is below 0.20, Billing exceeds 0.85, and level-2 probability is below 0.50. No high-priority flag; queue-ordering score 0.06. |
+| Unclear request: “Something changed after yesterday. Can you fix it?” | Review probability **0.10**; selected team **Review, 0.90**; urgency probabilities **(0.60, 0.30, 0.10)**, score **0.50**. | Human review because **Review is the selected team**, even though the separate review probability is below 0.20. No high-priority flag; score 0.50 is only a queue hint, not evidence of the missing facts. |
+| Missing contacts: “After importing a CSV, my saved contacts disappeared. My team cannot work.” | Review probability **0.90**; selected team **Technical, 0.90**; urgency probabilities **(0.05, 0.15, 0.80)**, score **1.75**. | High-priority human review: review probability exceeds 0.20 and level-2 probability exceeds 0.50. Technical remains the suggested owner. |
+
+The unclear-request fixture deliberately makes the two judgments disagree, demonstrating that the Review-team rule still requires a person. To see the review cutoff's effect, change only the invoice fixture's review probability from 0.05 to **0.25**: the 0.20 cutoff now sends it to a person, whereas a 0.50 cutoff would allow automatic Billing routing. That extra review illustrates the workload trade-off; it does not establish which cutoff is appropriate in production.
+
+Probability, confidence, and urgency are different. A `noul` value near 0.5 means uncertainty about the yes/no judgment. A middle urgency score can mean moderate disruption or uncertainty between extremes. Confidence summarizes the probability distribution, using provider-specific calculations; see [Choose between Standard, Flash, and Jev](model-comparison.md#interpreting-the-answers).
 
 ## Evaluate the workflow
 
@@ -151,4 +163,4 @@ Start with a screen that accepts a message, displays suggested ownership and urg
 
 [Use the filled-in build prompt](guide.md#a-filled-in-example) or [plan an evaluation](guide.md#evaluate-an-existing-workflow). The Perplexity skill supports the Perplexity implementation; the Jev walkthrough explains the comparison and links to TypeSafe's own integration documentation.
 
-[Back to the guide](guide.md) · [Compare the models](model-comparison.md)
+[Back to the guide](guide.md) · [Choose between Standard, Flash, and Jev](model-comparison.md)

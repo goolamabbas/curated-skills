@@ -12,9 +12,9 @@ All three return structured judgments that your code can use: a yes/no probabili
 | **Perplexity Flash** (`pplx-decider-flash-v1.2`) | You have high volumes of clear, focused judgments. | Whether it meets the same quality bar; repeated state can outweigh its lower token rate. |
 | **TypeSafe/Jev** | You are comparing providers for independent judgments on text, especially several questions over shared information, or already use TypeSafe. | Quality on your task, context limits, and provider-specific confidence and version handling. |
 
-These are starting recommendations based on the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart) and [TypeSafe introduction](https://docs.typesafe.ai/introduction), not measured rankings. The categories overlap: all three can serve the support workflow below. None removes the need to evaluate your workflow.
+The Standard and Flash guidance follows the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart). The Jev suggestion is this guide's, based on the question isolation described in the [TypeSafe introduction](https://docs.typesafe.ai/introduction). These are not measured rankings. The categories overlap: all three can serve the support workflow below. None removes the need to evaluate your workflow.
 
-**Jev and Flash both evaluate questions independently.** Jev ingests state once for a multi-question request; hosted Flash repeats and bills it for each question. That makes Jev worth including in a comparison of independent text judgments. It does not prove a quality, speed, or total-cost advantage; rates, actual usage, and task performance also matter.
+**Jev and Flash both evaluate questions independently.** Jev ingests state once for a multi-question request; hosted Flash repeats and bills it for each question. That makes Jev worth including in a comparison of independent text judgments. Ingesting state once does not by itself establish a once-per-state billing rule. This distinction does not prove a quality, speed, or total-cost advantage; rates, actual billable usage, and task performance also matter.
 
 ## How the requests differ
 
@@ -45,6 +45,10 @@ Documentation checked **20 October 2026**. Prices below are USD per million inpu
 Sources: [Perplexity models, grouping, and pricing](https://docs.perplexity.ai/docs/decisions/quickstart), [TypeSafe models and limits](https://docs.typesafe.ai/models). Jev has an optional long-context mode; TypeSafe warns it is slower and less accurate, so assess it separately rather than treating its expanded limits as the default. Perplexity image input has additional format, size, and request-body limits; see the [API reference](../../skills/pplx-decision/references/api-snapshot.md#limits-and-images).
 
 For **three questions over a 10,000-token state**, the state alone costs about **$0.0002 on Standard** in one group versus **$0.0003 on Flash**. This is arithmetic from documented rates and repetition rules, excluding questions, other overhead, and retries. Tokenization and usage can differ by provider. Compare actual billed usage, quality, latency, and review workload—not rates alone. The [guide's cost explanation](guide.md#what-a-small-workflow-might-cost) shows how to estimate a complete workflow.
+
+For Jev, **10,000 billable state tokens at $0.042/M would cost $0.00042 if counted once**, above both Perplexity figures in this illustration. This is a conditional estimate, not verified billing: TypeSafe documents ingestion once, but the inspected [API usage definition](https://docs.typesafe.ai/api#response-usage-input-tokens) does not explicitly specify repeated-state billing. Compare actual returned usage and account for different tokenizers.
+
+**High-volume suitability is not a throughput guarantee:** Perplexity's [documented default limits](https://docs.perplexity.ai/docs/decisions/quickstart#rate-limits) are 4 million tokens per minute for Flash versus 15 million for Standard, with 10 requests per second shared across both; check your workload and account limits, and request higher limits if needed.
 
 ## Interpreting the answers
 

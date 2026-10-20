@@ -21,7 +21,7 @@ live API calls yet.
 ## Guides and examples
 
 - [Full guide and copyable prompts](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/index.html)
-- [How Jev, Standard, and Flash differ](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/model-comparison.html)
+- [Choose between Standard, Flash, and Jev](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/model-comparison.html)
 - [Support decision worked example](https://goolamabbas.github.io/curated-skills/skills/pplx-decision/worked-example.html)
 
 ## Origin and license
