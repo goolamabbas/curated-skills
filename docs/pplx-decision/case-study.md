@@ -1,5 +1,7 @@
 # When an extra question changes an application's decision
 
+The test includes grouped Flash requests beyond its recommended one-question default. It examines sensitivity to request design, rather than ranking the models.
+
 **Perplexity Standard, Flash, and TypeSafe's Jev · 24 fictional support tickets · Run on 18 October 2026**
 
 Suppose your support application uses a decision model to choose which team should receive a customer's message. Later, you add a question about whether the customer wants a phone call. The message and routing instructions stay the same. Could the selected team change?
@@ -15,7 +17,7 @@ These designs give developers different starting assumptions. Keeping an existin
 ## What we found
 
 - **Standard and Jev** kept the same team choices across arrangements on all 24 messages.
-- **Flash's team choice differed across arrangements** for one message whose expected label is debatable. The test included grouped requests beyond its documented one-question default; the pattern repeated in all five trials of each arrangement.
+- **Flash's team choice differed across arrangements** for one message whose expected label is debatable. The pattern repeated in all five trials of each arrangement.
 - **Some missing-data probabilities changed, but none crossed the chosen 0.8 review cutoff.** Flash came close on one message: approximately 79.79% against an 80% cutoff.
 
 This is a worked example of checking existing decisions when an application's questions change. Its 24 fictional situations do not establish an overall model winner or how often these effects occur in real support traffic.
