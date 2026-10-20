@@ -135,6 +135,16 @@ The three messages teach the design; they cannot validate it. Before relying on 
 
 Measure actual billed usage, including repeated state and retries, before choosing on cost. A cheaper token rate does not establish a cheaper useful workflow. State the sample size and remaining uncertainty; do not claim rare errors have been ruled out from a small sample.
 
+## Which model would we try first here?
+
+**For this example, start by evaluating Standard with the three related questions together.** Review, team ownership, and urgency are facets of the same support decision, making this a reasonable starting design under Perplexity's guidance. The synthetic answers above do not establish that Standard is best.
+
+Test **Flash** if it can meet the same quality target with an acceptable review workload. Count all three questions and their repeated state before assuming a saving; the [matched-workload cost example](guide.md#what-a-small-workflow-might-cost) shows why its lower token rate may not yield a lower bill.
+
+Include **Jev** if you want to assess an alternative provider that evaluates these text questions independently against shared state in one request, or already use TypeSafe. Keep the policy explicit in state so each question can stand on its own. Measure quality, latency, review workload, and cost before choosing it over either Perplexity option.
+
+This is a proposed evaluation order for the example, not a measured ranking or a requirement to test every provider.
+
 ## Build a small version
 
 Start with a screen that accepts a message, displays suggested ownership and urgency, and explains the application's review status. Use simulated responses to test the action rules and error paths first. Then evaluate live model quality within an agreed dataset and spending limit.

@@ -44,6 +44,12 @@ and preserve their source mapping. Check candidate coverage.
 
 ## Choose grouping and model
 
+Preserve an explicitly selected model. Otherwise start evaluation with Standard,
+Perplexity's documented default, especially for nuanced judgments or costly errors.
+Consider Flash for clear, repetitive judgments at volume when it meets the same
+application quality target. Compare complete billed usage and review workload;
+a lower token rate does not establish a cheaper useful outcome.
+
 For standard v1.2, group related facets; isolate independent candidates.
 Intentional comparisons, such as duplicate detection, can warrant grouping
 on Standard; evaluate that choice explicitly.

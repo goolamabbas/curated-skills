@@ -4,15 +4,21 @@ All three return structured judgments that your code can use: a yes/no probabili
 
 ## Where to start
 
+**Standard and Flash belong to Perplexity; Jev is a separate TypeSafe service.** If you are building with Perplexity and unsure where to begin, evaluate Standard first. Then test Flash if you have clear, repetitive judgments and want to assess its economics at your required quality level. If you are comparing providers for independent judgments on text, include Jev—especially when several questions use the same information.
+
 | Candidate | Consider it when | What to verify |
 | --- | --- | --- |
 | **Perplexity Standard** (`pplx-decider-v1.2`) | Criteria are nuanced, errors are costly, or several related questions describe one decision. Perplexity recommends it as the default. | Whether the chosen grouping improves your outcomes, and whether cost and latency meet your requirements. |
 | **Perplexity Flash** (`pplx-decider-flash-v1.2`) | You have high volumes of clear, focused judgments. | Whether it meets the same quality bar; repeated state can outweigh its lower token rate. |
-| **TypeSafe/Jev** | You want independent, focused judgments on text, combined in application code, or already have a TypeSafe integration. | Quality on your task, context limits, and provider-specific confidence and version handling. |
+| **TypeSafe/Jev** | You are comparing providers for independent judgments on text, especially several questions over shared information, or already use TypeSafe. | Quality on your task, context limits, and provider-specific confidence and version handling. |
 
-These are starting recommendations based on the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart) and [TypeSafe introduction](https://docs.typesafe.ai/introduction), not measured rankings. None removes the need to evaluate your workflow.
+These are starting recommendations based on the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart) and [TypeSafe introduction](https://docs.typesafe.ai/introduction), not measured rankings. The categories overlap: all three can serve the support workflow below. None removes the need to evaluate your workflow.
+
+**Jev and Flash both evaluate questions independently.** Jev ingests state once for a multi-question request; hosted Flash repeats and bills it for each question. That makes Jev worth including in a comparison of independent text judgments. It does not prove a quality, speed, or total-cost advantage; rates, actual usage, and task performance also matter.
 
 ## How the requests differ
+
+A **request** is one API call containing state and questions. A **processing group** is the set of questions Standard evaluates together; a large request can be split into several groups.
 
 Imagine a support message with three questions: does it need human review, which team should own it, and how urgent is it?
 

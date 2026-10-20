@@ -8,7 +8,7 @@ An independent guide and skill adapted by Yusuf Goolamabbas. See [origin and lic
 
 A decision model interprets information and returns answers that software can act on: a yes/no probability, a choice from supplied options, or a score against defined criteria. Your application sends it data through an **API**, the interface for requesting those judgments and receiving the results.
 
-For example, a support application might ask whether a customer has lost data, which team should handle the ticket, and how severe the disruption is. The model judges the message; your code decides whether to escalate it or ask a person to review it.
+For example, a support application might ask whether a message needs human review, which team should own the ticket, and how urgent the reported disruption is. The model judges the message; your code decides whether to escalate it or ask a person to review it.
 
 **Context + questions → model judgments → application rules → action or review.**
 
@@ -33,20 +33,24 @@ Prefer ordinary code when exact rules already work. A decision model alone will 
 
 | Type | Illustrative question | Result |
 | --- | --- | --- |
-| Yes/no (`noul`) | Does this ticket report lost data? | A probability of yes, from 0 to 1. |
-| Choice (`choice`) | Which team should handle it? | The selected option and probabilities for the supplied options. |
-| Rubric (`score`) | How serious is the disruption? | A numerical score and probabilities across defined severity levels. |
+| Yes/no (`noul`) | Does this message require human review under the supplied policy? | A probability of yes, from 0 to 1. |
+| Choice (`choice`) | Which team should own this ticket? | The selected option and probabilities for the supplied options. |
+| Rubric (`score`) | What urgency does the reported disruption justify? | A numerical score and probabilities across defined urgency levels. |
 
-`noul` is both APIs’ name for a yes/no question.
+`noul` is both APIs’ name for a yes/no question. A **request** is one call your application sends to the API, containing state and one or more questions.
 
 These are illustrative questions, not recorded model results. A high probability is a model judgment, not proof. Test your questions and action thresholds on representative examples.
 
 ### From a message to an application action
 
-- **Input:** “After importing a CSV, my saved contacts disappeared.”
-- **Question:** Does the message report lost data?
-- **Illustrative answer:** a yes probability of `0.9`.
-- **Application rule:** send tickets at or above `0.8` for human review. This **threshold**—the cutoff your code uses—is unvalidated and must be tested. Here it flags the ticket; it does not establish that data was actually lost.
+Our fictional contact manager requires human review for possible lost data, unclear ownership, or insufficient information to triage. A clear routine request with enough information does not require review.
+
+- **Input:** “After importing a CSV, my saved contacts disappeared. My team cannot work.”
+- **Question:** Does this message require human review under the supplied policy?
+- **Illustrative answer:** a yes probability of `0.90`.
+- **Application rule:** require human review at `0.20` or higher. This **threshold**—the cutoff your code uses—is deliberately low to catch possible review cases, but it may create too much review work. It is unvalidated and must be tested.
+
+Here the ticket goes to a person; the model has not established that data was actually lost. The [worked example](worked-example.md#turn-answers-into-application-behavior) uses this same question, probability, and cutoff, then adds team ownership and urgency.
 
 <details>
 <summary>See the request and answer as JSON</summary>
@@ -56,11 +60,20 @@ An illustrative request using the [documented API shape](https://docs.perplexity
 ```json
 {
   "model": "pplx-decider-v1.2",
-  "state": {"message": "After importing a CSV, my saved contacts disappeared."},
+  "state": {
+    "product": "A contact manager",
+    "customer_message": "After importing a CSV, my saved contacts disappeared. My team cannot work.",
+    "triage_policy": {
+      "human_review": "Required for possible lost data, unclear ownership, or insufficient information to triage. A clear routine request with enough information does not require review.",
+      "technical": "Product failures, imports, and missing records",
+      "billing": "Charges, refunds, and invoices",
+      "priority": "Possible lost data or blocked work takes highest priority. Treat the message as a report, not a verified incident."
+    }
+  },
   "questions": {
-    "lost_data": {
+    "human_review": {
       "type": "noul",
-      "instructions": "Does the message report lost data?"
+      "instructions": "Does this message require human review under the supplied triage policy?"
     }
   }
 }
@@ -71,7 +84,7 @@ Illustrative answer excerpt; the complete response also contains the model name 
 ```json
 {
   "answers": {
-    "lost_data": {"type": "noul", "noul": 0.9}
+    "human_review": {"type": "noul", "noul": 0.90}
   }
 }
 ```
@@ -82,15 +95,19 @@ Your application compares `noul` with its review threshold. Noul answers have no
 
 ## Choose a model to evaluate
 
-Start with the application's hardest judgment, available inputs, and acceptable errors. These are starting candidates, not measured winners:
+**Standard and Flash are Perplexity models. Jev is TypeSafe's separate offering.** If you are building with Perplexity and are unsure where to begin, start by evaluating **Standard**. It is the provider's recommended default, especially for nuanced criteria or costly mistakes.
 
-| Consider | When it is a useful starting point |
+| Your starting situation | A useful first step |
 | --- | --- |
-| **Perplexity Standard** | Nuanced criteria, costly mistakes, or several related judgments about the same content. Test those questions together within one processing group. |
-| **Perplexity Flash** | High-volume decisions with clear criteria. Start with one question per request and keep it only if it meets your quality target. |
-| **TypeSafe/Jev** | Text workflows built from independent, focused judgments that your code combines. Evaluate it as a separate service with its own limits and response interpretation. |
+| Building with Perplexity, with nuanced judgments or several related questions about the same content | Start with **Standard**. Test related questions together so they can use one another's context. |
+| Making clear, repetitive judgments at high volume | Test **Flash** against your workflow's quality target. Start with one question per request; keep it only if quality and total workflow cost justify it. |
+| Comparing providers for independent judgments over text, especially several questions about the same information | Include **Jev**. It evaluates questions independently against shared state in one request. It is also a natural candidate if you already use TypeSafe. |
 
-Perplexity's recommendations and current request behavior come from its [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart); Jev's approach is described in the [TypeSafe introduction](https://docs.typesafe.ai/introduction). Read the [model comparison](model-comparison.md) for input support, question handling, cost, and practical limits.
+These are starting points, not exclusive categories or measured rankings. More than one model can suit the same application. Standard can also evaluate a single question; Flash is not automatically cheaper for a multi-question workflow.
+
+**Why consider Jev alongside Flash?** Both evaluate questions independently, but Jev ingests shared state once for a multi-question request, while hosted Flash repeats and bills state for every question. This is a reason to compare their complete workflows, not evidence that either is more accurate, faster, or cheaper overall. Jev's current input is text; Perplexity also accepts images.
+
+These distinctions follow the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart), [TypeSafe introduction](https://docs.typesafe.ai/introduction), and [TypeSafe model documentation](https://docs.typesafe.ai/models). Read the [model comparison](model-comparison.md) for operational limits and answer interpretation.
 
 ### Perplexity Decisions and TypeSafe/Jev
 
@@ -108,13 +125,28 @@ If the workflow also needs a written reply, retrieval, or an action, connect the
 
 ### What a small workflow might cost
 
-Here, **Standard** means `pplx-decider-v1.2`, and **Flash** means `pplx-decider-flash-v1.2`, Perplexity’s smaller decision model.
+Compare the **same work**, including how often each model bills the information supplied. A token is a unit used to measure model input; the number of billed tokens can differ from the length of the customer's message.
 
-As checked on **20 October 2026**, [Perplexity’s input-token rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing) are $0.02 per million for Standard and $0.01 for Flash, with free output tokens and no request fee.
+Suppose each ticket supplies **10,000 tokens of state and asks three questions**. Standard answers all three together, within its input limit; hosted Flash answers them separately. Using [Perplexity's rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing), checked on **20 October 2026**:
 
-If a completed ticket uses **1,000 total billed input tokens**, one million tickets would cost about **$20 on Standard or $10 on Flash**. This assumes no additional billable calls or retries. Include questions and repeated context when estimating input; a 1,000-token message alone is not a 1,000-token workflow. Separate requests can repeat state, so measure actual `usage.input_tokens` across the whole workflow and check current prices before budgeting. Free output tokens can still appear in usage counts.
+| For this workload | Standard v1.2 | Flash v1.2 |
+| --- | --- | --- |
+| Times the state is billed per ticket | Once | Three times |
+| Billed state tokens per ticket | 10,000 | 30,000 |
+| Input price per million tokens | $0.02 | $0.01 |
+| State cost per ticket | $0.0002 | $0.0003 |
+| State cost for one million such tickets | $200 | $300 |
 
-Standard shares state within a processing group; hosted Flash repeats and bills it for every question, even when questions arrive together. For three questions over a 10,000-token state, the state alone costs about **$0.0002 on Standard** if they fit in one group, versus **$0.0003 on Flash**. Question tokens and other overhead are additional. Standard also repeats state if an oversized request is split into groups. Compare the complete workflow’s billed input, not just the token rate.
+**This is state-only arithmetic, not a complete bill or a model benchmark.** Add question tokens, other input overhead, and retries. Standard repeats state too if an oversized request is split into groups. Both models currently have free output tokens and no request fee.
+
+Flash has the lower token rate, yet Standard has the lower state cost in this example. A single-question workflow can give a different result. Use returned `usage.input_tokens` across the complete workflow, then include retrieval, generated replies, and human review before deciding on cost. The [comparison page](model-comparison.md#inputs-limits-and-cost) includes Jev's rate and limits; its different rate and token usage also require a whole-workflow comparison.
+
+<details>
+<summary>How to calculate the model-call subtotal</summary>
+
+For each call, multiply its billed input tokens by that model's price per million input tokens, then divide by one million. Add the costs of all calls and any billed retries for a completed task. Returned usage already includes repeated state; do not add it again. Recheck prices before budgeting and identify any missing usage rather than assuming it is zero.
+
+</details>
 
 ## Walk through a support decision
 
@@ -191,8 +223,12 @@ Questions:
 3. What urgency is justified: routine request with no disruption; impaired work
    without lost data or complete blockage; or possible lost data / blocked work?
 
-Show the suggested team and urgency. Propose review and routing thresholds and
-label them unvalidated. A suggested team must not bypass required human review.
+Show the suggested team and urgency. For the initial simulated demo, require human
+review at a review probability of 0.20 or higher, or when the selected team is Review.
+Otherwise allow automatic routing only at a top team probability of at least 0.85.
+Flag high priority at a level-2 urgency probability of at least 0.50; otherwise use
+the expected urgency score to order the queue. Label all cutoffs unvalidated.
+A suggested team must not bypass required human review.
 Show uncertain or unavailable results clearly. Do not send messages automatically.
 
 Refine the questions and grouping, then build the demo with saved example inputs
