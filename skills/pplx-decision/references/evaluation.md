@@ -37,6 +37,9 @@ model, and policy. Change one factor at a time when diagnosing failures.
 Test alternative Standard groupings deliberately. Hosted Flash processes questions
 separately; distinguish the submitted request layout from joint model context.
 Do not combine results from different configurations as one unchanged predictor.
+Keep Standard grouping fixed while tuning thresholds for a configuration;
+if grouping changes, re-evaluate those thresholds. Leave input headroom to avoid
+automatic splitting unexpectedly changing the evaluated question context.
 
 ## Tune policy to consequences
 

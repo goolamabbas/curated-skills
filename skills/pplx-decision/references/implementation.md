@@ -11,6 +11,10 @@ Send JSON to POST https://api.perplexity.ai/v1/decisions with bearer
 authentication. Supply model, state, and named questions; consume answers
 by question ID.
 
+Enforce the documented 1–128-question limit. Send only supported fields and omit
+`temperature`; the [snapshot](api-snapshot.md#endpoint-and-request) distinguishes
+the documented contract from provisional staff reports of ignored fields.
+
 Use the project's HTTP client or a verified SDK interface. Do not assume
 chat-completions compatibility or invent client methods.
 
@@ -158,30 +162,36 @@ traffic and token bursts against the [published limits](api-snapshot.md#limits-a
 | --- | --- |
 | 400, 401, 404, 405, 413 | Correct request, configuration, or size; do not retry unchanged. |
 | 429 | Respect Retry-After; bound attempts and total elapsed time. |
-| 504 or response timeout after sending an image request | Verify dimensions/tile limits first; correct invalid images before resubmission. If valid, use the transient-failure policy. |
-| Other transient 5xx/network failure, or an image failure after valid size checks | Back off within a retry/time budget; avoid duplicate downstream actions. |
+| 504 or response timeout | Check workload size and question count; use bounded backoff. If repeated, reduce input or questions. A timeout alone does not identify an oversized image. |
+| Other transient 5xx/network failure | Back off within a retry/time budget; avoid duplicate downstream actions. |
 
-Apply image validation before sending and before retrying an image response
-failure. A client may time out before the server's delayed 504 arrives; do not
-extend its deadline merely to wait for that status. Connection-establishment and
-connection-pool timeouts do not identify an image-processing fault. Treat them
-according to their cause and the retry budget. A response timeout or 504 alone
-also does not prove that an image is oversized.
+Keep large-state Flash requests to one or a few questions; see the
+[dated staff observation](api-snapshot.md#timeout-starting-values) about sequential
+processing under load. Treat that mechanism and its approximate timeout as
+provisional, not a service guarantee. Reducing Standard question groups changes
+joint context and requires re-evaluating thresholds. A client may time out before
+the gateway; extending its deadline cannot prevent a gateway timeout.
+Connection-establishment and connection-pool timeouts need handling according to
+their cause and the overall retry budget.
 
 Check status before parsing JSON; 404/405 may be empty and 504 may be HTML.
-Read `error.message` and `error.type` where available; do not dispatch on the
-inconsistently typed `error.code`. Use the project's timeout policy or the
-[configurable starting values](api-snapshot.md#timeout-starting-values), then
-adjust from measured workload behavior.
+Branch on HTTP status. Read `error.message` for diagnosis and tolerate both
+`invalid_request` and `invalid_request_error`; do not dispatch on one `type`
+spelling, exact message wording, or the inconsistently typed `error.code`.
+Use the project's timeout policy and the
+[dated timing evidence](api-snapshot.md#timeout-starting-values), then adjust from
+measured workload behavior; 30 seconds is not sufficient for every valid request.
 
 Use an explicit unavailable-result path. Ensure retries of inference
 cannot duplicate downstream actions.
 
 Check current request and image limits. Supply supported image data URLs,
-not remote image links. Check dimensions and tile count before sending; see the
-[snapshot](api-snapshot.md#limits-and-images) for formats, limits, and documented
-rounding. Label stricter client checks as conservative. If resizing is needed,
-preserve evidence required by the question rather than silently removing detail.
+not remote image links. The [snapshot](api-snapshot.md#limits-and-images) records
+the conflict between documented tile limits and provisional staff reports of
+server-side resizing. Use conservative client resizing to control input size;
+preserve evidence required by the question. Do not assume either resizing or
+failure on the server. Use returned `usage.input_tokens` for billing rather than
+an image-size formula, and keep body and total-input checks separate.
 
 Record available request IDs, usage, timing, requested model, question
 version, grouping, and policy version. Retain only appropriate input data.

@@ -97,7 +97,7 @@ Your application compares `noul` with its review threshold. Noul answers have no
 
 ## Choose a model to evaluate
 
-**Standard and Flash are Perplexity models. Jev is TypeSafe's separate offering.** If you are building with Perplexity and are unsure where to begin, start by evaluating **Standard**. It is the provider's recommended default, especially for nuanced criteria or costly mistakes.
+**Standard (`pplx-decider-v1.2`) and Flash (`pplx-decider-flash-v1.2`) are Perplexity models. Jev is TypeSafe's separate offering.** If you are building with Perplexity and are unsure where to begin, start by evaluating **Standard**. It is the provider's recommended default, especially for nuanced criteria or costly mistakes.
 
 | Your starting situation | A useful first step |
 | --- | --- |
@@ -106,6 +106,8 @@ Your application compares `noul` with its review threshold. Noul answers have no
 | Comparing providers for independent judgments over text, especially several questions about the same information | Include **Jev**. It evaluates questions independently against shared state in one request. It is also a natural candidate if you already use TypeSafe. |
 
 These are starting points, not exclusive categories or measured rankings. More than one model can suit the same application. Standard can also evaluate a single question; Flash is not automatically cheaper for a multi-question workflow.
+
+On Standard, the same question can receive a different score depending on the questions grouped with it. [Keep grouping fixed while tuning thresholds](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request); if grouping changes, re-evaluate those thresholds.
 
 **Why consider Jev alongside Flash?** Both evaluate questions independently, but Jev ingests shared state once for a multi-question request, while hosted Flash repeats and bills state for every question. That processing distinction does not establish how Jev bills repeated state, or that either service is more accurate, faster, or cheaper overall. Check billable usage; the conditional [Jev cost illustration](#what-a-small-workflow-might-cost) below does not assume a confirmed billing rule. Jev's current input is text; Perplexity also accepts images.
 

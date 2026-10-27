@@ -24,6 +24,8 @@ Imagine a support message with three questions: does it need human review, which
 
 **Standard evaluates related questions together.** Within a processing group, each question sees the state and the other questions. That can help when the questions describe facets of one decision. For independent candidate scoring, such as rating unrelated documents against the same criterion, start with separate requests. If a request is too large, the API splits its questions into consecutive groups and repeats the state for each; state plus any single question must still fit the limit.
 
+The same question can receive a different score depending on its group. Keep grouping fixed while tuning thresholds; if grouping changes, re-evaluate those thresholds. Leave input headroom so automatic splitting does not unexpectedly change which questions see each other.
+
 **Hosted Flash evaluates each question separately.** Start with one question per request. If several arrive in one request, the API still evaluates them separately and bills the state again for each question. Packing questions together does not create Standard's joint context or shared-state savings.
 
 **Jev evaluates questions independently against shared state.** Questions can be submitted together, but each is evaluated in isolation. TypeSafe recommends atomic questions—one specific judgment per question—whose results your code combines. Put the necessary evidence in state; do not expect one question's instructions or answer to supply another's missing context.

@@ -2,8 +2,9 @@
 
 Baseline documentation checked **2026-10-18**, covering `pplx-decider-v1.2` and
 `pplx-decider-flash-v1.2`. Grouping, input splitting, pricing, and confidence
-rechecked **2026-10-20**. Use this selective baseline for drafting, fixtures,
-and comparison with current documentation.
+rechecked **2026-10-20**. Model names, grouping, pricing, question limits, request
+fields, image guidance, errors, and timeouts rechecked **2026-10-27**. Use this
+selective baseline for drafting, fixtures, and comparison with current documentation.
 
 Sources: [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart.md),
 [endpoint schema](https://docs.perplexity.ai/api-reference/decisions-post.md),
@@ -13,7 +14,10 @@ Sources: [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart.md),
 ## Evidence limits
 
 - This baseline was checked against documentation, without live inference.
-  Current docs take precedence; report material drift or conflicting source sections.
+  Use the documented contract for supported inputs; flag conflicting evidence.
+- **Provisional staff observations** below come from Perplexity developer-relations
+  correspondence received on **2026-10-27**. They have not been independently
+  reproduced, may change, and are not API guarantees. Receipt date is not test date.
 - Fixtures verify request construction and application logic. Measure model quality,
   calibration, cost, and serving performance on the target workload.
 - Published timings and probability examples come from specific earlier runs.
@@ -28,9 +32,15 @@ where they change an implementation decision.
 `Authorization: Bearer <key>`. A trailing slash returns 404; `x-api-key` is not
 accepted and returns 401. Keep credentials outside source and diagnostics.
 
-Required top-level fields: `model`, `state`, `questions`. Unknown top-level fields
-return 400. `state` is a string, object, or array, not null. `questions` maps
-non-empty names to questions; answers use those names.
+Required top-level fields: `model`, `state`, `questions`. The schema disallows
+unknown top-level fields; the quickstart documents a 400 response. `state` is a
+string, object, or array, not null. `questions` maps non-empty names to questions;
+answers use those names.
+
+Omit `temperature`: it is not a documented request field. **Provisional staff
+observation (received 2026-10-27):** it is currently accepted but ignored and may
+later be rejected. Do not use it to control decision variability or treat future
+rejection as a scheduled change.
 
 `instructions` may be a string, object, array, or null where the question's
 criteria supply its meaning. Outer `criteria` shapes remain type-specific:
@@ -75,7 +85,7 @@ for its baseline; see [porting-from-typesafe.md](porting-from-typesafe.md).
 | Input | State, its images, and each individual question must fit under 256K tokens; Standard splits questions that do not fit together |
 | Request body | 32 MiB |
 | Images | Up to 8 per question; PNG, JPEG, or WebP data URLs |
-| Image size | At most 2,048 tiles of 32 × 32 pixels per image |
+| Image size | Quickstart still specifies at most 2,048 tiles of 32 × 32 pixels; see the conflicting staff observation below |
 | Request rate | 10 requests/second per organization, shared across both models; an additional token limit applies to large bursts |
 
 Place an image part anywhere in state:
@@ -83,17 +93,31 @@ Place an image part anywhere in state:
 The API does not fetch HTTP(S) image URLs. State is read as serialized JSON, with
 images in place; preserve meaningful ordering.
 
-The quickstart describes rounding dimensions to the nearest multiple of 32 before
-counting tiles. It lists 1440 × 1440 and 2048 × 1024 as fitting, and 1600 × 1310
-as too large. Oversized images can wait about a minute and return 504 rather than
-400. Validate dimensions before sending; any stricter local rounding rule is a
-conservative client policy, not a claimed server algorithm.
+Enforce 1–128 questions in client validation. **Provisional staff observation
+(received 2026-10-27):** the backend currently accepts more when input fits, but
+enforcement may change. That does not expand the documented limit.
 
-For rough planning, the quickstart reports about 1,000 input tokens per megapixel
-from tests on earlier decision models: estimated image tokens ≈ width × height /
-1,000,000 × 1,000. Check actual usage on representative images. This estimate
-does not establish whether a request near the token limit will fit; tile count,
-encoded body size, and total input limits require separate checks.
+The quickstart still describes rounding dimensions to the nearest multiple of 32
+before counting tiles, with 1440 × 1440 and 2048 × 1024 fitting and 1600 × 1310
+too large. It says oversized images wait about a minute and return 504.
+**Provisional staff observation (received 2026-10-27):** oversized images are now
+resized server-side with aspect ratio preserved and return 200. This conflicts
+with the published guidance; do not present oversized-image failure or automatic
+resizing as an independently verified current behavior.
+
+Use conservative client resizing to control input size while preserving the detail
+needed for the question. Treat the documented tile boundary as a conservative
+client policy while the discrepancy remains unresolved, not proof that the current
+backend rejects larger images. Formats, encoded body size, and total input limits
+still require separate checks.
+
+Budget from returned `usage.input_tokens`. The quickstart's estimate of about
+1,000 input tokens per megapixel comes from earlier models and is not a reliable
+current billing formula. **Provisional staff measurements (received 2026-10-27):**
+1440 × 1440 billed about 6,100 input tokens and 4000 × 4000 about 25,000; the exact
+formula was still being established. These observations are not a token estimator
+or a guarantee for other requests. Measure representative inputs and do not add
+estimated image charges again to returned usage.
 
 ## Grouping, models, and billing
 
@@ -144,19 +168,36 @@ costlier than Standard despite Flash's lower token price. See
 | 404 / 405 | Wrong path / method; empty body |
 | 413 | Body too large |
 | 429 | Request/token rate limit; `Retry-After` is seconds |
-| 5xx | Service failure or timeout; 504 can also result from oversized images and may contain HTML |
+| 5xx | Service failure or timeout; 504 may contain HTML. The quickstart's oversized-image explanation conflicts with the staff observation above. |
 
-Read `error.message` and `error.type` when available. `error.code` may be a string,
-number, or null; do not use it as the stable dispatch field. Status precedes JSON
-parsing. `x-request-id` is documented on success and most errors, absent on 401,
+Branch on HTTP status and use `error.message` for diagnosis. The schema lists both
+`invalid_request` and `invalid_request_error`; tolerate both rather than depending
+on one `error.type` spelling. Exact message wording is not a stable machine
+contract. `error.code` may be a string, number, or null; do not use it as the
+dispatch field. Check status and content before parsing JSON.
+`x-request-id` is documented on success and most errors, absent on 401,
 404, and 504. Successful responses carry `x-ratelimit-limit`, `-remaining`,
 `-used`, and `-reset` (Unix seconds).
 
 ## Timeout starting values
 
-Preserve an established project timeout policy. Otherwise start with configurable
-10-second client timeouts for small inputs and 30 seconds for large inputs near
-the input limit, then measure and adjust. These starting values come from the
-quickstart's 2026-09-30 tests on an earlier model. Choose intermediate settings
-from input size and the application's response-time budget; keep the retry budget
-within the overall deadline. See [implementation.md](implementation.md) for retries.
+Preserve an established project timeout policy and choose client deadlines from
+the workload and application's response-time budget. The quickstart's 10-second
+small-input and 30-second large-input examples came from an earlier model. Its
+2026-10-19 tests report about 53 seconds on Standard and 16 seconds on Flash for
+roughly 248,000 input tokens: 30 seconds is not sufficient for every valid request.
+These are specific observations, not latency guarantees.
+
+**Provisional staff observation (received 2026-10-27):** under load, multi-question
+Flash requests can be split into sequential queries, with large states reaching
+an approximately 55-second gateway timeout (HTML 504, no request ID). Staff report
+that Standard does not split because of load, although very long requests can
+also time out. This differs from Standard's documented input-size-triggered
+grouping; the load-dependent behavior has not been independently reproduced.
+
+Keep large-state Flash requests to one or a few questions. Use bounded backoff
+within an overall deadline; if timeouts recur, reduce input or questions rather
+than retrying the same heavy request indefinitely. Changing Standard groups can
+change answers, so re-evaluate affected thresholds. Extending a client deadline
+cannot prevent a gateway timeout. See [implementation.md](implementation.md) for
+failure handling.
