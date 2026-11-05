@@ -10,7 +10,7 @@ A decision model interprets information and returns answers that software can ac
 
 For example, a support application might ask whether a message needs human review, which team should own the ticket, and how urgent the reported disruption is. The model judges the message; your code decides whether to escalate it or ask a person to review it.
 
-**Context + questions → model judgments → application rules → action or review.**
+**Supplied information + questions → model judgments → application rules → action or review.**
 
 ## When to use it
 
@@ -25,7 +25,25 @@ For example, a support application might ask whether a message needs human revie
 
 These components can work together: retrieval gathers context, a model judges it, code applies policy, and an LLM drafts a reply when needed. General LLMs can also return structured answers. A decision model provides a specialized interface for focused, probability-based judgments; evaluate whether it improves your workflow.
 
-Prefer ordinary code when exact rules already work. A decision model alone will not provide a written explanation or retrieve missing evidence. Before relying on its thresholds, check representative examples with known answers.
+Prefer ordinary code when exact rules already work. A decision model evaluates the information available to it; a hosted API can also retrieve evidence before calling that model. Perplexity offers this as optional web grounding. Your application still decides whether the evidence and judgment justify action or require review.
+
+### Where does the evidence come from?
+
+State is the information supplied to the model. There are three useful ways to make evidence available:
+
+| Evidence path | What happens | When to consider it |
+| --- | --- | --- |
+| Supplied state | Your application sends the information to evaluate; the API performs no built-in web retrieval. | The necessary evidence is already available, such as a support message and account records. |
+| Built-in web grounding | The API retrieves web evidence before the decision model answers. | The judgment depends on public facts that may have changed or are missing from your input. |
+| Application-managed retrieval | Your application retrieves and selects evidence, then supplies it as state. | You need explicit source controls, private-data access, or a saved evidence snapshot. |
+
+With Perplexity, add `mode: "web_grounding"` to enable built-in retrieval. The API prepares searches from your questions and state, adds the results to the model's input, and returns the retrieved evidence alongside its judgments. A state consisting of a page URL can also be fetched before searching. Without this mode, the API does not fetch or search for evidence; this does not mean the model has no knowledge from training. [Perplexity documentation](https://docs.perplexity.ai/docs/decisions/quickstart#web-grounding)
+
+**Supplied information + questions + optional retrieval → model judgments → application rules → action or review.**
+
+Grounding is optional, but its effect matters: it changes the evidence, cost and response time of the workflow. A high probability does not prove that retrieval succeeded or that the sources support acting. Your application needs a path for missing, stale, irrelevant or conflicting evidence.
+
+Both Perplexity's optional grounding and Parallel's documented Decisions flow share retrieved evidence across the questions in a request. Perplexity forms queries from the questions and merges the results; identical queries can share a search. Parallel's only documented mode, `fast`, includes web retrieval, with no documented supplied-state-only mode. Both return request-level evidence without a documented per-answer source mapping. These are differences in API design, not a ranking of decision quality. [Parallel documentation](https://docs.parallel.ai/api-reference/decisions/make-web-grounded-typed-decisions), [Perplexity grounding](https://docs.perplexity.ai/docs/decisions/quickstart#how-web-grounding-works)
 
 ## State, questions, and answers
 
@@ -95,6 +113,35 @@ Your application compares `noul` with its review threshold. Noul answers have no
 
 </details>
 
+### Try an optional web-grounded question
+
+Suppose your application needs to check whether a software project has published a newer stable release. Here is an illustrative request body for `POST https://api.perplexity.ai/v1/decisions`, using a pinned version as comparison input:
+
+```json
+{
+  "model": "pplx-decider-v1.2",
+  "mode": "web_grounding",
+  "state": "Python programming language; official site python.org; pinned version 3.13.0.",
+  "questions": {
+    "newer_stable_release": {
+      "type": "noul",
+      "instructions": "Has Python released a stable version newer than 3.13.0, including patch releases but excluding prereleases?"
+    }
+  }
+}
+```
+
+This is a request example, not a recorded result or a recommendation to use that pinned version. Put the entity and relevant facts early in state because they help form the search query. Inspect the returned `search_results` for relevant release evidence; a probability alone should not trigger an upgrade. Mentioning an official site helps identify the subject but does not restrict retrieval to that domain.
+
+Even when searches return no evidence, the API can still answer from the available state. See the [grounding reference](../../skills/pplx-decision/references/web-grounding.md) for evidence checks, freshness and billing.
+
+<details>
+<summary>If you supply a page URL</summary>
+
+If you supply a page URL as the entire state, inspect `fetched_results` too. `max_staleness` can limit that fetched copy's crawl age; it does not control search-result freshness.
+
+</details>
+
 ## Choose a model to evaluate
 
 **Standard (`pplx-decider-v1.2`) and Flash (`pplx-decider-flash-v1.2`) are Perplexity models. Jev is TypeSafe's separate offering.** If you are building with Perplexity and are unsure where to begin, start by evaluating **Standard**. It is the provider's recommended default, especially for nuanced criteria or costly mistakes.
@@ -107,7 +154,7 @@ Your application compares `noul` with its review threshold. Noul answers have no
 
 These are starting points, not exclusive categories or measured rankings. More than one model can suit the same application. Standard can also evaluate a single question; Flash is not automatically cheaper for a multi-question workflow.
 
-On Standard, the same question can receive a different score depending on the questions grouped with it. [Keep grouping fixed while tuning thresholds](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request); if grouping changes, re-evaluate those thresholds.
+On Standard, the same question can receive a different score depending on the questions grouped with it. [Keep grouping fixed while tuning thresholds](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request); if grouping changes, re-evaluate those thresholds. With web grounding, either Perplexity model receives shared retrieved evidence, so changing the question set can also change the evidence available to other questions. Keep the grounded question set fixed while tuning thresholds; Flash's separate evaluation does not isolate it from this retrieval effect.
 
 **Why consider Jev alongside Flash?** Both evaluate questions independently, but Jev ingests shared state once for a multi-question request, while hosted Flash repeats and bills state for every question. That processing distinction does not establish how Jev bills repeated state, or that either service is more accurate, faster, or cheaper overall. Check billable usage; the conditional [Jev cost illustration](#what-a-small-workflow-might-cost) below does not assume a confirmed billing rule. Jev's current input is text; Perplexity also accepts images.
 
@@ -125,7 +172,7 @@ For a practical comparison, read [Choose between Standard, Flash, and Jev](model
 
 A **coding agent** is an AI assistant that can work with your project’s files and tools to write and test software. The **`pplx-decision` skill** is a folder of instructions that helps the agent design a Perplexity integration. The **decision model** supplies judgments when the application calls its API.
 
-If the workflow also needs a written reply, retrieval, or an action, connect the appropriate components; application code controls what happens next.
+If the workflow needs public web evidence, choose built-in grounding or application-managed retrieval. Private records need an appropriate authorised data source. Connect a generative component for written replies; application code controls actions and review.
 
 ### What a small workflow might cost
 
@@ -141,7 +188,9 @@ Suppose each ticket supplies **10,000 tokens of state and asks three questions**
 | State cost per ticket | $0.0002 | $0.0003 |
 | State cost for one million such tickets | $200 | $300 |
 
-**This is state-only arithmetic, not a complete bill or a model benchmark.** Add question tokens, other input overhead, and retries. Standard repeats state too if an oversized request is split into groups. Both models currently have free output tokens and no request fee.
+**This is ungrounded, state-only arithmetic, not a complete bill or a model benchmark.** Add question tokens, other input overhead and billed retries. Standard repeats state too if a large request is split into groups. The model calls have free output tokens and no per-request fee, but optional web grounding adds retrieval charges and more input tokens.
+
+At the [grounding rates checked on 5 November 2026](https://docs.perplexity.ai/docs/getting-started/pricing#web-grounding), each completed search costs $0.001, including a search with no results, and each successful URL fetch costs $0.001. One successful fetch plus three distinct completed searches therefore costs $0.004 before model input tokens. Questions that produce the same query can share a search. Count billed operations, not the number of returned sources; completed retrieval can remain billable if the model request subsequently fails.
 
 **Where does Jev fit in this illustration?** At its [documented $0.042 per million input tokens](https://docs.typesafe.ai/models), 10,000 billable state tokens would cost **$0.00042 if counted once**—more than either Perplexity state-only figure above. This is conditional arithmetic, not a verified Jev charge. TypeSafe documents ingesting state once, while its [API reference](https://docs.typesafe.ai/api#response-usage-input-tokens) defines returned billable usage without explicitly specifying repeated-state billing in the passages checked. Tokenizers can differ, so compare returned usage. Jev's inclusion here is about its question-handling approach, not a demonstrated cost advantage.
 
@@ -168,6 +217,8 @@ This is a teaching example, not a benchmark or a report of live model performanc
 4. **Measure actions and the whole cost.** Count missed urgent cases, incorrect automatic routes, and the fraction sent for review. Include billed model usage, retries, retrieval, generated replies, and human review; measure typical and slow responses.
 
 A model's confidence is not a measured accuracy rate. Check whether predicted probabilities agree with observed outcomes on your cases. Offline fixtures can check your code; live calls are needed to measure model quality. Reevaluate when the model, evidence, questions, or action policy changes. The [evaluation prompt](#evaluate-an-existing-workflow) helps turn these steps into a plan.
+
+For grounded workflows, evaluate evidence quality as well as the resulting action. Compare supplied-state-only, built-in grounding and application-managed retrieval on the same labelled cases when those are plausible alternatives. Record the retrieved evidence and its date, retrieval settings, missing or conflicting sources, total cost and response time. A saved evidence snapshot helps test decision logic consistently; a live retrieval test measures the changing end-to-end workflow.
 
 ## Install this skill
 
@@ -367,6 +418,7 @@ These references are optional reading for you; the agent loads the ones needed f
 - [Choose between Standard, Flash, and Jev](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
 - [From a customer message to an actionable support decision](worked-example.md): one illustrative workflow across Standard, Flash, and Jev, with simulated answers and application rules.
 - [Project opportunities](../../skills/pplx-decision/references/project-opportunities.md): investigate improvements and new capabilities.
+- [Web grounding](../../skills/pplx-decision/references/web-grounding.md): choose an evidence path and handle query construction, fetching, freshness, insufficient evidence and retrieval costs.
 - [Implementation](../../skills/pplx-decision/references/implementation.md): request design, answer handling, and operational failures.
 - [Evaluation](../../skills/pplx-decision/references/evaluation.md): representative cases, thresholds, and whole-workflow measurements.
 - [Porting from TypeSafe/Jev](../../skills/pplx-decision/references/porting-from-typesafe.md): preserve decisions while revisiting provider assumptions.

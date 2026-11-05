@@ -11,9 +11,16 @@ Send JSON to POST https://api.perplexity.ai/v1/decisions with bearer
 authentication. Supply model, state, and named questions; consume answers
 by question ID.
 
-Enforce the documented 1–128-question limit. Send only supported fields and omit
-`temperature`; the [snapshot](api-snapshot.md#endpoint-and-request) distinguishes
-the documented contract from provisional staff reports of ignored fields.
+Require at least one question and cap grounded requests at 100. The documentation
+checked on 5 November 2026 no longer states a universal 128-question cap; continue
+to enforce context and body limits and label stricter batching caps as client
+policy. Send only supported fields and omit `temperature`; the
+[snapshot](api-snapshot.md#endpoint-and-request) distinguishes the documented
+contract from provisional staff observations.
+
+For public web evidence, choose the retrieval path using
+[web-grounding.md](web-grounding.md). Keep evidence sufficiency separate from
+transport success, answer validation and the application's action thresholds.
 
 Use the project's HTTP client or a verified SDK interface. Do not assume
 chat-completions compatibility or invent client methods.
@@ -34,6 +41,11 @@ and rubric definitions separate from quoted content. Policy documents needed as
 evidence may belong in labeled context. Serialized state and image order reach the
 model in place; preserve meaningful ordering. JSON separation is not a security
 boundary—permissions and action validation remain in code.
+
+Before enabling grounding on an object containing private context, review its
+search-bound input. Reordering keys does not protect private fields; use the
+[public-query guidance](web-grounding.md#choose-the-evidence-path) when the
+workflow needs public retrieval alongside private evidence.
 
 Use structured instructions when definitions or exclusions need clarity, while
 preserving each type's criteria shape. Do not hide a complex reasoning task in a

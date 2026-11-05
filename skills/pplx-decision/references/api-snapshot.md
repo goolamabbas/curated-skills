@@ -5,6 +5,8 @@ Baseline documentation checked **2026-10-18**, covering `pplx-decider-v1.2` and
 rechecked **2026-10-20**. Model names, grouping, pricing, question limits, request
 fields, image guidance, errors, and timeouts rechecked **2026-10-27**. Use this
 selective baseline for drafting, fixtures, and comparison with current documentation.
+Web grounding, retrieval billing, optional request fields and question-count limits
+rechecked **2026-11-05**; unrelated provisional observations retain their earlier dates.
 
 Sources: [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart.md),
 [endpoint schema](https://docs.perplexity.ai/api-reference/decisions-post.md),
@@ -36,6 +38,12 @@ Required top-level fields: `model`, `state`, `questions`. The schema disallows
 unknown top-level fields; the quickstart documents a 400 response. `state` is a
 string, object, or array, not null. `questions` maps non-empty names to questions;
 answers use those names.
+
+Optional `mode: "web_grounding"` adds retrieval before inference. Optional
+`max_staleness` controls the crawl age of a page fetched from URL-only state, not
+search-result freshness. The response can add `search_results` and
+`fetched_results`. See [web-grounding.md](web-grounding.md) for evidence handling,
+failure behaviour and billing; the ordinary answer types remain unchanged.
 
 Omit `temperature`: it is not a documented request field. **Provisional staff
 observation (received 2026-10-27):** it is currently accepted but ignored and may
@@ -79,7 +87,7 @@ for its baseline; see [porting-from-typesafe.md](porting-from-typesafe.md).
 
 | Constraint | Documented value |
 | --- | --- |
-| Questions per request | 1–128 |
+| Questions per request | At least one; maximum 100 with web grounding. The documentation checked 2026-11-05 does not specify a universal ungrounded question-count cap. Context, body and rate limits still apply. |
 | Options per choice | 1–255 |
 | Levels per score | 1–10; one level always scores zero |
 | Input | State, its images, and each individual question must fit under 256K tokens; Standard splits questions that do not fit together |
@@ -93,9 +101,10 @@ Place an image part anywhere in state:
 The API does not fetch HTTP(S) image URLs. State is read as serialized JSON, with
 images in place; preserve meaningful ordering.
 
-Enforce 1–128 questions in client validation. **Provisional staff observation
-(received 2026-10-27):** the backend currently accepts more when input fits, but
-enforcement may change. That does not expand the documented limit.
+The earlier 128-question guidance is superseded by the documented grounding-specific
+limit above. Do not infer unlimited practical capacity for ungrounded calls; apply
+context, body, rate and workload constraints. Label any stricter batching cap as a
+client policy rather than a provider limit.
 
 The quickstart still describes rounding dimensions to the nearest multiple of 32
 before counting tiles, with 1440 × 1440 and 2048 × 1024 fitting and 1600 × 1310
@@ -159,11 +168,16 @@ costlier than Standard despite Flash's lower token price. See
 [evaluation.md](evaluation.md) for cost calculation and
 [implementation.md](implementation.md) for operational policy.
 
+With web grounding, report retrieval charges alongside the token subtotal. Fetched page text
+and search evidence already count in `usage.input_tokens`, with the same Standard
+group and Flash question repetition rules. Returned evidence lists are not billing
+counters. See [grounding costs](web-grounding.md#account-for-the-full-cost).
+
 ## Errors and headers
 
 | Status | Documented interpretation |
 | --- | --- |
-| 400 | Invalid JSON, fields, model, types, limits, or unsupported image URL |
+| 400 | Invalid JSON, fields, model, types, limits, unsupported image URL, invalid `mode` (including null or empty), or more than 100 grounded questions |
 | 401 | Missing/invalid key or incorrect authentication header |
 | 404 / 405 | Wrong path / method; empty body |
 | 413 | Body too large |

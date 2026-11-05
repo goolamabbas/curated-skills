@@ -4,7 +4,7 @@ An agent skill for building, evaluating, and migrating applications that use Per
 
 ## Install and use
 
-Copy this entire `pplx-decision` folder into your application's supported skills directory. Keep [SKILL.md](SKILL.md), this README, [LICENSE](LICENSE), and all five files in [references/](references/) together. Follow the application's reload instructions.
+Copy this entire `pplx-decision` folder into your application's supported skills directory. Keep [SKILL.md](SKILL.md), this README, [LICENSE](LICENSE), and the complete [references/](references/) folder together. Follow the application's reload instructions.
 
 Before updating, back up the existing installation. Replace the complete folder with the current package so obsolete files are not retained. The reader guide, model comparison, and worked example live on the website, outside the installable skill.
 

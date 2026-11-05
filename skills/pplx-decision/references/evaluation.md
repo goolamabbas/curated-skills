@@ -84,6 +84,25 @@ agreement with a formula nor a different statistic establishes calibration;
 evaluate action thresholds against labelled outcomes. These checks need no extra
 inference calls and do not test question-grouping effects.
 
+## Evaluate evidence acquisition
+
+When current public evidence matters, compare supplied-state-only, built-in
+grounding and application-managed retrieval where each is a plausible design.
+Use the same labelled cases and application acceptance criteria; report retrieval
+and request-design differences rather than assuming equal evidence.
+
+Include ambiguous entities, changing facts, irrelevant or conflicting sources, and
+missing evidence. Inspect evidence sufficiency separately from answer probability.
+Record source content, dates and retrieval settings where retention is appropriate.
+Keep fixed-evidence decision tests separate from live end-to-end tests, since web
+evidence can change between runs. Simulated retrieval failures test application
+handling; they do not establish the provider's observed failure rate.
+
+Report retrieval charges separately from the token-based inference subtotal, including completed retrieval in requests that later failed. Sum the token subtotal, retrieval charges and other workflow costs once to obtain the total. Mark unobserved costs as estimates or unknown. See
+[web-grounding.md](web-grounding.md) for billing observability and estimate assumptions.
+
+With grounding on either Perplexity model, changing the question set can change the shared retrieved evidence, even though Flash evaluates questions separately. Keep the question set and retrieval configuration fixed while tuning thresholds; test modifications and use saved evidence when isolating decision behaviour.
+
 ## Measure the full workflow
 
 Measure end-to-end latency, usage, throughput, retries, fallbacks, and

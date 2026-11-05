@@ -24,6 +24,9 @@ Preserve the user's stack and requested scope.
   [evaluation.md](references/evaluation.md).
 - To migrate a TypeSafe/Jev workflow, read
   [porting-from-typesafe.md](references/porting-from-typesafe.md).
+- To use public web evidence, read
+  [web-grounding.md](references/web-grounding.md) to choose between built-in
+  grounding and application-managed retrieval.
 
 Load only what the task needs. Audit when assessing project fit or when
 unresolved architecture affects the work; concrete integrations need no
@@ -58,8 +61,10 @@ Standard v1.2 evaluates questions jointly within each processing group.
 Hosted Flash v1.2 evaluates questions separately and bills state per question.
 Distinguish the hosted API contract from checkpoint implementations.
 
-Use a separate component when the workflow needs generated prose,
-retrieval, or execution. Validate permissions and action arguments in code.
+Choose the evidence path deliberately: supplied state, optional built-in web
+grounding, or application-managed retrieval. Check evidence sufficiency separately
+from model probabilities. Use separate components for generated prose and
+execution; validate permissions and action arguments in code.
 
 ## Complete the requested work
 

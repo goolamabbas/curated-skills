@@ -12,7 +12,7 @@ The application may suggest a team or flag a ticket. It does not automatically c
 
 ## Supply the evidence as state
 
-State is what the model can inspect. Include the customer's words, relevant product facts, and the triage policy. Distinguish reported claims from verified facts. In a real application, retrieval might add account details or incident status; a decision model does not look them up by itself.
+State is what the model can inspect. Include the customer's words, relevant product facts, and the triage policy. Distinguish reported claims from verified facts. In a real application, retrieval might add account details or incident status; a decision model does not look them up by itself. Perplexity's optional web grounding can retrieve public evidence, including a public status page, but it does not supply private account records or internal incident data. Those need an authorised data source. See [where evidence comes from](guide.md#where-does-the-evidence-come-from).
 
 | Customer message | What this case teaches |
 | --- | --- |

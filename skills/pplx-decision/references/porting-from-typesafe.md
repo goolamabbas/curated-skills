@@ -32,9 +32,17 @@ Classify the original questions by their relationship:
 - A branch needing newly retrieved evidence or generated options is a later stage.
 
 Review speculative fan-out for Standard context effects and Flash's repeated-state
-cost. Keep request composition fixed during comparison and retune policy on the new model.
+cost. With grounding on either model, speculative questions can also produce
+searches that change the shared evidence available to other questions; separate
+Flash inference does not isolate that retrieval effect. Keep request composition fixed during comparison and retune policy on the new model.
 Isolation is a baseline for independent judgments, not a universal prohibition
 on comparisons.
+
+Preserve the existing evidence path unless changing it is part of the migration.
+Perplexity's optional web grounding adds public retrieval before evaluation; it is
+not required for porting supplied-state judgments. Enabling it changes evidence,
+cost, latency and reproducibility, so evaluate that as a separate design change.
+See [web-grounding.md](web-grounding.md).
 
 ## Recalculate state, capacity, and cost
 

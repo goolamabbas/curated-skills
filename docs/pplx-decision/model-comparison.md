@@ -52,6 +52,16 @@ For Jev, **10,000 billable state tokens at $0.042/M would cost $0.00042 if count
 
 **High-volume suitability is not a throughput guarantee:** Perplexity's [documented default limits](https://docs.perplexity.ai/docs/decisions/quickstart#rate-limits) are 4 million tokens per minute for Flash versus 15 million for Standard, with 10 requests per second shared across both; check your workload and account limits, and request higher limits if needed.
 
+### Account for optional web grounding
+
+Grounding rules checked **5 November 2026**.
+
+Standard and Flash both support optional built-in web grounding. This adds retrieval before inference; their different question-processing rules still apply. Fetched page text and search evidence count as input tokens, repeated per Standard processing group or per Flash question. The state-only examples above exclude these retrieval charges and added evidence tokens. See [where evidence comes from](guide.md#where-does-the-evidence-come-from) and the [grounding reference](../../skills/pplx-decision/references/web-grounding.md).
+
+On both Perplexity models, changing the grounded question set can change the shared retrieved evidence and potentially other answers. Flash still evaluates questions separately. Keep the grounded question set and retrieval configuration fixed while tuning thresholds; this retrieval implication has not been measured here.
+
+Compare the complete evidence-and-decision workflow. A model's input-token rate does not establish which grounded workflow is cheapest or most accurate, and a separate service's shared retrieval does not establish joint model evaluation.
+
 ## Interpreting the answers
 
 - **Yes/no probability** estimates whether the supplied statement is true. Near 0.5 means uncertainty, not medium urgency. `noul` has no separate confidence field.
@@ -79,7 +89,7 @@ The [worked example](worked-example.md#turn-answers-into-application-behavior) c
 <details>
 <summary>Can an unused fourth question change the first answer?</summary>
 
-On Standard, questions in the same processing group can see the added question, so an answer can change. Hosted Flash and Jev document separate question evaluation. That distinction does not guarantee numerically identical responses across repeated calls; test variation and resulting actions separately.
+On Standard, questions in the same processing group can see the added question, so an answer can change. Hosted Flash and Jev document separate question evaluation. With Perplexity web grounding, an added question can also change the merged evidence supplied to other questions, including on Flash. Separate inference is not evidence isolation. That distinction does not guarantee numerically identical responses across repeated calls; test variation and resulting actions separately.
 
 </details>
 
@@ -97,6 +107,6 @@ No. Perplexity echoes the requested name, and a retired version name can route t
 
 </details>
 
-Documented behavior was checked on **20 October 2026**. No model-quality or latency comparison was run for this guide. Recheck linked provider documentation before implementation and evaluate thresholds on your own data.
+General model behavior was checked on **20 October 2026**; the web-grounding additions were checked on **5 November 2026**. No model-quality or latency comparison was run for this guide. Recheck linked provider documentation before implementation and evaluate thresholds on your own data.
 
 [Back to the guide](guide.md) · [Follow the worked example](worked-example.md) · [Choose a prompt](guide.md#choose-a-starting-point)

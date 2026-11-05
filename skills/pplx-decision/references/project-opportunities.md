@@ -70,6 +70,12 @@ For each promising idea, explain which current constraint it relaxes
 and what the user gains. Prefer project-specific proposals over generic
 lists of AI features.
 
+When an opportunity depends on missing public facts, compare optional built-in
+grounding with application-managed retrieval. Identify source, freshness, privacy
+and repeatability requirements before choosing. Use [web-grounding.md](web-grounding.md)
+for the Perplexity path; obtaining evidence and evaluating it are separate design
+decisions even when one API call performs both.
+
 ## Consider useful patterns
 
 Use these as starting points, not a required checklist. Read the relevant cookbook
