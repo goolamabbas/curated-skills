@@ -21,6 +21,17 @@ Perplexity v1.3 isolates direct question attention, but shared state can let eve
 unused questions indirectly influence consumed answers. Both models share state
 within processing groups and bill it again when split.
 
+For example, a ticket says, "After importing a CSV, my saved contacts disappeared."
+State also supplies the policy: possible lost data requires human review, and
+Technical Support owns imports and missing records. Ask whether review is needed
+and which team should own the ticket. In v1.3, adding the review question can
+affect the model's internal interpretation of the message that the routing
+question reads. Jev documents evaluating the routing question independently,
+without the review question supplying extra context. This illustrates the
+processing distinction, not measured outputs for this ticket. Neither design
+passes the review answer to the routing question. Code must enforce that a
+suggested team cannot bypass required human review.
+
 Group questions about the same state when useful; compare separate requests when
 interaction could alter important decisions. Put complete policy and evidence in
 state and complete meaning in each question. A branch requiring new evidence or

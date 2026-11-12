@@ -66,9 +66,13 @@ application quality target. Compare complete billed usage and review workload;
 a lower token rate does not establish a cheaper useful outcome.
 
 Both v1.3 models process questions together over shared state. Each question
-reads state and its own text, not the other questions directly. Give every question
-complete meaning and put shared evidence/policy in state. Indirect influence
-through shared state remains: evaluate grouping and keep it fixed while tuning.
+reads state and its own text, not the other questions directly. The model processes
+that shared information in light of all the questions, so adding a question can
+change the internal representation another question reads. This does not rewrite
+the supplied input or pass one answer to another; it may affect another judgment,
+but need not do so. See [Perplexity's architecture explanation](https://www.perplexity.ai/hub/blog/perplexity-decider).
+Give every question complete meaning and put shared evidence/policy in state.
+Evaluate grouping and keep it fixed while tuning.
 Do not treat grouped questions as sequential steps or guarantee independence.
 
 Prefer a selected versioned name for evaluated deployments. Use an alias when
