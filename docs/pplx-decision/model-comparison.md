@@ -22,13 +22,27 @@ Both Perplexity v1.3 models share state within each processing group. Jev docume
 
 A **request** is one API call containing state and questions. A **processing group** is the set of questions either Perplexity model evaluates together; a large request can be split into several groups.
 
-Imagine a support message with three questions: does it need human review, which team should own it, and how urgent is it?
+Use the support ticket from our walkthrough:
 
-**Standard and Flash v1.3 share state across these questions.** Each question directly sees state and its own text, not the other questions. Shared state still allows indirect influence. Supply complete question meaning and shared policy explicitly; questions are not a sequential program.
+> “After importing a CSV, my saved contacts disappeared. My team cannot work.”
+
+The shared information includes that message and the support policy. Consider two of the questions: **Does this message require human review under the policy?** and **Which team should own it?** The policy says possible lost data needs review and Technical Support owns imports and missing records.
+
+| What happens | Standard and Flash v1.3 | Jev’s documented design |
+| --- | --- | --- |
+| What the team question reads | Its own instructions and the shared information. | Its own question and the same shared information, evaluated independently. |
+| Does adding the review question matter? | It can. The model interprets the shared information in light of all the questions, so the review question can indirectly affect the team answer. | The review question does not supply extra context to the independently evaluated team question. |
+| Is the review answer passed to the team question? | No. These are questions in one processing group, not sequential steps. | No. Code combines the independently evaluated answers. |
+
+**“Indirect influence” means influence through the model’s internal interpretation of the shared information.** The customer’s original message is not rewritten. In v1.3, adding a question about review can affect the representation of the message that the team question reads. This may change an answer; it need not do so. Perplexity describes the state as attending to all questions, while each question attends only to state and its own tokens. [Perplexity’s architecture explanation](https://www.perplexity.ai/hub/blog/perplexity-decider)
+
+Jev documents independent evaluation of questions against shared state. On that design, the team question must stand on its own: it needs the message, routing policy and available team choices, without relying on the review question to provide meaning. [TypeSafe’s state guide](https://docs.typesafe.ai/concepts/state)
+
+For this ticket, human review and Technical Support are plausible judgments under the supplied policy. **These are illustrative expectations, not measured model outputs or evidence that one model is better.** The processing distinction does not predict the exact probabilities either model will return.
 
 Keep the question set and grouping fixed while tuning thresholds. If state plus all questions exceeds the input limit, the API splits questions into consecutive groups and bills state again per group. State plus any one question must fit. Leave headroom and re-evaluate changed grouping. Compare grouped and separate requests when interaction could change an important action.
 
-**Jev evaluates questions independently against shared state.** Questions can be submitted together, but each is evaluated in isolation. TypeSafe recommends atomic questions—one specific judgment per question—whose results your code combines. Put the necessary evidence in state; do not expect one question's instructions or answer to supply another's missing context.
+For either provider, put shared policy in state and complete meaning in each question. If routing must explicitly depend on the review result, have code combine the answers, or make a later request that includes the result. Do not rely on indirect influence to enforce policy.
 
 Question isolation does not mean responses are guaranteed to be numerically identical across repeated calls. Measure whether variation changes important application actions.
 
@@ -91,7 +105,7 @@ The [worked example](worked-example.md#turn-answers-into-application-behavior) c
 <details>
 <summary>Can an unused fourth question change the first answer?</summary>
 
-Yes. On either Perplexity v1.3 model, an added question can indirectly influence answers through shared state. With grounding it can also change the retrieved evidence. Jev documents independent question evaluation, but no such description guarantees numerically identical responses across repeated calls. Test both interaction and variation where they affect application actions.
+Yes. On either Perplexity v1.3 model, adding a question can change how the model internally interprets the shared information, which another question then reads. The original input is unchanged, and no answer is being passed between questions. With grounding it can also change the retrieved evidence. Jev documents independent question evaluation, but no such description guarantees numerically identical responses across repeated calls. Test both interaction and variation where they affect application actions.
 
 </details>
 

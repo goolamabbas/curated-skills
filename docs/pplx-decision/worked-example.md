@@ -93,7 +93,9 @@ Keep the same policy and evidence available to every question. The starting layo
 | **Hosted Flash** | One request with the same state and all three questions, within one processing group. | Flash v1.3 shares state; evaluate quality and total cost against Standard. |
 | **Jev** | One TypeSafe request with text state and three focused questions. | Questions are evaluated independently against the shared state. Combine their answers in application code. |
 
-For Flash, use the same request with `model` set to `pplx-decider-flash-v1.3`. Keep the full relevant state and all three questions. Both models isolate direct question attention; shared state still allows indirect influence.
+For Flash, use the same request with `model` set to `pplx-decider-flash-v1.3`. Keep the full relevant state and all three questions. Each question reads its own instructions and the shared information. However, the model interprets that information in light of all the questions: asking about human review can therefore affect the team judgment through that interpretation. It does not rewrite the message or pass the review answer to the team question. This is a possible interaction, not a measured effect for this ticket.
+
+Jev documents independent question evaluation: the team question uses the message and routing policy without the review question supplying extra context. In either design, code must enforce that a suggested team cannot bypass required human review. See [the side-by-side explanation](model-comparison.md#how-the-requests-differ).
 
 For Jev, use the [TypeSafe API and SDK documentation](https://docs.typesafe.ai/introduction/quickstart), its endpoint, credentials, and selected model. Carry over the policy and question intent; validate the request builder and answer consumer against that provider's schema. Switching providers requires more than changing a Perplexity model name. TypeSafe's [model page](https://docs.typesafe.ai/models) lists version IDs and alias targets.
 
