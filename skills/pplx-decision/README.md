@@ -1,6 +1,8 @@
 # Perplexity Decisions
 
-An agent skill for building, evaluating, and migrating applications that use Perplexity Decisions. Use it to identify suitable judgments, implement integrations, or port a TypeSafe/Jev workflow. It does not provide general Perplexity search or API credentials.
+An agent skill for building, evaluating, and migrating applications that use Perplexity Decisions. Use it to identify suitable judgments, implement judgments and text-span extraction, or port a TypeSafe/Jev workflow. It does not provide general Perplexity search or API credentials.
+
+Covers Perplexity v1.3. Upgrading from an earlier version? Revalidate thresholds and request grouping.
 
 ## Install and use
 

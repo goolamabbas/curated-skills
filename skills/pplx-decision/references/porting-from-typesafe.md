@@ -17,26 +17,16 @@ providers' field names, criteria shapes, limits, and missing-answer behavior.
 TypeSafe's [state guide](https://docs.typesafe.ai/concepts/state.md) describes
 independent question evaluation; its [fan-out guide](https://docs.typesafe.ai/patterns/fan-out.md)
 encourages speculative branch questions whose unused results code ignores.
-Perplexity's [v1.2 guidance](https://docs.perplexity.ai/docs/decisions/quickstart.md#grouping-questions-in-one-request)
-says Standard questions see the others in their processing group. An unused
-speculative question can therefore change an answer the application consumes.
-Hosted Flash evaluates each question separately, repeating and billing state
-per question. Do not infer joint hosted behavior from the Flash checkpoint card.
+Perplexity v1.3 isolates direct question attention, but shared state can let even
+unused questions indirectly influence consumed answers. Both models share state
+within processing groups and bill it again when split.
 
-Classify the original questions by their relationship:
-
-- Related facets of one decision may form a useful group on Standard.
-- Independently scored candidates should start in separate requests.
-- Intentional comparisons on Standard can benefit from joint context; justify and evaluate them.
-- Hosted Flash should start with one question per request. Sending several together does not create joint context or shared-state savings.
-- A branch needing newly retrieved evidence or generated options is a later stage.
-
-Review speculative fan-out for Standard context effects and Flash's repeated-state
-cost. With grounding on either model, speculative questions can also produce
-searches that change the shared evidence available to other questions; separate
-Flash inference does not isolate that retrieval effect. Keep request composition fixed during comparison and retune policy on the new model.
-Isolation is a baseline for independent judgments, not a universal prohibition
-on comparisons.
+Group questions about the same state when useful; compare separate requests when
+interaction could alter important decisions. Put complete policy and evidence in
+state and complete meaning in each question. A branch requiring new evidence or
+an earlier answer belongs in a later stage. Grounded speculative questions can
+also change the shared retrieved evidence. Keep request composition fixed during
+comparison and retune policy on the target model.
 
 Preserve the existing evidence path unless changing it is part of the migration.
 Perplexity's optional web grounding adds public retrieval before evaluation; it is
@@ -64,12 +54,9 @@ version; otherwise write a thin wrapper around the documented HTTP endpoint.
 The reviewed cookbook uses HTTP for Decisions and a separate SDK for Agent API
 calls; that is not evidence for a `client.decisions.*` method.
 
-Put complete question meaning in instructions. The [Standard](https://huggingface.co/perplexity-ai/pplx-decider-v1.2)
-and [Flash](https://huggingface.co/perplexity-ai/pplx-decider-flash-v1.2) model cards
-say question IDs are hidden and question order is visible in their documented
-implementation. The [hosted API reference](https://docs.perplexity.ai/api-reference/decisions-post)
-does not specify either behavior; do not treat the model-card description as a
-hosted-API guarantee. Keep question order fixed when comparing runs.
+Put complete question meaning in instructions rather than relying on IDs or
+other questions. Keep question order fixed when comparing runs.
+
 Use meaningful choice-option names, particularly when their descriptions are null.
 Structured instructions can clarify definitions and exclusions, but preserve each
 primitive's outer criteria shape.
@@ -89,6 +76,10 @@ reevaluate probability and confidence thresholds on the target provider and mode
 Check score-index meaning, string probability keys, answer
 IDs, and required values explicitly. Follow [implementation.md](implementation.md)
 for invalid responses, splitting, image checks, and retry handling.
+
+For extraction, Perplexity [locate](locate.md) requires a string state and no
+images or grounding. Jev’s Box primitive is not an interchangeable text-span
+contract; inspect the actual source workflow before mapping types.
 
 ## Establish behavioral equivalence or an intentional change
 

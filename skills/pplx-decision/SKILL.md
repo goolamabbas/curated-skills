@@ -3,7 +3,7 @@ name: pplx-decision
 description: >-
   Build, port, evaluate, or explore applications using Perplexity Decisions
   (/v1/decisions, pplx-decider models) for probabilistic yes/no, choice, and
-  rubric judgments. Use for Perplexity decision-model integrations, project-fit
+  rubric judgments and text-span extraction. Use for Perplexity decision-model integrations, project-fit
   assessments, and TypeSafe/Jev-to-Perplexity migrations; not general Perplexity
   search or TypeSafe-only work.
 ---
@@ -13,6 +13,11 @@ description: >-
 Start from the user-visible behavior and identify the semantic judgments
 it requires. Keep deterministic rules and execution in application code.
 Preserve the user's stack and requested scope.
+
+This skill’s baseline is v1.3, checked 13 November 2026. Preserve an explicitly
+selected model; verify its contract rather than silently upgrading it. For an
+upgrade, revalidate thresholds and request grouping. Future versions require
+explicit documentation review before assuming this baseline applies.
 
 ## Choose the relevant guidance
 
@@ -24,6 +29,8 @@ Preserve the user's stack and requested scope.
   [evaluation.md](references/evaluation.md).
 - To migrate a TypeSafe/Jev workflow, read
   [porting-from-typesafe.md](references/porting-from-typesafe.md).
+- To extract matching text spans, read [locate.md](references/locate.md) for
+  text-only inputs, source offsets, compatibility and evaluation.
 - To use public web evidence, read
   [web-grounding.md](references/web-grounding.md) to choose between built-in
   grounding and application-managed retrieval.
@@ -51,14 +58,16 @@ Use documented request fields and verified SDK interfaces.
 ## Preserve the important distinctions
 
 Use `noul` for yes/no probability, `choice` for an option, and `score` for an
-ordered rubric. `noul` has no separate confidence field; near 0.5 means
+ordered rubric. Use `locate` for matching text spans; its span score is not
+a rubric score or an established correctness probability. `noul` has no separate confidence field; near 0.5 means
 uncertainty, not medium intensity.
 
 Treat probabilities as model judgments requiring task-specific validation.
 Keep confidence distinct from the probability of the selected answer.
 
-Standard v1.2 evaluates questions jointly within each processing group.
-Hosted Flash v1.2 evaluates questions separately and bills state per question.
+Both v1.3 models share state within each processing group and isolate direct
+question attention. Shared state still permits indirect influence; keep grouping
+fixed during evaluation. Both bill state per group, repeating it when split.
 Distinguish the hosted API contract from checkpoint implementations.
 
 Choose the evidence path deliberately: supplied state, optional built-in web

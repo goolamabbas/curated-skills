@@ -4,6 +4,8 @@ A support application needs to decide who should handle a message, whether a per
 
 **Illustrative example.** The messages, policy, probabilities, and cutoffs below are invented for teaching. No model calls were made, and the example does not predict which model will perform best.
 
+This walkthrough covers Perplexity v1.3. Upgrading from an earlier version? Revalidate thresholds and request grouping.
+
 ## Start with the application policy
 
 Our fictional product is a contact manager. Technical Support handles product failures and missing records; Billing handles charges, refunds, and invoices. A Review queue handles unclear ownership. Possible lost data and insufficient information require human review. An urgency rubric determines queue priority, independently of which team owns the case.
@@ -41,7 +43,7 @@ This JSON follows the [documented Perplexity request structure](https://docs.per
 
 ```json
 {
-  "model": "pplx-decider-v1.2",
+  "model": "pplx-decider-v1.3",
   "state": {
     "product": "A contact manager",
     "customer_message": "After importing a CSV, my saved contacts disappeared. My team cannot work.",
@@ -87,17 +89,17 @@ Keep the same policy and evidence available to every question. The starting layo
 
 | Option | Layout for this example | Why |
 | --- | --- | --- |
-| **Standard** | One request with state and all three related questions, within one processing group. | The questions describe facets of one triage decision. They can influence one another, so evaluate this combined design. |
-| **Hosted Flash** | Three requests, each with the same state and one question. | Each question is evaluated separately. Combining them in a single request still repeats and bills state per question. |
+| **Standard** | One request with state and all three related questions, within one processing group. | The questions share explicit policy and state. Indirect influence remains, so evaluate the combined design. |
+| **Hosted Flash** | One request with the same state and all three questions, within one processing group. | Flash v1.3 shares state; evaluate quality and total cost against Standard. |
 | **Jev** | One TypeSafe request with text state and three focused questions. | Questions are evaluated independently against the shared state. Combine their answers in application code. |
 
-For Flash, construct each body from the Standard example by setting `model` to `pplx-decider-flash-v1.2` and retaining exactly one entry in `questions`. Keep the full relevant state in each request.
+For Flash, use the same request with `model` set to `pplx-decider-flash-v1.3`. Keep the full relevant state and all three questions. Both models isolate direct question attention; shared state still allows indirect influence.
 
 For Jev, use the [TypeSafe API and SDK documentation](https://docs.typesafe.ai/introduction/quickstart), its endpoint, credentials, and selected model. Carry over the policy and question intent; validate the request builder and answer consumer against that provider's schema. Switching providers requires more than changing a Perplexity model name. TypeSafe's [model page](https://docs.typesafe.ai/models) lists version IDs and alias targets.
 
 If a later question actually needs an earlier answer, use a separate stage: receive the answer, then explicitly put relevant information in the next request's state. Questions sent together should not be treated as a sequential program.
 
-These layouts follow [Perplexity's hosted guidance](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request) and the [TypeSafe introduction](https://docs.typesafe.ai/introduction), checked on **20 October 2026**. No comparative performance is implied.
+These layouts follow [Perplexity's hosted guidance](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request) and the [TypeSafe state guide](https://docs.typesafe.ai/concepts/state), checked on **13 November 2026**. No comparative performance is implied.
 
 ## Turn answers into application behavior
 
@@ -142,7 +144,7 @@ The three messages teach the design; they cannot validate it. Before relying on 
 - Assemble representative messages with decisions labelled under your actual policy. Include ambiguous ownership, routine requests, urgent cases, and missing context. Resolve label disagreements before evaluating predictions.
 - Use development cases to refine state, questions, and cutoffs. Freeze each candidate workflow, then assess it on held-out messages. Compare with your existing workflow and simpler rules.
 - Measure missed review cases, wrong automatic routes, the fraction sent to humans, urgent cases assigned low priority, end-to-end latency, and total workflow cost. Report consequential error categories separately from an overall average.
-- Evaluate Standard's related-question layout, Flash's separate questions, and Jev's independent questions on the same held-out messages. Tune each workflow to common quality and review-capacity requirements; identical numerical thresholds are not a fair comparison by themselves.
+- Evaluate the grouped layouts on both Perplexity models and Jev’s independent questions on the same held-out messages. Tune each workflow to common quality and review-capacity requirements; identical numerical thresholds are not a fair comparison by themselves.
 - Repeat cases near thresholds to check action stability. Investigate question changes or grouping when a specific failure calls for it. Keep repeats distinct from additional independent examples.
 
 Measure actual billed usage, including repeated state and retries, before choosing on cost. A cheaper token rate does not establish a cheaper useful workflow. State the sample size and remaining uncertainty; do not claim rare errors have been ruled out from a small sample.
@@ -151,11 +153,13 @@ Measure actual billed usage, including repeated state and retries, before choosi
 
 **For this example, start by evaluating Standard with the three related questions together.** Review, team ownership, and urgency are facets of the same support decision, making this a reasonable starting design under Perplexity's guidance. The synthetic answers above do not establish that Standard is best.
 
-Test **Flash** if it can meet the same quality target with an acceptable review workload. Count all three questions and their repeated state before assuming a saving; the [matched-workload cost example](guide.md#what-a-small-workflow-might-cost) shows why its lower token rate may not yield a lower bill.
+Test **Flash** if it can meet the same quality target with an acceptable review workload. It shares state within each processing group; use returned usage and the [cost illustration](guide.md#what-a-small-workflow-might-cost) alongside measured quality.
 
 Include **Jev** if you want to assess an alternative provider that evaluates these text questions independently against shared state in one request, or already use TypeSafe. Keep the policy explicit in state so each question can stand on its own. Measure quality, latency, review workload, and cost before choosing it over either Perplexity option.
 
 This is a proposed evaluation order for the example, not a measured ranking or a requirement to test every provider.
+
+For optional source-text highlighting, see [the locate example](guide.md#extract-matching-text-with-locate). It uses a separate string state because locate does not accept this walkthrough’s object state.
 
 ## Build a small version
 

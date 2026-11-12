@@ -1,6 +1,6 @@
 # Use web evidence in Decisions
 
-Documentation checked **5 November 2026**; no live Decisions calls were made for
+Perplexity v1.3 documentation checked **13 November 2026**; no live Decisions calls were made for
 this reference. Recheck the [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart#web-grounding),
 [endpoint](https://docs.perplexity.ai/api-reference/decisions-post) and
 [pricing](https://docs.perplexity.ai/docs/getting-started/pricing#web-grounding)
@@ -26,7 +26,9 @@ Do not enable grounding on a private support-state object without reviewing what
 Set `mode: "web_grounding"` with the ordinary `model`, `state` and named
 `questions`. Omit mode for no built-in retrieval; other values, including null
 and the empty string, return 400. Both Standard and Flash support grounding.
-Grounded requests require 1–100 questions. Added evidence consumes input capacity;
+Grounded requests require 1–100 questions and cannot contain `locate`. For
+text extraction, retrieve and save the text first, then use an ungrounded
+[locate request](locate.md). Added evidence consumes input capacity;
 allow headroom within the current context and body limits.
 
 The gateway builds queries from question instructions and criteria followed by the
@@ -35,10 +37,10 @@ portion gets at most 128 bytes. Put the entity or claim early, keep questions
 focused, and check the retrieved evidence. Images are not searched. Identical
 queries share a search; a question with no searchable text may produce none.
 
-Search results are merged and deduplicated before inference. Standard's joint
-question groups and Flash's separate evaluation still apply.
+Search results are merged and deduplicated before inference. Both v1.3 models use shared-state
+processing groups with direct question isolation.
 
-Grounding enriches the shared state before evaluation. Flash evaluates each question separately, but each receives the merged evidence, including evidence retrieved through other questions. Adding, removing or rewording a grounded question can therefore change the evidence available to other questions on either Perplexity model, and may change their answers. This is an implication of the documented retrieval flow, not a measured answer change. Keep the question set and retrieval configuration fixed while tuning thresholds, and test changes to either. For fixed-evidence comparisons, save and reuse the evidence separately.
+Grounding enriches the shared state before evaluation. Both v1.3 models receive merged evidence, including evidence retrieved through other questions. Adding, removing or rewording a grounded question can therefore change the evidence available to other questions on either Perplexity model, and may change their answers. This is an implication of the documented retrieval flow, not a measured answer change. Keep the question set and retrieval configuration fixed while tuning thresholds, and test changes to either. For fixed-evidence comparisons, save and reuse the evidence separately.
 
 The documented retrieval limits are up to five results per search and a merged set of up to ten results, or one per query above ten queries, capped at 100. Individual snippets are limited to 2,000 characters; snippets for the same URL can be joined. These are evidence-selection limits, not a guarantee of useful coverage for every question. Searches run up to ten at a time, with a one-second per-search and three-second total search budget; timed-out searches add no results. Measure evidence sufficiency, billed input usage and end-to-end latency for your workload. The search budget is not a total-response-time guarantee.
 
@@ -100,7 +102,7 @@ failed fetches are not billed. Completed retrieval remains billable if a later
 stage fails. Identical queries can share a search, so question count is not always
 billable search count either.
 
-Report token-based inference and retrieval as separate subtotals, then sum them once with other workflow costs. Calculate the token subtotal using `usage.input_tokens`. Fetched text and search evidence are already included in that usage; do not add their tokens twice. The enriched state is billed per Standard processing group or per Flash question. Include billed retries and mark unavailable cost information explicitly.
+Report token-based inference and retrieval as separate subtotals, then sum them once with other workflow costs. Calculate the token subtotal using `usage.input_tokens`. Fetched text and search evidence are already included in that usage; do not add their tokens twice. The enriched state is billed per processing group on either v1.3 model. Include billed retries and mark unavailable cost information explicitly.
 
 The documented Decisions response reports token usage but does not expose billed search or fetch counts. Returned source lists cannot establish the exact retrieval charge. When billing records do not provide a reliable breakdown, report an estimate or bound and state its assumptions: no more than one search per question, with duplicate queries sharing a search and some searches skipped or unsuccessful, plus at most one successful URL fetch. Do not treat the presence or absence of usable fetched text as a documented billing receipt. Reconcile with provider billing records where possible without assuming they expose per-request attribution.
 
@@ -121,10 +123,10 @@ sets, clients or dates. See [evaluation.md](evaluation.md).
 
 ## Distinguish another provider's contract
 
-Parallel's only documented Decisions mode, `fast`, includes web retrieval with
+Parallel comparison last checked **5 November 2026**. Its only documented Decisions mode, `fast`, includes web retrieval with
 shared evidence for related questions and published per-request pricing. No
 supplied-state-only mode is documented. Perplexity's optional grounding also
-shares retrieved evidence across questions. Its top-level `citations`
+shares retrieved evidence across questions. Parallel’s top-level `citations`
 apply to the whole request, can be empty and do not map sources to individual
 answers. Its refusal answer is separate from a judgment and is not a documented
 guarantee of insufficient-evidence detection. Shared retrieval does not establish

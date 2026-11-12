@@ -2,11 +2,15 @@
 
 Understand decision models, choose between Perplexity Standard, Flash, and TypeSafe/Jev, and turn their judgments into useful application behavior. Then use the Perplexity Decisions skill with a coding agent to build and evaluate an integration.
 
+This guide covers **Perplexity Decider v1.3 and Flash v1.3**. Model behavior, limits and pricing were checked on **13 November 2026**. We update the guide as releases change the documented behavior.
+
+**Upgrading from an earlier version?** Revalidate your thresholds and request grouping; this guide describes v1.3 behavior.
+
 An independent guide and skill adapted by Yusuf Goolamabbas. See [origin and license](#origin-and-license) for attribution.
 
 ## What is a decision model?
 
-A decision model interprets information and returns answers that software can act on: a yes/no probability, a choice from supplied options, or a score against defined criteria. Your application sends it data through an **API**, the interface for requesting those judgments and receiving the results.
+A decision model interprets information and returns answers that software can act on: a yes/no probability, a choice from supplied options, a score against defined criteria, or matching spans extracted from text. Your application sends it data through an **API**, the interface for requesting those judgments and receiving the results.
 
 For example, a support application might ask whether a message needs human review, which team should own the ticket, and how urgent the reported disruption is. The model judges the message; your code decides whether to escalate it or ask a person to review it.
 
@@ -47,7 +51,7 @@ Both Perplexity's optional grounding and Parallel's documented Decisions flow sh
 
 ## State, questions, and answers
 
-**State** is the information available for a decision: a message, document, image, or relevant application data. Supported inputs vary: [Perplexity accepts images](https://docs.perplexity.ai/docs/decisions/quickstart#images-in-state); [Jev currently takes text](https://docs.typesafe.ai/models). **Questions** describe what to judge, including the options or scoring criteria. Both providers below support three question types:
+**State** is the information available for a decision: a message, document, image, or relevant application data. Supported inputs vary: [Perplexity accepts images](https://docs.perplexity.ai/docs/decisions/quickstart#images-in-state); [Jev accepts text and images](https://docs.typesafe.ai/models). **Questions** describe what to judge, including the options or scoring criteria. Both providers support these three judgment types; Perplexity also supports text extraction with `locate`, introduced below:
 
 | Type | Illustrative question | Result |
 | --- | --- | --- |
@@ -79,7 +83,7 @@ An illustrative request using the [documented API shape](https://docs.perplexity
 
 ```json
 {
-  "model": "pplx-decider-v1.2",
+  "model": "pplx-decider-v1.3",
   "state": {
     "product": "A contact manager",
     "customer_message": "After importing a CSV, my saved contacts disappeared. My team cannot work.",
@@ -119,7 +123,7 @@ Suppose your application needs to check whether a software project has published
 
 ```json
 {
-  "model": "pplx-decider-v1.2",
+  "model": "pplx-decider-v1.3",
   "mode": "web_grounding",
   "state": "Python programming language; official site python.org; pinned version 3.13.0.",
   "questions": {
@@ -142,31 +146,67 @@ If you supply a page URL as the entire state, inspect `fetched_results` too. `ma
 
 </details>
 
+### Extract matching text with locate
+
+Use `locate` when you need the exact words in supplied text, such as a product name or the phrase describing a problem. It returns text spans with positions and scores; it does not generate an explanation or establish that the extracted claim is true.
+
+This illustrative request combines extraction with a yes/no judgment:
+
+```json
+{
+  "model": "pplx-decider-v1.3",
+  "state": "My saved contacts disappeared after import.",
+  "questions": {
+    "reported_symptom": {
+      "type": "locate",
+      "instructions": "Extract the exact phrase describing what went wrong."
+    },
+    "possible_data_loss": {
+      "type": "noul",
+      "instructions": "Does the message report possible loss of saved data?"
+    }
+  }
+}
+```
+
+A synthetic answer excerpt—not a recorded model result—shows the span format:
+
+```json
+{
+  "type": "locate",
+  "spans": [{"start": 3, "end": 29, "text": "saved contacts disappeared", "score": 0.90}]
+}
+```
+
+The application can highlight the phrase for a reviewer. `end` is exclusive and offsets count Unicode characters. A span's score is distinct from a rubric score and is not an established probability of correctness. An empty list means no match was identified, not proven absence.
+
+**Locate requires string state, excludes images and built-in web grounding, and limits the whole mixed request to 128 questions.** Keep the object-state triage example separate. For extraction from web pages, retrieve the text first and preserve its source. See [locate handling and evaluation](../../skills/pplx-decision/references/locate.md) for source mapping, Unicode handling and long-input limitations. [Perplexity locate documentation](https://docs.perplexity.ai/docs/decisions/quickstart#locate-find-text-in-the-content)
+
 ## Choose a model to evaluate
 
-**Standard (`pplx-decider-v1.2`) and Flash (`pplx-decider-flash-v1.2`) are Perplexity models. Jev is TypeSafe's separate offering.** If you are building with Perplexity and are unsure where to begin, start by evaluating **Standard**. It is the provider's recommended default, especially for nuanced criteria or costly mistakes.
+**Standard (`pplx-decider-v1.3`) and Flash (`pplx-decider-flash-v1.3`) are Perplexity models. Jev is TypeSafe's separate offering.** If you are building with Perplexity and are unsure where to begin, start by evaluating **Standard**. It is the provider's recommended default, especially for nuanced criteria or costly mistakes.
 
 | Your starting situation | A useful first step |
 | --- | --- |
-| Building with Perplexity, with nuanced judgments or several related questions about the same content | Start with **Standard**. Test related questions together so they can use one another's context. |
-| Making clear, repetitive judgments at high volume | Test **Flash** against your workflow's quality target. Start with one question per request; keep it only if quality and total workflow cost justify it. |
+| Building with Perplexity, with nuanced judgments or several related questions about the same content | Start with **Standard**. Test related questions together over shared state, with complete instructions for each question. |
+| Making clear, repetitive judgments at high volume | Test **Flash** against your workflow's quality target. Group questions over the same state when they fit; keep it only if quality and total workflow cost justify it. |
 | Comparing providers for independent judgments over text, especially several questions about the same information | Include **Jev**. It evaluates questions independently against shared state in one request. It is also a natural candidate if you already use TypeSafe. |
 
 These are starting points, not exclusive categories or measured rankings. More than one model can suit the same application. Standard can also evaluate a single question; Flash is not automatically cheaper for a multi-question workflow.
 
-On Standard, the same question can receive a different score depending on the questions grouped with it. [Keep grouping fixed while tuning thresholds](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request); if grouping changes, re-evaluate those thresholds. With web grounding, either Perplexity model receives shared retrieved evidence, so changing the question set can also change the evidence available to other questions. Keep the grounded question set fixed while tuning thresholds; Flash's separate evaluation does not isolate it from this retrieval effect.
+Standard and Flash v1.3 process questions together using shared state. Each question directly reads the state and its own text, not other questions. Questions can still influence one another indirectly through shared state. [Keep grouping fixed while tuning thresholds](https://docs.perplexity.ai/docs/decisions/quickstart#grouping-questions-in-one-request), and re-evaluate when it changes. With web grounding, changing the question set can also change the shared retrieved evidence.
 
-**Why consider Jev alongside Flash?** Both evaluate questions independently, but Jev ingests shared state once for a multi-question request, while hosted Flash repeats and bills state for every question. That processing distinction does not establish how Jev bills repeated state, or that either service is more accurate, faster, or cheaper overall. Check billable usage; the conditional [Jev cost illustration](#what-a-small-workflow-might-cost) below does not assume a confirmed billing rule. Jev's current input is text; Perplexity also accepts images.
+**Why consider Jev alongside Perplexity?** Jev is an alternative provider with documented independent question evaluation against shared state. Both Perplexity v1.3 models also share state, but allow indirect question interaction. Compare application quality, actual billed usage, latency and integration fit. Both providers accept images; their supported formats and question types differ.
 
 The Standard and Flash starting guidance follows the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart). Including Jev is this guide's suggestion, based on the question isolation and shared-state processing described in the [TypeSafe introduction](https://docs.typesafe.ai/introduction) and [model documentation](https://docs.typesafe.ai/models). Read [Choose between Standard, Flash, and Jev](model-comparison.md) for operational limits and answer interpretation.
 
 ### Perplexity Decisions and TypeSafe/Jev
 
-**Perplexity Decisions** is Perplexity’s API for its **`pplx-decider` models**. They return structured judgments; they do not write replies, generate code, or explain their reasoning. See the [Perplexity Decisions quickstart](https://docs.perplexity.ai/docs/decisions/quickstart).
+**Perplexity Decisions** is Perplexity’s API for its **`pplx-decider` models**. They return structured judgments and can extract matching text spans; they do not write replies, generate code, or explain their reasoning. See the [Perplexity Decisions quickstart](https://docs.perplexity.ai/docs/decisions/quickstart).
 
 **TypeSafe** provides **Jev**, another decision model built around state and typed questions. The [TypeSafe introduction](https://docs.typesafe.ai/introduction) explains its approach. These are separate services; this skill helps you build with Perplexity or [migrate an existing TypeSafe/Jev workflow](#port-a-typesafejev-workflow).
 
-For a practical comparison, read [Choose between Standard, Flash, and Jev](model-comparison.md). It explains Standard’s joint evaluation, hosted Flash’s separate question processing, and what those differences mean for your application.
+For a practical comparison, read [Choose between Standard, Flash, and Jev](model-comparison.md). It explains shared-state processing, question isolation, and what the provider differences mean for your application.
 
 ### Where this skill fits
 
@@ -178,23 +218,23 @@ If the workflow needs public web evidence, choose built-in grounding or applicat
 
 Compare the **same work**, including how often each model bills the information supplied. A token is a unit used to measure model input; the number of billed tokens can differ from the length of the customer's message.
 
-Suppose each ticket supplies **10,000 tokens of state and asks three questions**. That illustrative state could include a support policy and retrieved account context; the short message in our worked example is much smaller. Standard answers all three together, within its input limit; hosted Flash answers them separately. Using [Perplexity's rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing), checked on **20 October 2026**:
+Suppose each ticket supplies **10,000 tokens of state and asks three questions**. That illustrative state could include a support policy and retrieved account context; the short message in our worked example is much smaller. Both v1.3 models answer all three in one processing group, within the input limit. Using [Perplexity's rates](https://docs.perplexity.ai/docs/decisions/quickstart#pricing), checked on **13 November 2026**:
 
-| For this workload | Standard v1.2 | Flash v1.2 |
+| For this workload | Standard v1.3 | Flash v1.3 |
 | --- | --- | --- |
-| Times the state is billed per ticket | Once | Three times |
-| Billed state tokens per ticket | 10,000 | 30,000 |
+| Times the state is billed per ticket | Once | Once |
+| Billed state tokens per ticket | 10,000 | 10,000 |
 | Input price per million tokens | $0.02 | $0.01 |
-| State cost per ticket | $0.0002 | $0.0003 |
-| State cost for one million such tickets | $200 | $300 |
+| State cost per ticket | $0.0002 | $0.0001 |
+| State cost for one million such tickets | $200 | $100 |
 
-**This is ungrounded, state-only arithmetic, not a complete bill or a model benchmark.** Add question tokens, other input overhead and billed retries. Standard repeats state too if a large request is split into groups. The model calls have free output tokens and no per-request fee, but optional web grounding adds retrieval charges and more input tokens.
+**This is ungrounded, state-only arithmetic, not a complete bill or a model benchmark.** Add question tokens, other input overhead and billed retries. Either model repeats state if a large request is split into groups. The model calls have free output tokens and no per-request fee, but optional web grounding adds retrieval charges and more input tokens.
 
-At the [grounding rates checked on 5 November 2026](https://docs.perplexity.ai/docs/getting-started/pricing#web-grounding), each completed search costs $0.001, including a search with no results, and each successful URL fetch costs $0.001. One successful fetch plus three distinct completed searches therefore costs $0.004 before model input tokens. Questions that produce the same query can share a search. Count billed operations, not the number of returned sources; completed retrieval can remain billable if the model request subsequently fails.
+At the [grounding rates checked on 13 November 2026](https://docs.perplexity.ai/docs/getting-started/pricing#web-grounding), each completed search costs $0.001, including a search with no results, and each successful URL fetch costs $0.001. One successful fetch plus three distinct completed searches therefore costs $0.004 before model input tokens. Questions that produce the same query can share a search. Count billed operations, not the number of returned sources; completed retrieval can remain billable if the model request subsequently fails.
 
 **Where does Jev fit in this illustration?** At its [documented $0.042 per million input tokens](https://docs.typesafe.ai/models), 10,000 billable state tokens would cost **$0.00042 if counted once**—more than either Perplexity state-only figure above. This is conditional arithmetic, not a verified Jev charge. TypeSafe documents ingesting state once, while its [API reference](https://docs.typesafe.ai/api#response-usage-input-tokens) defines returned billable usage without explicitly specifying repeated-state billing in the passages checked. Tokenizers can differ, so compare returned usage. Jev's inclusion here is about its question-handling approach, not a demonstrated cost advantage.
 
-Flash has the lower token rate, yet Standard has the lower state cost in this example. A single-question workflow can give a different result. Use returned `usage.input_tokens` across the complete workflow, then include retrieval, generated replies, and human review before deciding on cost. [Choose between Standard, Flash, and Jev](model-comparison.md#inputs-limits-and-cost) includes Jev's rate and limits; its different rate and token usage also require a whole-workflow comparison.
+Flash has the lower state cost in this one-group illustration. That does not establish a cheaper useful outcome: compare quality and review workload too. Use returned `usage.input_tokens` across the complete workflow, then include retrieval, generated replies, and human review. [Choose between Standard, Flash, and Jev](model-comparison.md#inputs-limits-and-cost) includes Jev's rate and limits.
 
 <details>
 <summary>How to calculate the model-call subtotal</summary>
@@ -288,7 +328,7 @@ the expected urgency score to order the queue. Label all cutoffs unvalidated.
 A suggested team must not bypass required human review.
 Show uncertain or unavailable results clearly. Do not send messages automatically.
 
-Design the initial requests for pplx-decider-v1.2 with all three related questions
+Design the initial requests for pplx-decider-v1.3 with all three related questions
 in one request. Clarify ambiguous wording while preserving this example's policy
 and initial layout; explain any proposed changes before adopting them. Build the
 demo with saved example inputs and simulated answers. Send missing or malformed
@@ -402,7 +442,7 @@ proposed live-test budget; do not modify files or call model APIs yet.
 
 Start with [Choose between Standard, Flash, and Jev](model-comparison.md) for the conceptual differences, then use the migration prompt below.
 
-**Outcome:** a revised integration and offline checks of its application logic. Provide the existing request builder, answer handling, and tests. TypeSafe documents independent question evaluation. Standard evaluates questions jointly within each processing group; hosted Flash evaluates them separately and bills state per question. Review the [migration guidance](../../skills/pplx-decision/references/porting-from-typesafe.md#reconsider-grouping-first) before carrying over assumptions.
+**Outcome:** a revised integration and offline checks of its application logic. Provide the existing request builder, answer handling, and tests. TypeSafe documents independent question evaluation. Both Perplexity v1.3 models share state within each processing group, with direct question isolation and possible indirect influence through state. Review the [migration guidance](../../skills/pplx-decision/references/porting-from-typesafe.md#reconsider-grouping-first) before carrying over assumptions.
 
 ```text
 Use the pplx-decision skill to port this TypeSafe/Jev integration to Perplexity
@@ -418,6 +458,7 @@ These references are optional reading for you; the agent loads the ones needed f
 - [Choose between Standard, Flash, and Jev](model-comparison.md): a short explanation, optional practitioner checklist, and learning checks.
 - [From a customer message to an actionable support decision](worked-example.md): one illustrative workflow across Standard, Flash, and Jev, with simulated answers and application rules.
 - [Project opportunities](../../skills/pplx-decision/references/project-opportunities.md): investigate improvements and new capabilities.
+- [Text extraction](../../skills/pplx-decision/references/locate.md): find matching spans, preserve source offsets and evaluate extraction.
 - [Web grounding](../../skills/pplx-decision/references/web-grounding.md): choose an evidence path and handle query construction, fetching, freshness, insufficient evidence and retrieval costs.
 - [Implementation](../../skills/pplx-decision/references/implementation.md): request design, answer handling, and operational failures.
 - [Evaluation](../../skills/pplx-decision/references/evaluation.md): representative cases, thresholds, and whole-workflow measurements.

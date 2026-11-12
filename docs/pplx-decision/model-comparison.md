@@ -2,31 +2,31 @@
 
 All three return structured judgments that your code can use: a yes/no probability, a choice, or a rubric score. Choose a candidate from the work it must do, then evaluate the resulting application decisions on your own examples.
 
+This page covers Perplexity v1.3. Upgrading from an earlier version? Revalidate thresholds and request grouping.
+
 ## Where to start
 
 **Standard and Flash belong to Perplexity; Jev is a separate TypeSafe service.** If you are building with Perplexity and unsure where to begin, evaluate Standard first. Then test Flash if you have clear, repetitive judgments and want to assess its economics at your required quality level. If you are comparing providers for independent judgments on text, include Jev—especially when several questions use the same information.
 
 | Candidate | Consider it when | What to verify |
 | --- | --- | --- |
-| **Perplexity Standard** (`pplx-decider-v1.2`) | Criteria are nuanced, errors are costly, or several related questions describe one decision. Perplexity recommends it as the default. | Whether the chosen grouping improves your outcomes, and whether cost and latency meet your requirements. |
-| **Perplexity Flash** (`pplx-decider-flash-v1.2`) | You have high volumes of clear, focused judgments. | Whether it meets the same quality bar; repeated state can outweigh its lower token rate. |
+| **Perplexity Standard** (`pplx-decider-v1.3`) | Criteria are nuanced, errors are costly, or several related questions describe one decision. Perplexity recommends it as the default. | Whether the chosen grouping improves your outcomes, and whether cost and latency meet your requirements. |
+| **Perplexity Flash** (`pplx-decider-flash-v1.3`) | You have high volumes of clear, focused judgments. | Whether it meets the same quality bar; its lower input rate must translate into a useful outcome at the same quality target. |
 | **TypeSafe/Jev** | You are comparing providers for independent judgments on text, especially several questions over shared information, or already use TypeSafe. | Quality on your task, context limits, and provider-specific confidence and version handling. |
 
 The Standard and Flash guidance follows the [Perplexity quickstart](https://docs.perplexity.ai/docs/decisions/quickstart). The Jev suggestion is this guide's, based on the question isolation described in the [TypeSafe introduction](https://docs.typesafe.ai/introduction). These are not measured rankings. The categories overlap: all three can serve the support workflow below. None removes the need to evaluate your workflow.
 
-**Jev and Flash both evaluate questions independently.** Jev ingests state once for a multi-question request; hosted Flash repeats and bills it for each question. That makes Jev worth including in a comparison of independent text judgments. Ingesting state once does not by itself establish a once-per-state billing rule. This distinction does not prove a quality, speed, or total-cost advantage; rates, actual billable usage, and task performance also matter.
+Both Perplexity v1.3 models share state within each processing group. Jev documents independent evaluation against shared state. Perplexity isolates direct question attention but still permits indirect influence through state. These distinctions alone do not prove a quality, speed or cost advantage.
 
 ## How the requests differ
 
-A **request** is one API call containing state and questions. A **processing group** is the set of questions Standard evaluates together; a large request can be split into several groups.
+A **request** is one API call containing state and questions. A **processing group** is the set of questions either Perplexity model evaluates together; a large request can be split into several groups.
 
 Imagine a support message with three questions: does it need human review, which team should own it, and how urgent is it?
 
-**Standard evaluates related questions together.** Within a processing group, each question sees the state and the other questions. That can help when the questions describe facets of one decision. For independent candidate scoring, such as rating unrelated documents against the same criterion, start with separate requests. If a request is too large, the API splits its questions into consecutive groups and repeats the state for each; state plus any single question must still fit the limit.
+**Standard and Flash v1.3 share state across these questions.** Each question directly sees state and its own text, not the other questions. Shared state still allows indirect influence. Supply complete question meaning and shared policy explicitly; questions are not a sequential program.
 
-The same question can receive a different score depending on its group. Keep grouping fixed while tuning thresholds; if grouping changes, re-evaluate those thresholds. Leave input headroom so automatic splitting does not unexpectedly change which questions see each other.
-
-**Hosted Flash evaluates each question separately.** Start with one question per request. If several arrive in one request, the API still evaluates them separately and bills the state again for each question. Packing questions together does not create Standard's joint context or shared-state savings.
+Keep the question set and grouping fixed while tuning thresholds. If state plus all questions exceeds the input limit, the API splits questions into consecutive groups and bills state again per group. State plus any one question must fit. Leave headroom and re-evaluate changed grouping. Compare grouped and separate requests when interaction could change an important action.
 
 **Jev evaluates questions independently against shared state.** Questions can be submitted together, but each is evaluated in isolation. TypeSafe recommends atomic questions—one specific judgment per question—whose results your code combines. Put the necessary evidence in state; do not expect one question's instructions or answer to supply another's missing context.
 
@@ -36,17 +36,17 @@ See the [same support workflow across all three](worked-example.md#choose-the-re
 
 ## Inputs, limits, and cost
 
-Documentation checked **20 October 2026**. Prices below are USD per million input tokens; all three currently have free output tokens.
+Documentation checked **13 November 2026**. Prices below are USD per million input tokens; all three currently have free output tokens.
 
 | Hosted option | Inputs and default context | Input rate and shared state |
 | --- | --- | --- |
-| Standard v1.2 | Text and images; state plus each question must fit under 256K tokens. Oversized collections of questions are split into groups. | **$0.02/M**; state billed once per processing group. |
-| Flash v1.2 | Text and images; state plus each question must fit under 256K tokens. | **$0.01/M**; state billed for every question. |
-| Jev 1.13 / 1.14 | Text; 64K per request and 32K for state plus each question by default. | **$0.042/M**; TypeSafe describes ingesting state once for a multi-question request. Measure returned usage for the complete request. |
+| Standard v1.3 | Text and images; state plus each question must fit under 256K tokens. Oversized collections of questions are split into groups. | **$0.02/M**; state billed once per processing group. |
+| Flash v1.3 | Text and images; state plus each question must fit under 256K tokens. | **$0.01/M**; state billed once per processing group. |
+| Jev 1.13 / 1.14 | Text and images; 64K per request and 32K for state plus each question by default. | **$0.042/M**; TypeSafe describes ingesting state once for a multi-question request. Measure returned usage for the complete request. |
 
-Sources: [Perplexity models, grouping, and pricing](https://docs.perplexity.ai/docs/decisions/quickstart), [TypeSafe models and limits](https://docs.typesafe.ai/models). Jev has an optional long-context mode; TypeSafe warns it is slower and less accurate, so assess it separately rather than treating its expanded limits as the default. Perplexity image input has additional format, size, and request-body limits; see the [API reference](../../skills/pplx-decision/references/api-snapshot.md#limits-and-images).
+Sources: [Perplexity models, grouping, and pricing](https://docs.perplexity.ai/docs/decisions/quickstart), [TypeSafe models and limits](https://docs.typesafe.ai/models). Jev has an opt-in 262K-token long-context mode; TypeSafe warns it is slower and less accurate, so assess it separately rather than treating its expanded limits as the default. Perplexity image input has additional format, size, and request-body limits; see the [API reference](../../skills/pplx-decision/references/api-snapshot.md#limits-and-images).
 
-For **three questions over a 10,000-token state**, the state alone costs about **$0.0002 on Standard** in one group versus **$0.0003 on Flash**. This is arithmetic from documented rates and repetition rules, excluding questions, other overhead, and retries. Tokenization and usage can differ by provider. Compare actual billed usage, quality, latency, and review workload—not rates alone. The [guide's cost explanation](guide.md#what-a-small-workflow-might-cost) shows how to estimate a complete workflow.
+For **three questions over a 10,000-token state**, the state alone costs about **$0.0002 on Standard** in one group versus **$0.0001 on Flash**. This is arithmetic from documented rates and repetition rules, excluding questions, other overhead, and retries. Tokenization and usage can differ by provider. Compare actual billed usage, quality, latency, and review workload—not rates alone. The [guide's cost explanation](guide.md#what-a-small-workflow-might-cost) shows how to estimate a complete workflow.
 
 For Jev, **10,000 billable state tokens at $0.042/M would cost $0.00042 if counted once**, above both Perplexity figures in this illustration. This is a conditional estimate, not verified billing: TypeSafe documents ingestion once, but the inspected [API usage definition](https://docs.typesafe.ai/api#response-usage-input-tokens) does not explicitly specify repeated-state billing. Compare actual returned usage and account for different tokenizers.
 
@@ -54,13 +54,15 @@ For Jev, **10,000 billable state tokens at $0.042/M would cost $0.00042 if count
 
 ### Account for optional web grounding
 
-Grounding rules checked **5 November 2026**.
+Grounding rules checked **13 November 2026**.
 
-Standard and Flash both support optional built-in web grounding. This adds retrieval before inference; their different question-processing rules still apply. Fetched page text and search evidence count as input tokens, repeated per Standard processing group or per Flash question. The state-only examples above exclude these retrieval charges and added evidence tokens. See [where evidence comes from](guide.md#where-does-the-evidence-come-from) and the [grounding reference](../../skills/pplx-decision/references/web-grounding.md).
+Standard and Flash both support optional built-in web grounding. This adds retrieval before inference; shared-state processing still applies. Fetched page text and search evidence count as input tokens, repeated per processing group on either model. The state-only examples above exclude these retrieval charges and added evidence tokens. See [where evidence comes from](guide.md#where-does-the-evidence-come-from) and the [grounding reference](../../skills/pplx-decision/references/web-grounding.md).
 
-On both Perplexity models, changing the grounded question set can change the shared retrieved evidence and potentially other answers. Flash still evaluates questions separately. Keep the grounded question set and retrieval configuration fixed while tuning thresholds; this retrieval implication has not been measured here.
+On both Perplexity models, changing the grounded question set can change the shared retrieved evidence and potentially other answers. Direct question isolation does not isolate retrieved evidence. Keep the grounded question set and retrieval configuration fixed while tuning thresholds; this retrieval implication has not been measured here.
 
 Compare the complete evidence-and-decision workflow. A model's input-token rate does not establish which grounded workflow is cheapest or most accurate, and a separate service's shared retrieval does not establish joint model evaluation.
+
+Perplexity also supports [locate text extraction](../../skills/pplx-decision/references/locate.md), returning spans rather than classification distributions.
 
 ## Interpreting the answers
 
@@ -76,11 +78,11 @@ The [worked example](worked-example.md#turn-answers-into-application-behavior) c
 <details>
 <summary>Before building or migrating an integration</summary>
 
-- **Define what you are comparing.** Keep each configuration’s state, questions, and grouping fixed across repeated runs of the same case. Compare alternative configurations on the same held-out cases. Identical request payloads do not guarantee identical processing across providers. To compare complete workflows, allow documented model-specific request designs and report them. Evaluate related groups on Standard and a one-question baseline on hosted Flash; treat multi-question Flash submission as a request-layout check, not joint evaluation. The [migration reference](../../skills/pplx-decision/references/porting-from-typesafe.md#reconsider-grouping-first) explains why unused speculative questions matter.
+- **Define what you are comparing.** Keep each configuration’s state, questions, and grouping fixed across repeated runs of the same case. Compare alternative configurations on the same held-out cases. Identical request payloads do not guarantee identical processing across providers. To compare complete workflows, allow documented model-specific request designs and report them. Evaluate grouped requests on both v1.3 models and compare separate requests when interaction matters. The [migration reference](../../skills/pplx-decision/references/porting-from-typesafe.md#reconsider-grouping-first) explains why unused speculative questions matter.
 - **Check what each number means.** A score is a probability-weighted rubric index, so the same average can hide different distributions. The providers’ published choice formulas agree for more than one option: `(p_top - 1/n) / (1 - 1/n)`. Their score formulas both normalize probability-weighted distance from the most likely level, but use different baselines. [Perplexity](https://docs.perplexity.ai/docs/decisions/quickstart) averages distances from that most likely level; [TypeSafe](https://docs.typesafe.ai/confidence#score) averages distances from the rubric midpoint. In Perplexity’s three-level example, spread is about 0.2161. Perplexity’s baseline of 1 gives confidence about **0.78**; TypeSafe’s baseline of 2/3 gives about **0.68**. A cutoff of 0.7 would produce different actions. These are calculations from a published example, not new inference results. The [API snapshot](../../skills/pplx-decision/references/api-snapshot.md#confidence-calculations) gives the exact formulas and single-level case. Do not transfer confidence thresholds or code that recomputes confidence without evaluation. Reevaluate thresholds and **calibration**—how well predicted probabilities match observed outcomes—on representative labelled examples.
 - **Distinguish a requested model name from serving identity.** [TypeSafe says its response identifies the version that answered](https://docs.typesafe.ai/models). [Perplexity echoes the requested name](https://docs.perplexity.ai/api-reference/decisions-post), and [retired version names can route to replacements](https://docs.perplexity.ai/docs/decisions/quickstart#model-names). A versioned Perplexity name is therefore not an immutable serving guarantee. Record request names and evaluation dates, follow retirement notices, and reevaluate after routing changes.
 - **Compare the completed workflow.** Measure errors, review rates, latency, and total billed input at the thresholds your application uses. Include repeated state, retries, retrieval, and any generative calls. A lower token rate alone does not establish a cheaper useful outcome. See the [cost example](guide.md#what-a-small-workflow-might-cost) and [evaluation guidance](../../skills/pplx-decision/references/evaluation.md).
-- **Check the operational contract.** Use the [dated API snapshot](../../skills/pplx-decision/references/api-snapshot.md) and current provider docs for limits, errors, and prices. Standard automatically splits questions that do not fit together, repeating state per group; state plus each individual question must fit. Plan groups deliberately when joint context matters. Hosted Flash repeats state per question. TypeSafe currently lists text input; Perplexity documents native image input. An image-to-text step can supply Jev with textual state, but it is an additional component. Input support does not establish judgment quality on your images.
+- **Check the operational contract.** Use the [dated API snapshot](../../skills/pplx-decision/references/api-snapshot.md) and current provider docs. Both Perplexity models split questions that do not fit together, repeating state per group. Both providers accept images, with provider-specific restrictions. Perplexity `locate` requires text-only string state and cannot use built-in grounding; Jev 1.14 lists Box, a different primitive whose contract needs its own review. Input support does not establish quality on your inputs.
 
 </details>
 
@@ -89,7 +91,7 @@ The [worked example](worked-example.md#turn-answers-into-application-behavior) c
 <details>
 <summary>Can an unused fourth question change the first answer?</summary>
 
-On Standard, questions in the same processing group can see the added question, so an answer can change. Hosted Flash and Jev document separate question evaluation. With Perplexity web grounding, an added question can also change the merged evidence supplied to other questions, including on Flash. Separate inference is not evidence isolation. That distinction does not guarantee numerically identical responses across repeated calls; test variation and resulting actions separately.
+Yes. On either Perplexity v1.3 model, an added question can indirectly influence answers through shared state. With grounding it can also change the retrieved evidence. Jev documents independent question evaluation, but no such description guarantees numerically identical responses across repeated calls. Test both interaction and variation where they affect application actions.
 
 </details>
 
@@ -107,6 +109,6 @@ No. Perplexity echoes the requested name, and a retired version name can route t
 
 </details>
 
-General model behavior was checked on **20 October 2026**; the web-grounding additions were checked on **5 November 2026**. No model-quality or latency comparison was run for this guide. Recheck linked provider documentation before implementation and evaluate thresholds on your own data.
+This comparison covers Perplexity v1.3. Models, grouping, limits, pricing and the cited TypeSafe state/confidence guidance were checked on **13 November 2026**. No model-quality or latency comparison was run for this guide. Recheck linked provider documentation before implementation and evaluate thresholds on your own data.
 
 [Back to the guide](guide.md) · [Follow the worked example](worked-example.md) · [Choose a prompt](guide.md#choose-a-starting-point)

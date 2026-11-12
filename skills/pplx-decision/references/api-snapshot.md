@@ -1,12 +1,11 @@
 # Perplexity Decisions API baseline
 
-Baseline documentation checked **2026-10-18**, covering `pplx-decider-v1.2` and
-`pplx-decider-flash-v1.2`. Grouping, input splitting, pricing, and confidence
-rechecked **2026-10-20**. Model names, grouping, pricing, question limits, request
-fields, image guidance, errors, and timeouts rechecked **2026-10-27**. Use this
-selective baseline for drafting, fixtures, and comparison with current documentation.
-Web grounding, retrieval billing, optional request fields and question-count limits
-rechecked **2026-11-05**; unrelated provisional observations retain their earlier dates.
+Baseline checked **13 November 2026** for `pplx-decider-v1.3` and
+`pplx-decider-flash-v1.3`: models, grouping, pricing, limits, locate, grounding,
+errors and documented timing observations. This is a dated documentation baseline,
+not a live inference test or a promise about future releases. Preserve explicitly
+selected versions; check their current contract before applying this baseline.
+Upgrading from an earlier version requires threshold and grouping revalidation.
 
 Sources: [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart.md),
 [endpoint schema](https://docs.perplexity.ai/api-reference/decisions-post.md),
@@ -17,9 +16,10 @@ Sources: [quickstart](https://docs.perplexity.ai/docs/decisions/quickstart.md),
 
 - This baseline was checked against documentation, without live inference.
   Use the documented contract for supported inputs; flag conflicting evidence.
-- **Provisional staff observations** below come from Perplexity developer-relations
-  correspondence received on **2026-10-27**. They have not been independently
-  reproduced, may change, and are not API guarantees. Receipt date is not test date.
+- Image-size guidance remains uncertain: older developer-relations correspondence
+  conflicts with the current quickstart. Neither behavior was independently tested
+  on v1.3; use conservative resizing and measured usage as described below.
+
 - Fixtures verify request construction and application logic. Measure model quality,
   calibration, cost, and serving performance on the target workload.
 - Published timings and probability examples come from specific earlier runs.
@@ -45,10 +45,8 @@ search-result freshness. The response can add `search_results` and
 `fetched_results`. See [web-grounding.md](web-grounding.md) for evidence handling,
 failure behaviour and billing; the ordinary answer types remain unchanged.
 
-Omit `temperature`: it is not a documented request field. **Provisional staff
-observation (received 2026-10-27):** it is currently accepted but ignored and may
-later be rejected. Do not use it to control decision variability or treat future
-rejection as a scheduled change.
+Omit `temperature`: it is not a documented request field. Do not use it to
+control decision variability.
 
 `instructions` may be a string, object, array, or null where the question's
 criteria supply its meaning. Outer `criteria` shapes remain type-specific:
@@ -57,6 +55,7 @@ criteria supply its meaning. Outer `criteria` shapes remain type-specific:
 | --- | --- | --- |
 | `noul` | Supply instructions or criteria (or both). Criteria is an object defining `true`/`false`; those definitions may be strings, objects, arrays, or null. Do not rely on empty definitions to convey meaning. | `type`, `noul` (probability of yes); no separate confidence |
 | `choice` | Required option-name map; descriptions can be strings, objects, arrays, or null. Null lets the option name carry meaning. | `type`, `choice`, `confidence`, `probabilities` keyed by option |
+| `locate` | String instructions describing matching text; criteria and other question members are ignored. String state only, no images or grounding; at most 128 total questions. | `type`, `spans`, each with `text`, `start`, `end`, `score`; see [locate.md](locate.md) |
 | `score` | Required ordered array; each level is a string, object, or array, never null. Use at least two meaningful levels. | `type`, `score`, `confidence`, `legend`, `probabilities` |
 
 `score` is the expected zero-based rubric index. `legend` and its probability map
@@ -87,13 +86,13 @@ for its baseline; see [porting-from-typesafe.md](porting-from-typesafe.md).
 
 | Constraint | Documented value |
 | --- | --- |
-| Questions per request | At least one; maximum 100 with web grounding. The documentation checked 2026-11-05 does not specify a universal ungrounded question-count cap. Context, body and rate limits still apply. |
+| Questions per request | At least one; maximum 100 with web grounding; maximum 128 total if any question is locate (which cannot be grounded). No universal cap is stated for other ungrounded requests. Context, body and rate limits still apply. |
 | Options per choice | 1–255 |
 | Levels per score | 1–10; one level always scores zero |
-| Input | State, its images, and each individual question must fit under 256K tokens; Standard splits questions that do not fit together |
+| Input | State, its images, and each individual question must fit under 256K tokens; both v1.3 models split questions that do not fit together |
 | Request body | 32 MiB |
-| Images | Up to 8 per question; PNG, JPEG, or WebP data URLs |
-| Image size | Quickstart still specifies at most 2,048 tiles of 32 × 32 pixels; see the conflicting staff observation below |
+| Images | Up to 8 per question; PNG, JPEG, or WebP data URLs; none with locate |
+| Image size | Quickstart still specifies at most 2,048 tiles of 32 × 32 pixels; see the uncertainty below |
 | Request rate | 10 requests/second per organization, shared across both models; an additional token limit applies to large bursts |
 
 Place an image part anywhere in state:
@@ -101,88 +100,67 @@ Place an image part anywhere in state:
 The API does not fetch HTTP(S) image URLs. State is read as serialized JSON, with
 images in place; preserve meaningful ordering.
 
-The earlier 128-question guidance is superseded by the documented grounding-specific
-limit above. Do not infer unlimited practical capacity for ungrounded calls; apply
-context, body, rate and workload constraints. Label any stricter batching cap as a
-client policy rather than a provider limit.
+The locate cap applies to the entire mixed request, not just its locate questions.
+Other ungrounded requests still have context, body and rate constraints. Label
+stricter batching caps as client policy rather than provider limits.
 
-The quickstart still describes rounding dimensions to the nearest multiple of 32
-before counting tiles, with 1440 × 1440 and 2048 × 1024 fitting and 1600 × 1310
-too large. It says oversized images wait about a minute and return 504.
-**Provisional staff observation (received 2026-10-27):** oversized images are now
-resized server-side with aspect ratio preserved and return 200. This conflicts
-with the published guidance; do not present oversized-image failure or automatic
-resizing as an independently verified current behavior.
-
-Use conservative client resizing to control input size while preserving the detail
-needed for the question. Treat the documented tile boundary as a conservative
-client policy while the discrepancy remains unresolved, not proof that the current
-backend rejects larger images. Formats, encoded body size, and total input limits
-still require separate checks.
-
-Budget from returned `usage.input_tokens`. The quickstart's estimate of about
-1,000 input tokens per megapixel comes from earlier models and is not a reliable
-current billing formula. **Provisional staff measurements (received 2026-10-27):**
-1440 × 1440 billed about 6,100 input tokens and 4000 × 4000 about 25,000; the exact
-formula was still being established. These observations are not a token estimator
-or a guarantee for other requests. Measure representative inputs and do not add
-estimated image charges again to returned usage.
+The current quickstart specifies rounding image dimensions to multiples of 32,
+then limiting images to 2,048 tiles. Its oversized-image timeout description
+conflicts with older staff correspondence about server-side resizing. That
+correspondence predates this baseline and does not establish v1.3 behavior.
+Use conservative client resizing while preserving required detail; check formats,
+encoded body size and total-input limits separately. Do not assume server resizing
+or a particular failure for oversized images. Budget from returned usage, not
+historical megapixel estimates. No image billing formula was verified for v1.3.
 
 ## Grouping, models, and billing
 
-Standard v1.2 evaluates questions jointly within a processing group. Related
-facets can benefit; isolate independently scored candidates. Intentional comparison
-can justify grouping (for example duplicate detection or multi-hop evidence).
-An unused question in the same group can still influence another answer.
+Both v1.3 models process questions together using shared state. Each question
+attends directly to state and its own tokens; shared state permits indirect
+interaction. Supply complete question meaning and keep grouping fixed while
+comparing runs or tuning thresholds. Do not infer fully independent predictions
+or reusable question-independent prompt caching.
 
-If Standard's state plus all questions exceeds the input limit, the hosted API
-splits questions into consecutive groups. Each group includes and bills the state
-again; returned `usage.input_tokens` includes that repetition. Groups run
-sequentially, increasing latency and potentially reaching a timeout. State plus
-any single question that cannot fit produces an input-limit 400. Correct that
-input rather than retrying unchanged.
-
-Choose groups deliberately and keep headroom when joint context matters:
-automatic splitting can change which questions see each other. This is a client
-design recommendation, not a claim that splitting is unsupported. The inspected
-hosted response schema has no explicit split indicator.
-
-Hosted Flash v1.2 answers each question separately, even when several are sent
-in one request. State is repeated and billed for every question. Start with one
-question per request; a multi-question request does not create joint context or
-shared-state savings. The Flash checkpoint model card describes a joint-request
-implementation; its grouping exceptions are not the hosted API's processing policy.
+If state plus all questions exceeds the input limit, both models split questions
+into consecutive groups, repeating and billing state per group. Returned usage
+already includes repetition. Groups run sequentially, increasing latency. State
+plus any single question that cannot fit returns 400. Leave headroom and evaluate
+changes to grouping; the inspected response has no explicit split indicator.
 
 | Model | Alias | USD per million input tokens |
 | --- | --- | --- |
-| `pplx-decider-v1.2` | `pplx-decider-latest` | 0.02 |
-| `pplx-decider-flash-v1.2` | `pplx-decider-flash-latest` | 0.01 |
+| `pplx-decider-v1.3` | `pplx-decider-latest` | 0.02 |
+| `pplx-decider-flash-v1.3` | `pplx-decider-flash-latest` | 0.01 |
 
 Output tokens are free; there is no request fee. Aliases follow newer models and
 bill at the selected model's rate. Retired version names reroute to replacements;
 neither an alias nor a versioned name proves immutable serving identity.
 
-The schema's Usage description and quickstart agree on these model-specific rates.
-Compare total billed input: repeated state can make a multi-question Flash workflow
-costlier than Standard despite Flash's lower token price. See
-[evaluation.md](evaluation.md) for cost calculation and
-[implementation.md](implementation.md) for operational policy.
+The latest aliases currently select the v1.3 models above; their `perplexity/`
+prefixed forms are also accepted. Response `model` echoes the requested name,
+not a resolved serving version. Revalidate after model-routing changes.
 
-With web grounding, report retrieval charges alongside the token subtotal. Fetched page text
-and search evidence already count in `usage.input_tokens`, with the same Standard
-group and Flash question repetition rules. Returned evidence lists are not billing
-counters. See [grounding costs](web-grounding.md#account-for-the-full-cost).
+Compare complete billed usage and quality rather than token rates alone. Both
+models bill state once when the request fits one group. Default token limits are
+15 million/minute and 900 million/hour for Standard, and 4 million/minute and
+240 million/hour for Flash. The organization-wide 10 requests/second limit is
+shared across models. See [evaluation.md](evaluation.md).
+
+With grounding, retrieval charges are separate from inference. Fetched text and
+search evidence are already included in input usage and repeat per processing
+group on either model. Evidence lists are not billing counters. See
+[grounding costs](web-grounding.md#account-for-the-full-cost).
 
 ## Errors and headers
 
 | Status | Documented interpretation |
 | --- | --- |
-| 400 | Invalid JSON, fields, model, types, limits, unsupported image URL, invalid `mode` (including null or empty), or more than 100 grounded questions |
+| 400 | Invalid JSON, fields, model, types, limits, unsupported image URL, invalid `mode` (including null or empty), more than 100 grounded questions, or invalid locate model/state/mode/count combination |
 | 401 | Missing/invalid key or incorrect authentication header |
 | 404 / 405 | Wrong path / method; empty body |
 | 413 | Body too large |
 | 429 | Request/token rate limit; `Retry-After` is seconds |
-| 5xx | Service failure or timeout; 504 may contain HTML. The quickstart's oversized-image explanation conflicts with the staff observation above. |
+| 5xx | Service failure or timeout; 504 may contain HTML. Oversized-image behavior is unverified; see the uncertainty above. |
 
 Branch on HTTP status and use `error.message` for diagnosis. The schema lists both
 `invalid_request` and `invalid_request_error`; tolerate both rather than depending
@@ -195,23 +173,14 @@ dispatch field. Check status and content before parsing JSON.
 
 ## Timeout starting values
 
-Preserve an established project timeout policy and choose client deadlines from
-the workload and application's response-time budget. The quickstart's 10-second
-small-input and 30-second large-input examples came from an earlier model. Its
-2026-10-19 tests report about 53 seconds on Standard and 16 seconds on Flash for
-roughly 248,000 input tokens: 30 seconds is not sufficient for every valid request.
-These are specific observations, not latency guarantees.
+Preserve the project's timeout policy and choose deadlines from workload and
+response-time requirements. In documentation tests dated **12 November 2026**,
+about 243,000 input tokens took 16 seconds on Standard v1.3 and 5 seconds on Flash
+v1.3; about 135,000 took 7 and 2 seconds respectively. These are provider-reported
+observations, not service guarantees or measurements by this guide. Splitting,
+retrieval and load can add time. The docs describe a gateway timeout at about a
+minute; increasing the client deadline cannot prevent it.
 
-**Provisional staff observation (received 2026-10-27):** under load, multi-question
-Flash requests can be split into sequential queries, with large states reaching
-an approximately 55-second gateway timeout (HTML 504, no request ID). Staff report
-that Standard does not split because of load, although very long requests can
-also time out. This differs from Standard's documented input-size-triggered
-grouping; the load-dependent behavior has not been independently reproduced.
-
-Keep large-state Flash requests to one or a few questions. Use bounded backoff
-within an overall deadline; if timeouts recur, reduce input or questions rather
-than retrying the same heavy request indefinitely. Changing Standard groups can
-change answers, so re-evaluate affected thresholds. Extending a client deadline
-cannot prevent a gateway timeout. See [implementation.md](implementation.md) for
-failure handling.
+Use bounded backoff within an overall deadline. For repeated heavy-request
+timeouts, reduce input or questions and re-evaluate changed grouping. See
+[implementation.md](implementation.md) for failure handling.

@@ -11,12 +11,11 @@ Send JSON to POST https://api.perplexity.ai/v1/decisions with bearer
 authentication. Supply model, state, and named questions; consume answers
 by question ID.
 
-Require at least one question and cap grounded requests at 100. The documentation
-checked on 5 November 2026 no longer states a universal 128-question cap; continue
-to enforce context and body limits and label stricter batching caps as client
-policy. Send only supported fields and omit `temperature`; the
-[snapshot](api-snapshot.md#endpoint-and-request) distinguishes the documented
-contract from provisional staff observations.
+Require at least one question. Cap grounded requests at 100; a request containing
+`locate` is text-only, cannot be grounded, and has at most 128 total questions.
+Other ungrounded requests have no universal question-count cap stated in the
+checked documentation; enforce context and body limits. Omit undocumented fields
+such as `temperature`. See [locate.md](locate.md) before building extraction.
 
 For public web evidence, choose the retrieval path using
 [web-grounding.md](web-grounding.md). Keep evidence sufficiency separate from
@@ -55,7 +54,7 @@ For choice, describe category boundaries and include an appropriate
 no-match outcome. For score, define observable ordered levels.
 For multi-label behavior, consider a noul question per label.
 
-When extracting a value through selection, construct candidates first
+For matching source text, use [locate](locate.md). When extracting a value through selection, construct candidates first
 and preserve their source mapping. Check candidate coverage.
 
 ## Choose grouping and model
@@ -66,14 +65,11 @@ Consider Flash for clear, repetitive judgments at volume when it meets the same
 application quality target. Compare complete billed usage and review workload;
 a lower token rate does not establish a cheaper useful outcome.
 
-For standard v1.2, group related facets; isolate independent candidates.
-Intentional comparisons, such as duplicate detection, can warrant grouping
-on Standard; evaluate that choice explicitly.
-For hosted Flash v1.2, start with one question per request. The API processes
-each question separately and bills state per question even in a multi-question
-request. The checkpoint's joint-request implementation is a different serving path.
-
-Standard grouping affects predictions. Reevaluate changes to joint context.
+Both v1.3 models process questions together over shared state. Each question
+reads state and its own text, not the other questions directly. Give every question
+complete meaning and put shared evidence/policy in state. Indirect influence
+through shared state remains: evaluate grouping and keep it fixed while tuning.
+Do not treat grouped questions as sequential steps or guarantee independence.
 
 Prefer a selected versioned name for evaluated deployments. Use an alias when
 automatic upgrades are intentional and evaluated. Retired versions can also
@@ -81,14 +77,14 @@ reroute; the returned name echoes the request and does not establish immutable
 serving identity. Check change notices and revalidate affected thresholds.
 
 Keep state, images, and each question below the input limit with headroom.
-Standard automatically splits questions into consecutive groups if they do not
+Both models automatically split questions into consecutive groups if they do not
 fit together, repeating and billing state per group. Choose groups deliberately
-when joint context matters; automatic splitting need not preserve the intended
+when shared context matters; automatic splitting need not preserve the intended
 relationships. State plus a single question that cannot fit produces an
 input-limit 400; shorten that input before resubmission. Also enforce the body
 size limit. See the [snapshot](api-snapshot.md#grouping-models-and-billing).
-Compare returned usage with expected grouping and Flash's per-question state
-repetition; elevated usage alone is not proof of a Standard split.
+Compare returned usage with expected grouping; elevated usage alone is not proof
+of a split.
 
 ## Consume answers explicitly
 
@@ -110,7 +106,7 @@ This synthetic request asks one rubric question. Its versioned model is from the
 
 ```json
 {
-  "model": "pplx-decider-v1.2",
+  "model": "pplx-decider-v1.3",
   "state": {
     "trusted_context": {"service": "team workspace"},
     "user_content": {"message": "All of our team's saved reports disappeared."}
@@ -177,12 +173,11 @@ traffic and token bursts against the [published limits](api-snapshot.md#limits-a
 | 504 or response timeout | Check workload size and question count; use bounded backoff. If repeated, reduce input or questions. A timeout alone does not identify an oversized image. |
 | Other transient 5xx/network failure | Back off within a retry/time budget; avoid duplicate downstream actions. |
 
-Keep large-state Flash requests to one or a few questions; see the
-[dated staff observation](api-snapshot.md#timeout-starting-values) about sequential
-processing under load. Treat that mechanism and its approximate timeout as
-provisional, not a service guarantee. Reducing Standard question groups changes
-joint context and requires re-evaluating thresholds. A client may time out before
-the gateway; extending its deadline cannot prevent a gateway timeout.
+For repeated large-input timeouts, reduce input or questions within the overall
+retry budget. Changing groups can change answers, so re-evaluate thresholds.
+A client may time out before the gateway; extending its deadline cannot prevent
+a gateway timeout.
+
 Connection-establishment and connection-pool timeouts need handling according to
 their cause and the overall retry budget.
 
